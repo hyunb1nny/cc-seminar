@@ -286,7 +286,6 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#ffa64d; font-weight:600;">3</span> 모델 선택 &amp; 프롬프트 캐싱</div>
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#3fb950; font-weight:600;">4</span> 절약 전략 — 기초</div>
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#bc8cff; font-weight:600;">5</span> 절약 전략 — 심화</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">6</span> 개발 실전 패턴</div>
       </div>
     </div>
   </div>
@@ -1149,61 +1148,6 @@ $ pytest tests/
 
         <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. 명령 실패 시 원본 출력 보존.</div>
         <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/rtk-ai/rtk" style="color:#484f58;">github.com/rtk-ai/rtk</a></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ DIVIDER 개발 실전 ══ -->
-  <div class="slide slide-divider">
-    <div class="big-num">07</div>
-    <div class="content">
-      <div class="badge badge-teal">실전</div>
-      <h2>개발 실전 패턴</h2>
-      <p style="color:#8b949e;">토큰 절약을 적용한 업무 패턴 모음</p>
-    </div>
-  </div>
-
-  <!-- ══ 개발 실전 패턴 ══ -->
-  <div class="slide">
-    <div class="slide-num">-</div>
-    <div class="badge badge-teal">개발 실전 패턴</div>
-    <h2>개발 업무 × 토큰 절약 패턴</h2>
-    <div class="three-col">
-      <div class="card">
-        <h3>테스트 자동화</h3>
-        <pre style="font-size:10px; margin-top:6px;"><span class="str">"tests/ 안의 모든 테스트를
- 실행하고 logs/에 저장해줘"</span></pre>
-        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Glob + Bash 조합. 파일 내용 읽지 않고 실행만</p>
-      </div>
-      <div class="card">
-        <h3>회귀 분석 (절약형)</h3>
-        <pre style="font-size:10px; margin-top:6px;"><span class="str">"30일 로그에서 응답시간
- 5% 이상 증가한 날짜만"</span></pre>
-        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Haiku 모델 + Grep으로 이상값만 추출</p>
-      </div>
-      <div class="card">
-        <h3>리포트 생성</h3>
-        <pre style="font-size:10px; margin-top:6px;"><span class="str">"/api-report
- logs/jan_report.json"</span></pre>
-        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Skill로 프롬프트 재사용</p>
-      </div>
-      <div class="card">
-        <h3>로그 장애 분석</h3>
-        <pre style="font-size:10px; margin-top:6px;"><span class="str">"app.log에서 14~16시
- ERROR만 요약해줘"</span></pre>
-        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Bash로 시간 필터 후 결과만 전달</p>
-      </div>
-      <div class="card">
-        <h3>코드 리뷰 (범위 지정)</h3>
-        <pre style="font-size:10px; margin-top:6px;"><span class="str">"parse_logs.py 50~100번째
- 줄만 검토해줘"</span></pre>
-        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Read(offset=50, limit=50)</p>
-      </div>
-      <div class="card">
-        <h3>DB 쿼리 최적화</h3>
-        <pre style="font-size:10px; margin-top:6px;"><span class="str">"응답시간 상위 3개
- 엔드포인트만 반환하도록"</span></pre>
-        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ DB에서 필터링 → 결과만 컨텍스트 진입</p>
       </div>
     </div>
   </div>
