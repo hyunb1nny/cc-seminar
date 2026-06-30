@@ -562,6 +562,50 @@ Total:                  $0.11</pre>
     </div>
   </div>
 
+  <!-- ══ 원본 편집 ══ -->
+  <div class="slide">
+    <div class="slide-num">07</div>
+    <div class="badge badge-green">절약 전략</div>
+    <h2>후속 메시지 말고, 원본을 편집하세요</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:14px;">Claude가 원하는 대로 답하지 않았을 때 이런 충동이 드실 겁니다.</p>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px 16px; margin-bottom:14px; font-size:14px; line-height:1.8;">
+          <div style="color:#f85149; margin-bottom:4px;">❌ 이렇게 하면 안 됩니다</div>
+          <div style="color:#8b949e;">"아니, 내 말은 이거야..."</div>
+          <div style="color:#8b949e;">"그게 아니라, 다시 해줘..."</div>
+          <div style="color:#8b949e;">"아 그리고 하나 더..."</div>
+        </div>
+        <p style="margin-bottom:14px;">후속 메시지를 보낼 때마다 Claude는 <strong style="color:#e6edf3;">이전 대화 전체를 다시 읽습니다</strong>. 쓸모없어진 메시지까지 전부요.</p>
+
+        <h3 style="margin-bottom:8px; color:#3fb950;">대신: Edit 버튼으로 원본 수정</h3>
+        <div style="background:#161b22; border:1px solid rgba(63,185,80,0.3); border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.8;">
+          <div style="color:#3fb950; margin-bottom:4px;">✓ 원본 메시지 Edit → 수정 → 재생성</div>
+          <div style="color:#8b949e;">이전 대화가 쌓이지 않습니다.</div>
+          <div style="color:#8b949e;">컨텍스트가 깔끔하게 유지됩니다.</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">메시지가 쌓일수록 비용이 폭증합니다</h3>
+        <table class="cost-table" style="margin-bottom:14px;">
+          <thead><tr><th>메시지 수</th><th>누적 토큰</th><th>상대 비용</th></tr></thead>
+          <tbody>
+            <tr><td>5개</td><td>7,500</td><td style="color:#3fb950;">1×</td></tr>
+            <tr><td>10개</td><td>27,500</td><td style="color:#e3b341;">3.7×</td></tr>
+            <tr><td>20개</td><td>105,000</td><td style="color:#ffa64d;">14×</td></tr>
+            <tr class="highlight-row"><td>30개</td><td style="color:#f85149;">232,000</td><td style="color:#f85149;">31×</td></tr>
+          </tbody>
+        </table>
+        <div style="text-align:center; padding:12px; background:rgba(248,81,73,0.08); border:1px solid rgba(248,81,73,0.25); border-radius:8px;">
+          <div style="font-size:13px; color:#8b949e; margin-bottom:4px;">30번째 메시지는 첫 메시지보다</div>
+          <div style="font-size:32px; font-weight:700; color:#f85149;">31배</div>
+          <div style="font-size:13px; color:#8b949e;">더 비쌉니다</div>
+        </div>
+        <div class="tip" style="margin-top:12px;">실수로 긴 대화가 쌓였다면 <code>/compact</code>로 요약 압축하거나 <code>/clear</code>로 초기화하세요.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ 절약 전략 3~5 ══ -->
   <div class="slide">
     <div class="slide-num">08</div>
