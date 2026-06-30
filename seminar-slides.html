@@ -829,10 +829,74 @@ reports/    - 자동 생성 리포트
   </div>
 
   <!-- ═══════════════════════════════════════════
-       SLIDE — CLAUDE.md 구조
+       SLIDE — 왜 Markdown인가
   ═══════════════════════════════════════════ -->
   <div class="slide">
     <div class="slide-num">11</div>
+    <div class="badge badge-green">CLAUDE.md</div>
+    <h2>왜 Markdown으로 쓰나?</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:18px; font-size:16px;">Claude는 인터넷의 방대한 Markdown 문서로 학습됐습니다. <strong style="color:#e6edf3;">Markdown 구조 자체가 Claude에게 의미 신호</strong>가 됩니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:16px;">
+          <div style="background:#21262d; padding:8px 16px; font-size:12px; color:#8b949e;">Markdown 요소별 Claude의 해석</div>
+          <div style="padding:4px 0;">
+            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start; border-bottom:1px solid #21262d;">
+              <code style="font-size:13px; color:#3fb950; min-width:60px;">## 제목</code>
+              <span style="font-size:13px; color:#8b949e;">"이 섹션은 X에 관한 정보다" — 구조를 파악하고 관련 내용만 참조</span>
+            </div>
+            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start; border-bottom:1px solid #21262d;">
+              <code style="font-size:13px; color:#3fb950; min-width:60px;">- 항목</code>
+              <span style="font-size:13px; color:#8b949e;">나열된 규칙 · 옵션으로 인식 — 빠짐없이 따라야 할 목록</span>
+            </div>
+            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start; border-bottom:1px solid #21262d;">
+              <code style="font-size:13px; color:#3fb950; min-width:60px;">```code```</code>
+              <span style="font-size:13px; color:#8b949e;">실행 가능한 명령어 · 코드 — 그대로 쓰거나 실행할 것</span>
+            </div>
+            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start;">
+              <code style="font-size:13px; color:#3fb950; min-width:60px;">**굵게**</code>
+              <span style="font-size:13px; color:#8b949e;">중요 키워드 · 강조 — 높은 가중치로 처리</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip">일반 텍스트도 동작하지만, Markdown을 쓰면 Claude가 <strong style="color:#e6edf3;">파싱 오류 없이 구조를 즉시 인식</strong>합니다.</div>
+      </div>
+      <div>
+        <h3>같은 내용, 다른 결과</h3>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:12px; color:#f85149; margin-bottom:6px;">✗ 일반 텍스트 (구조 없음)</div>
+          <pre style="font-size:12px; border-color:#f85149;">프로젝트 개요: 웹 서비스 모니터링 도구임. 폴더 구조는 tests가 테스트 scripts가 분석 reports가 리포트임. 빌드는 python run_tests.py로 함. main 브랜치에만 머지할 것.</pre>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-size:12px; color:#3fb950; margin-bottom:6px;">✓ Markdown (구조 명확)</div>
+          <pre style="font-size:12px; border-color:#3fb950;"><span class="key">## 프로젝트 개요</span>
+웹 서비스 모니터링 도구.
+
+<span class="key">## 폴더 구조</span>
+- tests/   → 테스트 스크립트
+- scripts/ → 분석 코드
+- reports/ → 자동 생성 리포트
+
+<span class="key">## 빌드</span>
+<span class="str">```python run_tests.py```</span>
+
+<span class="key">## 규칙</span>
+- <span class="val">main 브랜치에만 머지</span></pre>
+        </div>
+
+        <div class="highlight" style="font-size:14px;">Claude도 읽고, 팀원도 읽는 파일.<br>Markdown은 두 독자 모두를 위한 선택입니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — CLAUDE.md 구조
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">12</div>
     <div class="badge badge-green">CLAUDE.md</div>
     <h2>잘 쓴 CLAUDE.md 구조</h2>
     <div class="three-col">
