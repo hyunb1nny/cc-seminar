@@ -885,6 +885,54 @@ SSD 성능 모니터링 서비스
     </div>
   </div>
 
+  <!-- ══ 문서 MD 변환 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>PDF · PPTX → Markdown 변환 — 문서도 토큰 효율적으로</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">PDF·PPTX는 Claude가 직접 읽으면 바이너리 노이즈가 많고 <code>Read(offset)</code> 범위 지정이나 <code>Grep</code>이 불가능합니다. Markdown으로 변환하면 <strong style="color:#e6edf3;">검색 가능 · 범위 읽기 가능 · 토큰 효율적</strong>으로 바뀝니다.</p>
+
+        <div class="compare-row" style="margin-bottom:12px;">
+          <div class="bad-box" style="font-size:11px; line-height:1.6;">
+            <strong style="color:#f85149;">NVMe Spec (PDF)</strong><br>
+            바이너리 파싱 노이즈<br>
+            Grep 불가<br>
+            전체 읽기만 가능<br>
+            <span style="color:#484f58; font-size:10px;">= 수만 토큰 낭비</span>
+          </div>
+          <div class="arrow">→</div>
+          <div class="good-box" style="font-size:11px; line-height:1.6;">
+            <strong style="color:#3fb950;">nvme-spec.md</strong><br>
+            섹션별 Grep 가능<br>
+            Read(offset, limit)<br>
+            캐시 적용 가능<br>
+            <span style="color:#484f58; font-size:10px;">= 필요한 부분만 읽기</span>
+          </div>
+        </div>
+
+        <div class="tip">변환 후 <code>docs/nvme-spec.md</code> 경로만 CLAUDE.md에 명시해두면 Claude가 필요할 때 범위 지정해서 읽습니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">변환 방법</h3>
+
+        <div class="card" style="margin-bottom:10px; border-color:rgba(88,166,255,0.3);">
+          <h3 style="color:#58a6ff; font-size:13px; margin-bottom:4px;">markitdown <span style="font-size:11px; color:#8b949e; font-weight:400;">— Microsoft 오픈소스</span></h3>
+          <pre style="font-size:11px; margin-top:6px;">pip install markitdown
+
+<span class="comment"># PDF → MD</span>
+markitdown nvme-spec.pdf -o nvme-spec.md
+
+<span class="comment"># PPTX → MD</span>
+markitdown deck.pptx -o deck.md</pre>
+          <div style="font-size:11px; color:#484f58; margin-top:4px;">🔗 github.com/microsoft/markitdown</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- ══ DIVIDER 절약 심화 ══ -->
   <div class="slide slide-divider">
     <div class="big-num">05</div>
@@ -1168,6 +1216,7 @@ $ pytest tests/
           <li>구체적 요청 → 짧은 응답</li>
           <li>CLAUDE.md 다이어트 (@경로 참조)</li>
           <li><code>permissions.deny</code> 파일 제외 설정</li>
+          <li>PDF · PPTX → Markdown 변환 (markitdown)</li>
           <li>MCP 서버 최소화</li>
           <li><code>/context</code>로 주기적 점검</li>
         </ul>
