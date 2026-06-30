@@ -339,8 +339,7 @@
       <div class="week-pills">
         <div class="week-pill"><span>Part 1</span> Agent &amp; Tools</div>
         <div class="week-pill"><span>Part 2</span> CLAUDE.md &amp; Context Engineering</div>
-        <div class="week-pill"><span>Part 3</span> Skills &amp; Memory</div>
-        <div class="week-pill"><span>Part 4</span> Harness Engineering</div>
+        <div class="week-pill"><span>Part 3</span> Harness Engineering</div>
       </div>
     </div>
   </div>
@@ -369,15 +368,8 @@
     <div class="agenda-item">
       <div class="agenda-num">03</div>
       <div>
-        <div class="agenda-title">Skills &amp; Memory</div>
-        <div class="agenda-desc">반복 워크플로우를 슬래시 명령어로 · 대화를 넘어 기억 유지</div>
-      </div>
-    </div>
-    <div class="agenda-item">
-      <div class="agenda-num">04</div>
-      <div>
         <div class="agenda-title">Harness Engineering</div>
-        <div class="agenda-desc">Claude Code 전체 설정을 하나의 시스템으로 — hooks, settings, CLAUDE.md, Skills, Memory 통합</div>
+        <div class="agenda-desc">Claude Code 자체가 harness — Skills · Memory · Hooks · Subagents를 시스템으로 설계하기</div>
       </div>
     </div>
   </div>
@@ -1174,14 +1166,70 @@ reports/    - 자동 생성 리포트
   </div>
 
   <!-- ═══════════════════════════════════════════
-       DIVIDER — PART 3
+       DIVIDER — PART 3: Harness Engineering
   ═══════════════════════════════════════════ -->
   <div class="slide slide-divider">
     <div class="big-num">03</div>
     <div class="content">
-      <div class="badge badge-orange">Part 3</div>
-      <h2>Skills &amp; Memory</h2>
-      <p style="color:#8b949e;">반복 워크플로우를 명령어로 · 대화를 넘어 기억 유지</p>
+      <div class="badge badge-pink">Part 3</div>
+      <h2>Harness Engineering</h2>
+      <p style="color:#8b949e;">Claude Code 전체를 하나의 시스템으로 설계하기</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Harness 개념 (먼저)
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">H1</div>
+    <div class="badge badge-pink">Harness Engineering</div>
+    <h2>Harness Engineering이란?</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+      <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px;">
+        <div style="font-size:12px; color:#8b949e; margin-bottom:8px;">핵심 관점</div>
+        <p style="font-size:15px; margin-bottom:10px;"><strong style="color:#e6edf3;">Claude Code 자체가 이미 잘 구성된 harness입니다.</strong></p>
+        <p style="font-size:14px; color:#8b949e; line-height:1.7;">Anthropic이 Claude LLM 위에 도구(Tools), 승인 시스템, 파일 접근, MCP 연결을 얹어 만든 것이 Claude Code — 즉, harness의 첫 번째 레이어입니다.</p>
+      </div>
+      <div style="background:#161b22; border:1px solid #ff79c6; border-radius:10px; padding:16px;">
+        <div style="font-size:12px; color:#ff79c6; margin-bottom:8px;">우리가 하는 것</div>
+        <p style="font-size:15px; margin-bottom:10px;"><strong style="color:#e6edf3;">그 위에 팀만의 harness를 추가합니다.</strong></p>
+        <p style="font-size:14px; color:#8b949e; line-height:1.7;">CLAUDE.md · Settings · Skills · Memory · Hooks로 Claude Code를 우리 프로젝트에 맞게 커스터마이징하는 것이 Harness Engineering입니다.</p>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-bottom:20px;">
+      <div class="card" style="border-color:rgba(63,185,80,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">📄</div>
+        <div style="font-size:14px; font-weight:700; color:#3fb950; margin-bottom:6px;">CLAUDE.md</div>
+        <div style="font-size:13px; color:#8b949e;">프로젝트 컨텍스트<br>팀 컨벤션 · 도메인 지식</div>
+      </div>
+      <div class="card" style="border-color:rgba(88,166,255,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚙️</div>
+        <div style="font-size:14px; font-weight:700; color:#58a6ff; margin-bottom:6px;">settings.json</div>
+        <div style="font-size:13px; color:#8b949e;">권한 설정 · 모델 선택<br>MCP 서버 등록</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,121,198,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🪝</div>
+        <div style="font-size:14px; font-weight:700; color:#ff79c6; margin-bottom:6px;">Hooks</div>
+        <div style="font-size:13px; color:#8b949e;">이벤트 기반 자동화<br>도구 실행 전후 스크립트</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,166,77,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚡</div>
+        <div style="font-size:14px; font-weight:700; color:#ffa64d; margin-bottom:6px;">Skills</div>
+        <div style="font-size:13px; color:#8b949e;">슬래시 명령어<br>팀 공유 워크플로우</div>
+      </div>
+      <div class="card" style="border-color:rgba(188,140,255,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🧠</div>
+        <div style="font-size:14px; font-weight:700; color:#bc8cff; margin-bottom:6px;">Memory</div>
+        <div style="font-size:13px; color:#8b949e;">영속적 사용자 컨텍스트<br>선호 · 피드백 · 현재 작업</div>
+      </div>
+      <div class="card" style="border-color:rgba(86,211,208,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🤖</div>
+        <div style="font-size:14px; font-weight:700; color:#56d3d0; margin-bottom:6px;">Subagents</div>
+        <div style="font-size:13px; color:#8b949e;">병렬 전문화 에이전트<br>복잡한 작업 위임</div>
+      </div>
+    </div>
+    <div class="highlight">
+      이 6가지를 함께 설계하면 Claude는 단순한 채팅 상대가 아니라 <strong>팀의 자동화된 파트너</strong>가 됩니다. 각각을 개별로 아는 것과, <em>시스템으로 묶어 설계하는 것</em>이 Harness Engineering의 핵심입니다.
     </div>
   </div>
 
@@ -1423,63 +1471,6 @@ cp superpowers/*.md .claude/skills/</pre>
   </div>
 
   <!-- ═══════════════════════════════════════════
-       DIVIDER — PART 4
-  ═══════════════════════════════════════════ -->
-  <div class="slide slide-divider">
-    <div class="big-num">04</div>
-    <div class="content">
-      <div class="badge badge-pink">Part 4</div>
-      <h2>Harness Engineering</h2>
-      <p style="color:#8b949e;">Claude Code 전체를 하나의 시스템으로 설계하기</p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       SLIDE — Harness 개념
-  ═══════════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-num">20</div>
-    <div class="badge badge-pink">Harness Engineering</div>
-    <h2>Harness Engineering이란?</h2>
-    <p style="margin-bottom:20px; font-size:16px;">Claude Code를 그냥 "대화 도구"로 쓰는 것과, <strong style="color:#e6edf3;">잘 설계된 시스템으로 세팅해두고 쓰는 것</strong>의 차이입니다.<br>Harness = Claude를 감싸는 모든 설정의 총합.</p>
-    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-bottom:20px;">
-      <div class="card" style="border-color:rgba(63,185,80,0.4); text-align:center; padding:18px;">
-        <div style="font-size:28px; margin-bottom:8px;">📄</div>
-        <div style="font-size:14px; font-weight:700; color:#3fb950; margin-bottom:6px;">CLAUDE.md</div>
-        <div style="font-size:13px; color:#8b949e;">프로젝트 컨텍스트<br>팀 컨벤션 · 도메인 지식</div>
-      </div>
-      <div class="card" style="border-color:rgba(88,166,255,0.4); text-align:center; padding:18px;">
-        <div style="font-size:28px; margin-bottom:8px;">⚙️</div>
-        <div style="font-size:14px; font-weight:700; color:#58a6ff; margin-bottom:6px;">settings.json</div>
-        <div style="font-size:13px; color:#8b949e;">권한 설정 · 모델 선택<br>MCP 서버 등록</div>
-      </div>
-      <div class="card" style="border-color:rgba(255,121,198,0.4); text-align:center; padding:18px;">
-        <div style="font-size:28px; margin-bottom:8px;">🪝</div>
-        <div style="font-size:14px; font-weight:700; color:#ff79c6; margin-bottom:6px;">Hooks</div>
-        <div style="font-size:13px; color:#8b949e;">이벤트 기반 자동화<br>도구 실행 전후 스크립트</div>
-      </div>
-      <div class="card" style="border-color:rgba(255,166,77,0.4); text-align:center; padding:18px;">
-        <div style="font-size:28px; margin-bottom:8px;">⚡</div>
-        <div style="font-size:14px; font-weight:700; color:#ffa64d; margin-bottom:6px;">Skills</div>
-        <div style="font-size:13px; color:#8b949e;">슬래시 명령어<br>팀 공유 워크플로우</div>
-      </div>
-      <div class="card" style="border-color:rgba(188,140,255,0.4); text-align:center; padding:18px;">
-        <div style="font-size:28px; margin-bottom:8px;">🧠</div>
-        <div style="font-size:14px; font-weight:700; color:#bc8cff; margin-bottom:6px;">Memory</div>
-        <div style="font-size:13px; color:#8b949e;">영속적 사용자 컨텍스트<br>선호 · 피드백 · 현재 작업</div>
-      </div>
-      <div class="card" style="border-color:rgba(86,211,208,0.4); text-align:center; padding:18px;">
-        <div style="font-size:28px; margin-bottom:8px;">🤖</div>
-        <div style="font-size:14px; font-weight:700; color:#56d3d0; margin-bottom:6px;">Subagents</div>
-        <div style="font-size:13px; color:#8b949e;">병렬 전문화 에이전트<br>복잡한 작업 위임</div>
-      </div>
-    </div>
-    <div class="highlight">
-      이 6가지를 함께 설계하면 Claude는 단순한 채팅 상대가 아니라 <strong>팀의 자동화된 파트너</strong>가 됩니다. 각각을 개별로 아는 것과, <em>시스템으로 묶어 설계하는 것</em>이 Harness Engineering의 핵심입니다.
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
        SLIDE — Hooks
   ═══════════════════════════════════════════ -->
   <div class="slide">
@@ -1587,71 +1578,6 @@ Alt + T     <span class="comment">(Windows)</span>
   </div>
 
   <!-- ═══════════════════════════════════════════
-       SLIDE — CLI 활용
-  ═══════════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-num">23</div>
-    <div class="badge badge-pink">CLI</div>
-    <h2>CLI 활용 — 파이프라인 &amp; 자동화</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:14px;">Claude Code는 대화형 모드 외에 <strong style="color:#e6edf3;">CLI 비대화형 모드</strong>로 쓸 수 있습니다. 스크립트, CI/CD, 쉘 파이프라인에 통합할 때 사용합니다.</p>
-        <pre style="font-size:13px;"><span class="comment"># 대화형 (기본)</span>
-$ claude
-
-<span class="comment"># 비대화형 (스크립트용)</span>
-$ claude -p <span class="str">"이 코드 리뷰해줘"</span>
-
-<span class="comment"># 파이프라인 — stdin 읽기</span>
-$ cat test_result.json \
-  | claude -p <span class="str">"API 응답시간 요약"</span>
-
-<span class="comment"># 파일 직접 전달</span>
-$ claude -p <span class="str">"이 로그 분석"</span> \
-  --file app.log
-
-<span class="comment"># 세션 재개</span>
-$ claude -r <span class="str">"api-session"</span> \
-  <span class="str">"어제 분석 이어서 해줘"</span></pre>
-      </div>
-      <div>
-        <h3>자동화 파이프라인 예시</h3>
-        <pre style="font-size:12px;"><span class="comment">#!/bin/bash
-# 매일 밤 자동 테스트 + 분석 + 리포트</span>
-
-<span class="comment"># 1. 테스트 실행</span>
-python run_tests.py \
-  --output-format=json \
-  > logs/$(date +%F).json
-
-<span class="comment"># 2. Claude로 자동 분석</span>
-cat logs/$(date +%F).json \
-  | claude -p <span class="str">"전일 대비 응답시간 비교
-    이상값 감지, 한국어 요약"</span> \
-  > reports/$(date +%F).md
-
-<span class="comment"># 3. 슬랙 알림 (선택)</span>
-cat reports/$(date +%F).md \
-  | slack-notify --channel dev</pre>
-
-        <div class="tip">
-          <code>-p</code> 플래그(print)는 stdout으로만 출력하고 종료합니다. 크론잡, 쉘 스크립트에 통합하기 좋습니다.
-        </div>
-
-        <div style="margin-top:12px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:14px;">
-          <div style="font-size:12px; color:#8b949e; margin-bottom:8px;">유용한 플래그</div>
-          <div style="font-size:13px; font-family:monospace; line-height:1.8; color:#c9d1d9;">
-            <span style="color:#58a6ff;">-p</span> "prompt"  출력만 하고 종료<br>
-            <span style="color:#58a6ff;">-r</span> "name"    이름 붙인 세션 재개<br>
-            <span style="color:#58a6ff;">--file</span>       파일 첨부<br>
-            <span style="color:#58a6ff;">--model</span>      모델 지정
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
        SLIDE — 정리
   ═══════════════════════════════════════════ -->
   <div class="slide">
@@ -1670,7 +1596,6 @@ cat reports/$(date +%F).md \
           <li><strong style="color:#ffa64d;">Memory</strong> — user·project·feedback·reference 4종, 영속 저장</li>
           <li><strong style="color:#ff79c6;">Hooks</strong> — 이벤트 기반 자동화, Pre/PostToolUse 스크립트</li>
           <li><strong style="color:#ff79c6;">Subagents</strong> — 병렬 전문 에이전트, 독립 컨텍스트</li>
-          <li><strong style="color:#ff79c6;">CLI</strong> — <code>claude -p</code> 파이프라인, 크론잡 자동화</li>
         </ul>
       </div>
       <div>
