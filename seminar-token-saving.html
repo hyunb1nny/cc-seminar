@@ -754,17 +754,17 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
   <div class="slide">
     <div class="slide-num">-</div>
     <div class="badge badge-green">절약 전략 기초</div>
-    <h2>출력 토큰 줄이기</h2>
+    <h2>출력 · 컨텍스트 토큰 줄이기</h2>
     <div class="two-col">
       <div>
-        <h3 style="margin-bottom:6px;">③ 구체적인 요청 = 짧은 응답</h3>
+        <h3 style="margin-bottom:6px;">③ 구체적인 요청 = 짧은 응답 <span style="font-size:11px; color:#f85149; font-weight:400;">출력 토큰</span></h3>
         <p style="font-size:14px; margin-bottom:8px;">출력 토큰은 입력보다 5배 비쌉니다. 응답을 짧게 만드는 것도 절약입니다.</p>
         <div class="compare-row" style="margin-bottom:12px;">
           <div class="bad-box">"이 로그 결과 분석해줘"<br><span style="color:#484f58; font-size:11px;">→ 2,000 토큰 응답</span></div>
           <div class="arrow">→</div>
           <div class="good-box">"API 응답시간만 전주 대비<br>% 변화 한 줄 요약"<br><span style="color:#484f58; font-size:11px;">→ 50 토큰 응답</span></div>
         </div>
-        <h3 style="margin-bottom:6px;">④ MCP 서버 최소화</h3>
+        <h3 style="margin-bottom:6px;">④ MCP 서버 최소화 <span style="font-size:11px; color:#58a6ff; font-weight:400;">입력 토큰</span></h3>
         <p style="font-size:14px; margin-bottom:6px;">기본값은 <strong style="color:#e6edf3;">지연 로딩(deferred)</strong>: 세션 시작 시 툴 이름만 로딩, 실제 스키마는 사용 시에만 로딩됩니다. 그래도 불필요한 서버는 끄는 것이 유리합니다.</p>
         <pre style="font-size:11px;"><span class="comment"># 기본 (지연 로딩)</span>
 MCP 툴 이름 목록 ≈ 120 토큰 (전체)
@@ -774,10 +774,10 @@ MCP 툴 이름 목록 ≈ 120 토큰 (전체)
         <div class="tip">CLI 도구(gh, aws, kubectl)는 툴 리스트 자체가 없어 MCP보다 컨텍스트 효율이 높습니다.</div>
       </div>
       <div>
-        <h3 style="margin-bottom:6px;">⑤ CLAUDE.md — 반복 설명 제거</h3>
+        <h3 style="margin-bottom:6px;">⑤ CLAUDE.md — 반복 설명 제거 <span style="font-size:11px; color:#58a6ff; font-weight:400;">입력 토큰</span></h3>
         <p style="font-size:14px; margin-bottom:6px;">매번 "우리 프로젝트는..." 설명하는 것 = 매 대화마다 수백 토큰 낭비.</p>
         <div class="tip">CLAUDE.md는 <strong style="color:#e6edf3;">프롬프트 캐시</strong>되어 반복 비용이 거의 없습니다. 단, 파일 자체가 클수록 첫 로드 비용은 높아지므로 꼭 필요한 내용만 담으세요.</div>
-        <h3 style="margin-bottom:6px; margin-top:14px;">⑥ Bash 출력 잘라내기</h3>
+        <h3 style="margin-bottom:6px; margin-top:14px;">⑥ Bash 출력 잘라내기 <span style="font-size:11px; color:#58a6ff; font-weight:400;">입력 토큰</span></h3>
         <pre style="font-size:12px;"><span class="comment"># 출력이 길면 앞부분만</span>
 $ pytest tests/ 2>&1 | head -50
 
