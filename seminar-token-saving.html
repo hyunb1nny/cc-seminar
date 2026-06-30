@@ -719,6 +719,36 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
     </div>
   </div>
 
+  <!-- ══ /handoff ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>/handoff — 맥락을 요약해 새 세션으로 넘기기</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;"><code>/handoff</code>는 현재 세션의 작업 맥락을 요약한 뒤 새 대화로 핸드오프합니다. <code>/compact</code>가 같은 세션 내 압축이라면, <code>/handoff</code>는 완전히 새로운 컨텍스트에서 재시작합니다.</p>
+        <div class="compare-row" style="margin-bottom:10px;">
+          <div class="bad-box" style="font-size:12px;">긴 대화를 그대로 이어감<br>= 누적 히스토리 전체 재독<br>= 토큰 폭증</div>
+          <div class="arrow">→</div>
+          <div class="good-box" style="font-size:12px;">/handoff<br>= 요약 + 새 세션 시작<br>= 깨끗한 컨텍스트</div>
+        </div>
+        <div class="tip">큰 리팩토링이나 여러 단계로 나뉜 작업에서 단계를 넘어갈 때 사용하면 효과적입니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">/clear · /compact · /handoff 비교</h3>
+        <table class="cost-table" style="margin-bottom:12px;">
+          <thead><tr><th>명령어</th><th>히스토리</th><th>맥락</th><th>세션</th></tr></thead>
+          <tbody>
+            <tr><td><code>/clear</code></td><td style="color:#f85149;">삭제</td><td style="color:#f85149;">없음</td><td style="color:#8b949e;">유지</td></tr>
+            <tr><td><code>/compact</code></td><td style="color:#e3b341;">요약</td><td style="color:#3fb950;">유지</td><td style="color:#8b949e;">유지</td></tr>
+            <tr class="highlight-row"><td><code>/handoff</code></td><td style="color:#e3b341;">요약</td><td style="color:#3fb950;">유지</td><td style="color:#58a6ff;">새 세션</td></tr>
+          </tbody>
+        </table>
+        <div class="warn">새 세션으로 넘어가므로 이전 대화 파일, 열린 에디터 상태는 초기화됩니다. 단계 전환 시점에 사용하세요.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ 출력 토큰 줄이기 ══ -->
   <div class="slide">
     <div class="slide-num">-</div>
@@ -859,36 +889,6 @@ data/*.csv</pre>
     </div>
   </div>
 
-  <!-- ══ /handoff ══ -->
-  <div class="slide">
-    <div class="slide-num">-</div>
-    <div class="badge badge-green">절약 전략 기초</div>
-    <h2>/handoff — 맥락을 요약해 새 세션으로 넘기기</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:10px;"><code>/handoff</code>는 현재 세션의 작업 맥락을 요약한 뒤 새 대화로 핸드오프합니다. <code>/compact</code>가 같은 세션 내 압축이라면, <code>/handoff</code>는 완전히 새로운 컨텍스트에서 재시작합니다.</p>
-        <div class="compare-row" style="margin-bottom:10px;">
-          <div class="bad-box" style="font-size:12px;">긴 대화를 그대로 이어감<br>= 누적 히스토리 전체 재독<br>= 토큰 폭증</div>
-          <div class="arrow">→</div>
-          <div class="good-box" style="font-size:12px;">/handoff<br>= 요약 + 새 세션 시작<br>= 깨끗한 컨텍스트</div>
-        </div>
-        <div class="tip">큰 리팩토링이나 여러 단계로 나뉜 작업에서 단계를 넘어갈 때 사용하면 효과적입니다.</div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">/clear · /compact · /handoff 비교</h3>
-        <table class="cost-table" style="margin-bottom:12px;">
-          <thead><tr><th>명령어</th><th>히스토리</th><th>맥락</th><th>세션</th></tr></thead>
-          <tbody>
-            <tr><td><code>/clear</code></td><td style="color:#f85149;">삭제</td><td style="color:#f85149;">없음</td><td style="color:#8b949e;">유지</td></tr>
-            <tr><td><code>/compact</code></td><td style="color:#e3b341;">요약</td><td style="color:#3fb950;">유지</td><td style="color:#8b949e;">유지</td></tr>
-            <tr class="highlight-row"><td><code>/handoff</code></td><td style="color:#e3b341;">요약</td><td style="color:#3fb950;">유지</td><td style="color:#58a6ff;">새 세션</td></tr>
-          </tbody>
-        </table>
-        <div class="warn">새 세션으로 넘어가므로 이전 대화 파일, 열린 에디터 상태는 초기화됩니다. 단계 전환 시점에 사용하세요.</div>
-      </div>
-    </div>
-  </div>
-
   <!-- ══ DIVIDER 절약 심화 ══ -->
   <div class="slide slide-divider">
     <div class="big-num">05</div>
@@ -943,6 +943,47 @@ data/*.csv</pre>
           <li>기업 감사 로그 / 거버넌스</li>
         </ul>
         <div class="tip">결론: 이미 CLI가 있으면 CLI 우선. CLI가 없는 SaaS에만 MCP를 씁니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Subagent ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-purple">절약 전략 심화</div>
+    <h2>Subagent — 독립 컨텍스트로 격리해 절약</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">Subagent는 별도 컨텍스트 윈도우에서 실행됩니다. 메인 세션의 긴 히스토리 없이 작업을 처리하고 결과만 반환합니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px; font-size:12px; line-height:1.8;">
+          <div style="color:#8b949e; margin-bottom:5px; font-size:11px;">메인 세션 (50,000 토큰 누적)</div>
+          <div style="color:#e6edf3;">Agent("로그 파일 분석해줘")</div>
+          <div style="color:#8b949e; margin-left:16px; font-size:11px;">↳ 새 컨텍스트 (0 토큰에서 시작)</div>
+          <div style="color:#8b949e; margin-left:16px; font-size:11px;">↳ 분석 완료 후 결과만 반환</div>
+          <div style="color:#3fb950; margin-left:16px; font-size:11px;">= 메인 세션은 결과 텍스트만 추가</div>
+        </div>
+
+        <ul class="tight">
+          <li>메인 세션에 불필요한 중간 결과가 쌓이지 않음</li>
+          <li>여러 Subagent를 병렬 실행해 작업 분담</li>
+          <li>실패해도 메인 컨텍스트가 오염되지 않음</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">적합한 작업 유형</h3>
+        <div class="card" style="margin-bottom:8px; border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">대용량 파일 분석</h3>
+          <p>로그, CSV — 메인 세션에 올리지 않고 Subagent가 요약만 반환</p>
+        </div>
+        <div class="card" style="margin-bottom:8px; border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">병렬 코드 리뷰</h3>
+          <p>여러 PR을 동시에 리뷰 — 각각 독립 컨텍스트, 결과만 취합</p>
+        </div>
+        <div class="card" style="border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">탐색 작업 격리</h3>
+          <p>관련 파일 탐색 — 탐색 과정을 메인 컨텍스트에 남기지 않음</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1059,47 +1100,6 @@ JuliusBrussee/caveman/main/install.sh | bash
     </div>
   </div>
 
-  <!-- ══ Subagent ══ -->
-  <div class="slide">
-    <div class="slide-num">-</div>
-    <div class="badge badge-purple">절약 전략 심화</div>
-    <h2>Subagent — 독립 컨텍스트로 격리해 절약</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:10px;">Subagent는 별도 컨텍스트 윈도우에서 실행됩니다. 메인 세션의 긴 히스토리 없이 작업을 처리하고 결과만 반환합니다.</p>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px; font-size:12px; line-height:1.8;">
-          <div style="color:#8b949e; margin-bottom:5px; font-size:11px;">메인 세션 (50,000 토큰 누적)</div>
-          <div style="color:#e6edf3;">Agent("로그 파일 분석해줘")</div>
-          <div style="color:#8b949e; margin-left:16px; font-size:11px;">↳ 새 컨텍스트 (0 토큰에서 시작)</div>
-          <div style="color:#8b949e; margin-left:16px; font-size:11px;">↳ 분석 완료 후 결과만 반환</div>
-          <div style="color:#3fb950; margin-left:16px; font-size:11px;">= 메인 세션은 결과 텍스트만 추가</div>
-        </div>
-
-        <ul class="tight">
-          <li>메인 세션에 불필요한 중간 결과가 쌓이지 않음</li>
-          <li>여러 Subagent를 병렬 실행해 작업 분담</li>
-          <li>실패해도 메인 컨텍스트가 오염되지 않음</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">적합한 작업 유형</h3>
-        <div class="card" style="margin-bottom:8px; border-color:rgba(188,140,255,0.3);">
-          <h3 style="color:#bc8cff; font-size:13px;">대용량 파일 분석</h3>
-          <p>로그, CSV — 메인 세션에 올리지 않고 Subagent가 요약만 반환</p>
-        </div>
-        <div class="card" style="margin-bottom:8px; border-color:rgba(188,140,255,0.3);">
-          <h3 style="color:#bc8cff; font-size:13px;">병렬 코드 리뷰</h3>
-          <p>여러 PR을 동시에 리뷰 — 각각 독립 컨텍스트, 결과만 취합</p>
-        </div>
-        <div class="card" style="border-color:rgba(188,140,255,0.3);">
-          <h3 style="color:#bc8cff; font-size:13px;">탐색 작업 격리</h3>
-          <p>관련 파일 탐색 — 탐색 과정을 메인 컨텍스트에 남기지 않음</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- ══ Graphify ══ -->
   <div class="slide">
     <div class="slide-num">-</div>
@@ -1107,7 +1107,7 @@ JuliusBrussee/caveman/main/install.sh | bash
     <h2>Graphify — 프로젝트를 Knowledge Graph로 만들어 Grep 제거</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;"><code>/graphify .</code> 한 번으로 프로젝트 전체를 쿼리 가능한 지식 그래프로 변환합니다. 파일을 전부 읽지 않고 필요한 서브그래프만 가져옵니다.</p>
+        <p style="margin-bottom:10px;">CLI 도구 + Claude Code 스킬. <code>/graphify .</code> 한 번으로 프로젝트 전체를 지식 그래프로 변환합니다. 이후 파일을 일일이 읽지 않고 필요한 노드만 쿼리합니다.</p>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
           <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">기존 방식 vs Graphify</div>
@@ -1123,20 +1123,24 @@ JuliusBrussee/caveman/main/install.sh | bash
         <div class="tip">한 번 생성한 그래프는 여러 대화에서 재사용됩니다. 생성 비용은 1회, 절약은 매번.</div>
       </div>
       <div>
-        <h3 style="margin-bottom:6px;">주요 기능</h3>
-        <ul class="tight" style="margin-bottom:10px;">
-          <li><strong style="color:#e6edf3;">God nodes</strong> — 가장 많이 연결된 핵심 개념 식별</li>
-          <li><strong style="color:#e6edf3;">Cross-file 관계</strong> — 파일 간 의존성 발견</li>
-          <li><strong style="color:#e6edf3;">36개 언어</strong> 지원 (tree-sitter 기반)</li>
+        <h3 style="margin-bottom:6px;">설치 및 사용 (CLI + Skill)</h3>
+        <pre style="font-size:11px;"><span class="comment"># 1. CLI 설치</span>
+uv tool install graphifyy
+
+<span class="comment"># 2. Claude Code 스킬 등록</span>
+graphify install
+
+<span class="comment"># 3. 프로젝트 그래프 생성</span>
+/graphify .
+
+<span class="comment"># 4. Claude가 스킬 명령어로 쿼리</span>
+query_graph("auth")
+get_neighbors("UserService")</pre>
+        <ul class="tight" style="margin-top:8px;">
+          <li><strong style="color:#e6edf3;">God nodes</strong> — 핵심 허브 개념 자동 식별</li>
+          <li><strong style="color:#e6edf3;">36개 언어</strong> 지원 (tree-sitter 기반, API 호출 없음)</li>
           <li><strong style="color:#e6edf3;">PreToolUse hook</strong> — 파일 읽기 전 그래프 먼저 조회</li>
         </ul>
-        <pre style="font-size:11px;"><span class="comment"># 설치 및 실행</span>
-/graphify .          <span class="comment"># 프로젝트 그래프 생성</span>
-
-<span class="comment"># MCP 도구로 쿼리</span>
-query_graph("auth")
-get_neighbors("UserService")
-shortest_path("Login", "DB")</pre>
         <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/safishamsi/graphify" style="color:#484f58;">github.com/safishamsi/graphify</a></div>
       </div>
     </div>
