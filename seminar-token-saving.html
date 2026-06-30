@@ -801,6 +801,73 @@ data/*.csv</pre>
     </div>
   </div>
 
+  <!-- ══ RTK ══ -->
+  <div class="slide">
+    <div class="slide-num">09</div>
+    <div class="badge badge-green">심화 전략</div>
+    <h2>RTK — Bash 출력을 Claude에 전달하기 전에 압축</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:12px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:10px;">30분 Claude Code 세션 기준</div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+            <span style="font-size:13px; color:#8b949e; min-width:80px;">RTK 없이</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:10px; overflow:hidden;">
+              <div style="width:100%; height:100%; background:#f85149; border-radius:4px;"></div>
+            </div>
+            <span style="font-size:13px; color:#f85149; min-width:70px; text-align:right;">118,000 토큰</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:13px; color:#8b949e; min-width:80px;">RTK 적용</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:10px; overflow:hidden;">
+              <div style="width:20%; height:100%; background:#3fb950; border-radius:4px;"></div>
+            </div>
+            <span style="font-size:13px; color:#3fb950; min-width:70px; text-align:right;">23,900 토큰</span>
+          </div>
+          <div style="font-size:12px; color:#3fb950; margin-top:10px; text-align:right; font-weight:600;">80% 절감</div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">4가지 압축 전략</h3>
+        <ul class="tight">
+          <li><strong style="color:#e6edf3;">필터링</strong> — 노이즈·보일러플레이트 제거</li>
+          <li><strong style="color:#e6edf3;">집계</strong> — 유사 항목 묶어 요약</li>
+          <li><strong style="color:#e6edf3;">트런케이션</strong> — 맥락 보존하며 잘라내기</li>
+          <li><strong style="color:#e6edf3;">중복 제거</strong> — 반복 출력 단일화</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">동작 방식</h3>
+        <pre style="font-size:12px;"><span class="comment"># Bash hook으로 투명하게 동작</span>
+<span class="comment"># 명시적 호출 없이 자동 적용</span>
+
+<span class="comment"># 예: git status 출력 압축</span>
+<span class="comment"># 원본: 수십 줄의 상세 출력</span>
+$ git status
+<span class="str">→ RTK가 가로채서</span>
+<span class="str">→ "3 modified, 1 untracked" 로 요약</span>
+
+<span class="comment"># 테스트: 실패 케이스만 전달</span>
+$ pytest tests/
+<span class="str">→ pass 결과 제거</span>
+<span class="str">→ FAILED 2개만 상세 출력</span></pre>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:12px 14px; margin-top:12px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:8px;">지원 환경</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#58a6ff;">Claude Code</span>
+            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#bc8cff;">Cursor</span>
+            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#3fb950;">Gemini CLI</span>
+            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#ffa64d;">+ 11개 더</span>
+          </div>
+        </div>
+
+        <div class="tip" style="margin-top:12px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. Bash hook 설정만으로 100+ 명령에 자동 적용. 명령 실패 시에는 원본 출력을 보존해 디버깅 지원.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ Caveman ══ -->
   <div class="slide" style="align-items:center; text-align:center;">
     <div class="badge badge-green" style="margin-bottom:24px;">원시 전략</div>
