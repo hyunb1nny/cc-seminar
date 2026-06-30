@@ -850,12 +850,12 @@ SSD 성능 모니터링 서비스
     <h2>파일 제외 설정 — Claude가 읽지 않을 경로 지정</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;">Claude Code는 <code>.gitignore</code>를 자동으로 존중합니다. <code>node_modules/</code>, <code>dist/</code> 등은 이미 파일 검색에서 제외됩니다. git에 커밋된 파일은 <code>permissions.deny</code>로 추가 차단합니다.</p>
+        <p style="margin-bottom:10px;">Claude Code는 <code>.gitignore</code>를 자동으로 존중합니다. <code>node_modules/</code>, <code>dist/</code> 등은 이미 파일 검색에서 제외됩니다. <code>.gitignore</code> 범위 밖이지만 Claude에게 보여줄 필요 없는 경로는 <code>permissions.deny</code>로 추가 차단합니다.</p>
 
         <h3 style="margin-bottom:6px;">왜 필요한가?</h3>
         <ul class="tight" style="margin-bottom:10px;">
           <li>vendor 코드·생성 파일을 실수로 읽어 컨텍스트 낭비 방지</li>
-          <li>커밋된 대용량 파일 (SDK 번들, 스냅샷 등) 차단</li>
+          <li>저장소에 포함된 대용량 파일 (SDK 번들, 스냅샷 등) 차단</li>
           <li>민감 정보 경로 보호</li>
         </ul>
 
@@ -863,7 +863,7 @@ SSD 성능 모니터링 서비스
       </div>
       <div>
         <h3 style="margin-bottom:6px;"><code>.claude/settings.json</code> — Read deny 규칙</h3>
-        <pre style="font-size:12px;"><span class="comment">// git에 커밋된 파일 중 읽지 않을 경로</span>
+        <pre style="font-size:12px;"><span class="comment">// .gitignore 밖에서 추가로 차단할 경로</span>
 {
   <span class="key">"permissions"</span>: {
     <span class="key">"deny"</span>: [
@@ -878,7 +878,7 @@ SSD 성능 모니터링 서비스
           <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">파일 제외 방법 정리</div>
           <div style="font-size:12px; color:#c9d1d9; line-height:1.8;">
             <span style="color:#3fb950;">✓</span> <code>.gitignore</code> — 자동 적용 (검색 시)<br>
-            <span style="color:#3fb950;">✓</span> <code>permissions.deny</code> — 커밋된 파일 Read 차단<br>
+            <span style="color:#3fb950;">✓</span> <code>permissions.deny</code> — .gitignore 외 경로 Read 차단<br>
             <span style="color:#3fb950;">✓</span> <code>claudeMdExcludes</code> — 모노레포에서 타 팀 CLAUDE.md 로딩 제외
           </div>
         </div>
