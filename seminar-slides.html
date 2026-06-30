@@ -939,10 +939,71 @@ description: FIO 결과 파일을 받아
   </div>
 
   <!-- ═══════════════════════════════════════════
-       SLIDE — Memory
+       SLIDE — 추천 Skills 컬렉션
   ═══════════════════════════════════════════ -->
   <div class="slide">
     <div class="slide-num">15</div>
+    <div class="badge badge-orange">추천 Skills</div>
+    <h2>바로 쓸 수 있는 오픈소스 Skills 컬렉션</h2>
+    <p style="margin-bottom:20px; font-size:15px; color:#8b949e;">직접 만들지 않아도 됩니다. 커뮤니티가 만든 검증된 Skills를 설치해서 바로 사용하세요.</p>
+    <div class="three-col">
+      <div class="card" style="border-color:rgba(88,166,255,0.35);">
+        <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:4px; font-family:monospace;">mattpocock/skills</div>
+        <h3 style="color:#58a6ff; font-size:16px; margin-bottom:10px;">개발 워크플로우 Skills</h3>
+        <ul class="tight" style="margin-bottom:12px;">
+          <li><code style="color:#ff79c6;">/grill-me</code> — 계획을 실행 전 집중 검증. 모든 가정을 질문으로 뒤집어봄</li>
+          <li><code style="color:#ff79c6;">/tdd</code> — 테스트 주도 개발 루프</li>
+          <li><code style="color:#ff79c6;">/to-prd</code> — 대화를 PRD 문서로 변환</li>
+          <li><code style="color:#ff79c6;">/handoff</code> — 작업 인수인계 문서 자동 생성</li>
+          <li><code style="color:#ff79c6;">/diagnosing-bugs</code> — 버그 체계적 진단</li>
+        </ul>
+        <div class="tip" style="margin-top:0; font-size:13px;">
+          <strong>grill-me</strong>: 이 세미나에서 쓴 바로 그 기능. 착수 전에 요구사항·가정을 철저히 검증합니다.
+        </div>
+        <pre style="font-size:11px; margin-top:10px;"><span class="comment"># 설치</span>
+cp grill-me.md .claude/skills/</pre>
+      </div>
+
+      <div class="card" style="border-color:rgba(248,81,73,0.35);">
+        <div style="font-size:12px; font-weight:700; color:#f85149; margin-bottom:4px; font-family:monospace;">JuliusBrussee/caveman</div>
+        <h3 style="color:#f85149; font-size:16px; margin-bottom:10px;">출력 토큰 65~75% 절감</h3>
+        <p style="font-size:14px; margin-bottom:12px; color:#c9d1d9;">Claude의 응답을 원시적으로 압축. 장황한 설명 없이 핵심만 전달합니다.</p>
+        <ul class="tight" style="margin-bottom:12px;">
+          <li><code style="color:#ff79c6;">/caveman</code> — 기본 압축 모드</li>
+          <li><code style="color:#ff79c6;">/caveman lite|full|ultra</code> — 압축 강도 조절</li>
+          <li><code style="color:#ff79c6;">/caveman-commit</code> — 50자 이내 커밋 메시지</li>
+          <li><code style="color:#ff79c6;">/caveman-stats</code> — 절감된 토큰·비용 확인</li>
+          <li><code style="color:#ff79c6;">/caveman-compress</code> — CLAUDE.md 압축</li>
+        </ul>
+        <pre style="font-size:11px;"><span class="comment"># 설치</span>
+curl -fsSL https://raw.githubusercontent.com/
+JuliusBrussee/caveman/main/install.sh | bash</pre>
+        <div style="font-size:12px; color:#8b949e; margin-top:8px;">코드·명령어 정확성은 유지, 설명만 압축</div>
+      </div>
+
+      <div class="card" style="border-color:rgba(63,185,80,0.35);">
+        <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:4px; font-family:monospace;">obra/superpowers</div>
+        <h3 style="color:#3fb950; font-size:16px; margin-bottom:10px;">개발 사이클 전체 지원</h3>
+        <p style="font-size:14px; margin-bottom:12px; color:#c9d1d9;">설계 → 계획 → 구현 → 검토 → 완료의 전 단계를 Skills로 체계화.</p>
+        <ul class="tight" style="margin-bottom:12px;">
+          <li><code style="color:#ff79c6;">/test-driven-development</code> — RED-GREEN-REFACTOR</li>
+          <li><code style="color:#ff79c6;">/systematic-debugging</code> — 4단계 근본 원인 분석</li>
+          <li><code style="color:#ff79c6;">/brainstorming</code> — 소크라테스식 설계 개선</li>
+          <li><code style="color:#ff79c6;">/writing-plans</code> — 상세 구현 계획 작성</li>
+          <li><code style="color:#ff79c6;">/subagent-driven-development</code> — 2단계 코드 리뷰</li>
+        </ul>
+        <pre style="font-size:11px;"><span class="comment"># 설치</span>
+git clone github.com/obra/superpowers
+cp superpowers/*.md .claude/skills/</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Memory
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">16</div>
     <div class="badge badge-orange">Memory</div>
     <h2>Memory — 대화를 넘어서 기억하기</h2>
     <div class="two-col">
@@ -1308,7 +1369,7 @@ cat reports/$(date +%F).md \
 <!-- ── nav ── -->
 <div id="nav">
   <button id="btn-prev" onclick="go(-1)" disabled>← 이전</button>
-  <span id="slide-counter">1 / 24</span>
+  <span id="slide-counter">1 / 26</span>
   <button id="btn-next" onclick="go(1)">다음 →</button>
 </div>
 
