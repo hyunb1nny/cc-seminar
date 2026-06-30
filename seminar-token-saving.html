@@ -337,8 +337,8 @@
           <tbody>
             <tr>
               <td>Claude Haiku 4.5</td>
-              <td style="color:#3fb950;">$0.80/M</td>
-              <td style="color:#3fb950;">$4/M</td>
+              <td style="color:#3fb950;">$1/M</td>
+              <td style="color:#3fb950;">$5/M</td>
               <td style="color:#8b949e;">단순 파싱·포맷</td>
             </tr>
             <tr class="highlight-row">
@@ -349,8 +349,8 @@
             </tr>
             <tr>
               <td>Claude Opus 4.8</td>
-              <td style="color:#f85149;">$15/M</td>
-              <td style="color:#f85149;">$75/M</td>
+              <td style="color:#f85149;">$5/M</td>
+              <td style="color:#f85149;">$25/M</td>
               <td style="color:#8b949e;">복잡한 추론</td>
             </tr>
           </tbody>
@@ -471,7 +471,7 @@
 
         <h3>비용 실시간 확인</h3>
         <pre style="font-size:12px;"><span class="comment"># 현재 대화 비용 확인</span>
-/cost
+/usage
 
 Input:  45,231 tokens  ($0.14)
 Output:  3,821 tokens  ($0.06)
@@ -513,7 +513,7 @@ Total:                  $0.11</pre>
         <div class="warn">컨텍스트가 한계에 가까워질수록 응답 품질이 떨어집니다. 전략을 쓰기 전, 먼저 진단부터.</div>
         <div style="margin-top:10px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 14px;">
           <div style="font-size:12px; color:#8b949e; margin-bottom:6px;">함께 쓰면 좋은 명령어</div>
-          <div style="font-size:13px; color:#c9d1d9;"><code>/cost</code> — 현재 대화 누적 비용</div>
+          <div style="font-size:13px; color:#c9d1d9;"><code>/usage</code> — 현재 대화 누적 비용</div>
           <div style="font-size:13px; color:#c9d1d9; margin-top:4px;"><code>/compact</code> — Messages 히스토리 압축</div>
         </div>
       </div>
@@ -622,7 +622,7 @@ claude-opus-4-8             <span class="comment"># 고성능</span></pre>
           <li>CLAUDE.md, 시스템 프롬프트, MCP 스키마가 주요 대상</li>
         </ul>
 
-        <h3>실제 비용 비교 (/cost 출력)</h3>
+        <h3>실제 비용 비교 (/usage 출력)</h3>
         <pre style="font-size:12px;"><span class="comment"># 캐싱 없을 때</span>
 Input:  8,400 tokens    ($0.025)
 Output:   320 tokens    ($0.005)
@@ -1258,7 +1258,7 @@ get_neighbors("UserService")</pre>
     <div>
       <div style="font-size:64px; margin-bottom:20px;">💰</div>
       <h2 style="font-size:40px; margin-bottom:14px;">적게 쓰고, 더 잘 쓰기</h2>
-      <p style="font-size:18px; max-width:500px; margin:0 auto;">토큰을 아끼는 것은 습관입니다.<br><code>/cost</code>와 <code>/context</code>를 매일 확인하는 것부터 시작하세요.</p>
+      <p style="font-size:18px; max-width:500px; margin:0 auto;">토큰을 아끼는 것은 습관입니다.<br><code>/usage</code>와 <code>/context</code>를 매일 확인하는 것부터 시작하세요.</p>
     </div>
   </div>
 
