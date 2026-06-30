@@ -985,73 +985,25 @@ SSD 성능 모니터링 서비스
     </div>
   </div>
 
-  <!-- ══ RTK ══ -->
-  <div class="slide">
-    <div class="slide-num">-</div>
-    <div class="badge badge-purple">절약 전략 심화</div>
-    <h2>RTK — Bash 출력을 Claude에 전달하기 전에 압축</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:6px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
-        <div class="warn" style="margin-bottom:8px;">커뮤니티 오픈소스 도구입니다. 사내 도입 전 팀 검토를 권장합니다.</div>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
-          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">30분 Claude Code 세션 기준</div>
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-            <span style="font-size:12px; color:#8b949e; min-width:72px;">RTK 없이</span>
-            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:100%; height:100%; background:#f85149; border-radius:4px;"></div></div>
-            <span style="font-size:12px; color:#f85149; min-width:70px; text-align:right;">118,000 토큰</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span style="font-size:12px; color:#8b949e; min-width:72px;">RTK 적용</span>
-            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:20%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
-            <span style="font-size:12px; color:#3fb950; min-width:70px; text-align:right;">23,900 토큰</span>
-          </div>
-          <div style="font-size:11px; color:#3fb950; margin-top:8px; text-align:right; font-weight:600;">80% 절감</div>
-        </div>
-
-        <ul class="tight">
-          <li><strong style="color:#e6edf3;">필터링</strong> — 노이즈·보일러플레이트 제거</li>
-          <li><strong style="color:#e6edf3;">집계</strong> — 유사 항목 묶어 요약</li>
-          <li><strong style="color:#e6edf3;">트런케이션</strong> — 맥락 보존하며 잘라내기</li>
-          <li><strong style="color:#e6edf3;">중복 제거</strong> — 반복 출력 단일화</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="margin-bottom:6px;">동작 방식</h3>
-        <pre style="font-size:11px;"><span class="comment"># Bash hook으로 투명하게 동작</span>
-$ git status
-<span class="str">→ RTK: "3 modified, 1 untracked"</span>
-
-$ pytest tests/
-<span class="str">→ RTK: pass 제거, FAILED 2개만 출력</span></pre>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px; margin-top:10px;">
-          <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">지원 환경</div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#58a6ff;">Claude Code</span>
-            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#bc8cff;">Cursor</span>
-            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#3fb950;">Gemini CLI</span>
-            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#ffa64d;">+ 11개 더</span>
-          </div>
-        </div>
-
-        <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. 명령 실패 시 원본 출력 보존.</div>
-        <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/rtk-ai/rtk" style="color:#484f58;">github.com/rtk-ai/rtk</a></div>
-      </div>
+  <!-- ══ DIVIDER 커뮤니티 도구 ══ -->
+  <div class="slide slide-divider">
+    <div class="big-num">06</div>
+    <div class="content">
+      <div class="badge badge-blue">커뮤니티</div>
+      <h2>커뮤니티 플러그인 & 도구</h2>
+      <p style="color:#8b949e;">오픈소스 커뮤니티가 만든 토큰 절약 도구</p>
     </div>
   </div>
 
   <!-- ══ Caveman 도구 ══ -->
   <div class="slide">
     <div class="slide-num">-</div>
-    <div class="badge badge-purple">절약 전략 심화</div>
+    <div class="badge badge-blue">커뮤니티 도구</div>
     <h2>Caveman — 우가우가 원시인 말투로 출력 토큰 절감</h2>
     <div class="two-col">
       <div>
         <p style="margin-bottom:4px; font-size:16px; color:#bc8cff; font-style:italic; font-weight:600;">"why use many token when few token do trick"</p>
         <p style="margin-bottom:6px; font-size:13px; color:#8b949e;">Claude Code 스킬로 설치하면 AI의 출력 스타일 자체를 압축합니다.</p>
-        <div class="warn" style="margin-bottom:8px;">커뮤니티 오픈소스 스킬. <code>curl | bash</code> 설치 시 스크립트 내용 확인 후 실행하세요.</div>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
           <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">React 디버깅 설명 예시</div>
@@ -1102,8 +1054,8 @@ JuliusBrussee/caveman/main/install.sh | bash
   <!-- ══ Graphify ══ -->
   <div class="slide">
     <div class="slide-num">-</div>
-    <div class="badge badge-purple">절약 전략 심화</div>
-    <h2>Graphify — 프로젝트를 Knowledge Graph로 만들어 Grep 제거</h2>
+    <div class="badge badge-blue">커뮤니티 도구</div>
+    <h2>Graphify — 프로젝트를 Knowledge Graph로 만들어 탐색 최소화</h2>
     <div class="two-col">
       <div>
         <p style="margin-bottom:10px;">CLI 도구 + Claude Code 스킬. <code>/graphify .</code> 한 번으로 프로젝트 전체를 지식 그래프로 변환합니다. 이후 파일을 일일이 읽지 않고 필요한 노드만 쿼리합니다.</p>
@@ -1145,9 +1097,65 @@ get_neighbors("UserService")</pre>
     </div>
   </div>
 
+  <!-- ══ RTK ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-blue">커뮤니티 도구</div>
+    <h2>RTK — Bash 출력을 Claude에 전달하기 전에 압축</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:6px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">30분 Claude Code 세션 기준</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span style="font-size:12px; color:#8b949e; min-width:72px;">RTK 없이</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:100%; height:100%; background:#f85149; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#f85149; min-width:70px; text-align:right;">118,000 토큰</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; color:#8b949e; min-width:72px;">RTK 적용</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:20%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#3fb950; min-width:70px; text-align:right;">23,900 토큰</span>
+          </div>
+          <div style="font-size:11px; color:#3fb950; margin-top:8px; text-align:right; font-weight:600;">80% 절감</div>
+        </div>
+
+        <ul class="tight">
+          <li><strong style="color:#e6edf3;">필터링</strong> — 노이즈·보일러플레이트 제거</li>
+          <li><strong style="color:#e6edf3;">집계</strong> — 유사 항목 묶어 요약</li>
+          <li><strong style="color:#e6edf3;">트런케이션</strong> — 맥락 보존하며 잘라내기</li>
+          <li><strong style="color:#e6edf3;">중복 제거</strong> — 반복 출력 단일화</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">동작 방식</h3>
+        <pre style="font-size:11px;"><span class="comment"># Bash hook으로 투명하게 동작</span>
+$ git status
+<span class="str">→ RTK: "3 modified, 1 untracked"</span>
+
+$ pytest tests/
+<span class="str">→ RTK: pass 제거, FAILED 2개만 출력</span></pre>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px; margin-top:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">지원 환경</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#58a6ff;">Claude Code</span>
+            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#bc8cff;">Cursor</span>
+            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#3fb950;">Gemini CLI</span>
+            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#ffa64d;">+ 11개 더</span>
+          </div>
+        </div>
+
+        <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. 명령 실패 시 원본 출력 보존.</div>
+        <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/rtk-ai/rtk" style="color:#484f58;">github.com/rtk-ai/rtk</a></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ DIVIDER 개발 실전 ══ -->
   <div class="slide slide-divider">
-    <div class="big-num">06</div>
+    <div class="big-num">07</div>
     <div class="content">
       <div class="badge badge-teal">실전</div>
       <h2>개발 실전 패턴</h2>
@@ -1205,7 +1213,7 @@ get_neighbors("UserService")</pre>
     <div class="slide-num">-</div>
     <div class="badge badge-blue">핵심 정리</div>
     <h2>토큰 절약 전략 전체 정리</h2>
-    <div class="three-col">
+    <div class="two-col">
       <div>
         <h3 style="color:#3fb950; margin-bottom:8px;">기초 전략</h3>
         <ul class="tight">
@@ -1237,19 +1245,6 @@ get_neighbors("UserService")</pre>
         </ul>
       </div>
       <div>
-        <h3 style="color:#58a6ff; margin-bottom:8px;">우선순위</h3>
-        <div class="card" style="margin-bottom:8px; border-color:rgba(248,81,73,0.3);">
-          <h3 style="color:#f85149; font-size:13px;">즉시 효과</h3>
-          <p>/clear 습관 + 원본 편집</p>
-        </div>
-        <div class="card" style="margin-bottom:8px; border-color:rgba(255,166,77,0.3);">
-          <h3 style="color:#ffa64d; font-size:13px;">설정 한 번</h3>
-          <p>permissions.deny 설정 + CLAUDE.md 다이어트 + 올바른 모델 선택</p>
-        </div>
-        <div class="card" style="border-color:rgba(188,140,255,0.3);">
-          <h3 style="color:#bc8cff; font-size:13px;">도구 도입</h3>
-          <p>RTK · Caveman · Graphify 설치</p>
-        </div>
       </div>
     </div>
   </div>
