@@ -892,14 +892,20 @@ SSD 성능 모니터링 서비스
     <h2>PDF · PPTX → Markdown 변환 — 문서도 토큰 효율적으로</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;">PDF·PPTX는 Claude가 직접 읽으면 바이너리 노이즈가 많고 <code>Read(offset)</code> 범위 지정이나 <code>Grep</code>이 불가능합니다. Markdown으로 변환하면 <strong style="color:#e6edf3;">검색 가능 · 범위 읽기 가능 · 토큰 효율적</strong>으로 바뀝니다.</p>
+        <h3 style="margin-bottom:6px; color:#f85149;">PDF · PPTX가 토큰을 많이 쓰는 이유</h3>
+        <ul class="tight" style="margin-bottom:12px;">
+          <li>페이지 번호 · 머리글 · 바닥글이 매 페이지 반복 → 중복 토큰</li>
+          <li>구조 없는 텍스트 추출 → Claude가 문맥 파악에 더 많은 토큰 사용</li>
+          <li><code>Grep</code> 불가 — 원하는 섹션을 찾으려면 전체를 읽어야 함</li>
+          <li><code>Read(offset, limit)</code> 범위 지정 불가 — 전체 읽기만 가능</li>
+        </ul>
 
         <div class="compare-row" style="margin-bottom:12px;">
           <div class="bad-box" style="font-size:11px; line-height:1.6;">
             <strong style="color:#f85149;">NVMe Spec (PDF)</strong><br>
-            바이너리 파싱 노이즈<br>
-            Grep 불가<br>
-            전체 읽기만 가능<br>
+            반복 헤더·푸터 노이즈<br>
+            Grep · 범위 읽기 불가<br>
+            전체 읽기 강제<br>
             <span style="color:#484f58; font-size:10px;">= 수만 토큰 낭비</span>
           </div>
           <div class="arrow">→</div>
