@@ -1191,10 +1191,31 @@ reports/    - 자동 생성 리포트
   <div class="slide">
     <div class="slide-num">14</div>
     <div class="badge badge-orange">Skills</div>
-    <h2>Skills — 나만의 슬래시 명령어</h2>
+    <h2>Skills — 슬래시 명령어 · 자동 호출</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:14px;">자주 쓰는 프롬프트 패턴을 <code>/명령어</code> 하나로 등록하는 기능.<br>마크다운 파일 하나로 팀 전체가 쓸 수 있는 명령어가 만들어집니다.</p>
+        <p style="margin-bottom:14px;">자주 쓰는 프롬프트 패턴을 등록해두는 기능. 호출 방식이 두 가지입니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:16px;">
+          <div style="background:#21262d; padding:8px 16px; font-size:12px; color:#8b949e;">Skill 호출 방식</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0;">
+            <div style="padding:14px 16px; border-right:1px solid #21262d;">
+              <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:8px;">👤 User-invoked</div>
+              <div style="font-size:13px; color:#c9d1d9; margin-bottom:8px;">사용자가 직접 슬래시 명령어로 호출</div>
+              <code style="font-size:14px; color:#3fb950;">/api-report logs/jan.json</code>
+              <div style="font-size:12px; color:#8b949e; margin-top:8px;">명시적·의도적. 언제 실행되는지 사용자가 제어.</div>
+            </div>
+            <div style="padding:14px 16px;">
+              <div style="font-size:12px; font-weight:700; color:#ff79c6; margin-bottom:8px;">🤖 Model-invoked</div>
+              <div style="font-size:13px; color:#c9d1d9; margin-bottom:8px;">Claude가 대화 맥락을 보고 자동으로 실행</div>
+              <span style="font-size:13px; color:#8b949e;">"PR 리뷰해줘" 입력</span><br>
+              <span style="font-size:12px; color:#484f58;">→ Claude가 <code>/code-review</code> skill 자동 선택</span>
+              <div style="font-size:12px; color:#8b949e; margin-top:8px;">Skill의 <code>description</code>이 판단 기준.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip" style="margin-bottom:14px;">Model-invoked가 동작하려면 <code>description</code> frontmatter를 잘 써야 합니다.<br>Claude는 이 description을 읽고 "지금 상황에 이 Skill을 써야겠다"고 판단합니다.</div>
 
         <h3>적용 범위 (Scope)</h3>
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px;">
