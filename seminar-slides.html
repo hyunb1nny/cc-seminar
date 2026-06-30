@@ -333,7 +333,7 @@
   <div class="slide slide-title active">
     <div class="slide-num">01</div>
     <div style="max-width: 780px;">
-      <div class="badge badge-blue">SSD 파트 내부 세미나</div>
+      <div class="badge badge-blue">파트 내부 세미나</div>
       <h1>AI Agent &amp;<br><span>Claude Code</span></h1>
       <p class="subtitle">Context Engineering · Tools · Skills · CLAUDE.md<br>메모리 · Harness Engineering</p>
       <div class="week-pills">
@@ -412,25 +412,25 @@
         <div class="tip">프로젝트 루트에 두면 자동 로드. 하위 폴더에 추가로 둘 수도 있음.</div>
       </div>
       <div>
-        <pre><span class="comment"># SSD Performance Lab</span>
+        <pre><span class="comment"># Service Monitor</span>
 
 <span class="key">## 프로젝트 개요</span>
-NVMe SSD 성능 평가 자동화 도구.
-FIO 기반 벤치마크 실행 및 결과 분석.
+웹 서비스 모니터링 자동화 도구.
+API 로그 수집 및 이상 감지 분석.
 
 <span class="key">## 폴더 구조</span>
-bench/      - FIO job 파일
-results/    - CSV 측정 결과
+tests/      - 테스트 스크립트
+logs/       - 수집된 로그 파일
 scripts/    - 분석 파이썬 스크립트
 reports/    - 자동 생성 리포트
 
 <span class="key">## 주요 지표</span>
-- Sequential R/W: MB/s
-- Random 4K IOPS
-- Latency (us): p50 / p99
+- API 응답시간: ms
+- RPS (Requests Per Second)
+- 에러율: 4xx / 5xx
 
 <span class="key">## 빌드/실행</span>
-<span class="str">python scripts/run_bench.py --preset nvme</span></pre>
+<span class="str">python run_tests.py --env staging</span></pre>
       </div>
     </div>
   </div>
@@ -445,7 +445,7 @@ reports/    - 자동 생성 리포트
     <div class="three-col">
       <div class="card">
         <h3>🗂 프로젝트 개요</h3>
-        <p>무엇을 만드는 곳인지, 핵심 도메인 용어 정의. SSD 파트라면 FIO, IOPS, WAF 같은 용어를 여기서 정의.</p>
+        <p>무엇을 만드는 곳인지, 핵심 도메인 용어 정의. 팀 도메인 약어와 개념을 여기서 정의해두면 Claude가 즉시 이해합니다.</p>
       </div>
       <div class="card">
         <h3>📁 코드 구조</h3>
@@ -461,7 +461,7 @@ reports/    - 자동 생성 리포트
       </div>
       <div class="card">
         <h3>🚫 하지 말아야 할 것</h3>
-        <p>"절대 raw device 직접 쓰지 말 것" 같은 도메인 금기사항. Claude가 실수로 위험한 명령을 내리지 않게 방어.</p>
+        <p>"프로덕션 DB에 직접 쓰지 말 것" 같은 안전 규칙. Claude가 실수로 위험한 명령을 내리지 않게 방어.</p>
       </div>
       <div class="card">
         <h3>🔗 외부 참고</h3>
@@ -546,7 +546,7 @@ reports/    - 자동 생성 리포트
         <h3 style="color:#3fb950;">① 안정적 컨텍스트 분리</h3>
         <p style="font-size:14px; margin-bottom:10px;">자주 바뀌지 않는 정보는 <strong style="color:#e6edf3;">CLAUDE.md</strong>에 고정.<br>대화 히스토리에 반복해서 쓰지 않는다.</p>
         <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
-          ✗ 매번: "우리 프로젝트는 FIO 기반이고…"<br>
+          ✗ 매번: "우리 프로젝트는 이런 구조이고…"<br>
           ✓ CLAUDE.md에 한 번 → 자동 로드
         </div>
       </div>
@@ -554,26 +554,26 @@ reports/    - 자동 생성 리포트
         <h3 style="color:#3fb950;">② 필요한 것만 읽기</h3>
         <p style="font-size:14px; margin-bottom:10px;">파일 전체 대신 필요한 범위만 Read. Grep으로 관련 라인만 추출.</p>
         <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
-          ✗ Read("bench_10GB.csv")<br>
-          ✓ Read("bench.csv", offset=0, limit=100)<br>
-          ✓ Grep("p99", "results/")
+          ✗ Read("app.log")<br>
+          ✓ Read("app.log", offset=0, limit=100)<br>
+          ✓ Grep("ERROR", "logs/")
         </div>
       </div>
       <div class="card">
         <h3 style="color:#3fb950;">③ 작업 단위로 초기화</h3>
         <p style="font-size:14px; margin-bottom:10px;">무관한 작업 전환 시 <code>/clear</code>. 긴 작업 중간엔 <code>/compact</code>.</p>
         <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
-          벤치마크 분석 끝 → /clear<br>
-          → 스크립트 작업 새로 시작<br>
-          (이전 분석 결과가 컨텍스트 낭비)
+          로그 분석 끝 → /clear<br>
+          → 코드 작업 새로 시작<br>
+          (이전 작업 결과가 컨텍스트 낭비)
         </div>
       </div>
       <div class="card">
         <h3 style="color:#e3b341;">④ 구체적인 요청</h3>
         <p style="font-size:14px; margin-bottom:10px;">모호한 요청은 Claude가 길게 추측하며 응답 → 히스토리 팽창.</p>
         <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
-          ✗ "이 결과 분석해줘"<br>
-          ✓ "p99 레이턴시만 전주 대비<br>&nbsp;&nbsp;&nbsp;% 변화로 한 줄 요약"
+          ✗ "이 로그 분석해줘"<br>
+          ✓ "API 응답시간만 전주 대비<br>&nbsp;&nbsp;&nbsp;% 변화로 한 줄 요약"
         </div>
       </div>
       <div class="card">
@@ -617,7 +617,7 @@ reports/    - 자동 생성 리포트
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:18px;">
       <div class="card" style="padding:16px;">
         <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">⚡ Bash</h3>
-        <p style="font-size:13px;">쉘 명령 직접 실행.<br>FIO, Python 스크립트, 시스템 명령</p>
+        <p style="font-size:13px;">쉘 명령 직접 실행.<br>테스트 스크립트, Python, 시스템 명령</p>
       </div>
       <div class="card" style="padding:16px;">
         <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">📖 Read</h3>
@@ -649,7 +649,7 @@ reports/    - 자동 생성 리포트
       </div>
     </div>
     <div class="highlight">
-      Claude는 이 도구들을 <strong>스스로 조합해서 사용</strong>합니다. "벤치 결과 분석해줘" 한 마디에 Glob → Read → Bash(python) 순서로 자동 실행. 각 도구 실행 전 <strong>승인 요청</strong>이 뜨는 것이 기본값입니다.
+      Claude는 이 도구들을 <strong>스스로 조합해서 사용</strong>합니다. "로그 분석해줘" 한 마디에 Glob → Read → Bash(python) 순서로 자동 실행. 각 도구 실행 전 <strong>승인 요청</strong>이 뜨는 것이 기본값입니다.
     </div>
   </div>
 
@@ -664,17 +664,17 @@ reports/    - 자동 생성 리포트
       <div>
         <h3>Read — 범위 지정 읽기</h3>
         <pre style="font-size:13px;"><span class="comment"># 전체 읽기 (토큰 낭비)</span>
-Read(<span class="str">"results/bench_10GB.csv"</span>)
+Read(<span class="str">"logs/app.log"</span>)
 
 <span class="comment"># 범위 지정 (절약)</span>
-Read(<span class="str">"results/bench_10GB.csv"</span>,
+Read(<span class="str">"logs/app.log"</span>,
      offset=<span class="val">500</span>, limit=<span class="val">50</span>)</pre>
 
         <h3 style="margin-top:16px;">Edit — 정밀 수정</h3>
         <pre style="font-size:13px;"><span class="comment"># 파일 전체 말고 해당 부분만 교체</span>
 Edit(<span class="str">"scripts/parse.py"</span>,
-  old=<span class="str">"latency_us / 1000"</span>,
-  new=<span class="str">"latency_us / 1000.0"</span>)</pre>
+  old=<span class="str">"response_ms / 1000"</span>,
+  new=<span class="str">"response_ms / 1000.0"</span>)</pre>
 
         <h3 style="margin-top:16px;">Write — 새 파일 생성</h3>
         <pre style="font-size:13px;"><span class="comment"># 리포트, 스크립트, 설정 파일 생성</span>
@@ -684,20 +684,20 @@ Write(<span class="str">"reports/jan_summary.md"</span>,
       <div>
         <h3>Grep — 코드/로그 검색</h3>
         <pre style="font-size:13px;"><span class="comment"># 로그에서 패턴 검색</span>
-Grep(<span class="str">"nvme.*timeout"</span>,
+Grep(<span class="str">"ERROR\|WARN"</span>,
      path=<span class="str">"logs/"</span>,
      output=<span class="str">"context"</span>)
 
 <span class="comment"># 코드에서 함수 찾기</span>
-Grep(<span class="str">"def calc_iops"</span>,
+Grep(<span class="str">"def parse_response"</span>,
      path=<span class="str">"scripts/"</span>)</pre>
 
         <h3 style="margin-top:16px;">Glob / LS — 파일 탐색</h3>
         <pre style="font-size:13px;"><span class="comment"># 특정 패턴 파일 전부 찾기</span>
-Glob(<span class="str">"results/**/*.json"</span>)
+Glob(<span class="str">"logs/**/*.json"</span>)
 
 <span class="comment"># 디렉토리 구조 확인</span>
-LS(<span class="str">"bench/"</span>)</pre>
+LS(<span class="str">"tests/"</span>)</pre>
 
         <div class="tip">Claude는 보통 Glob으로 파일을 먼저 탐색하고, Read로 내용을 확인한 뒤, Edit/Write로 수정합니다. 이 순서가 자동으로 이뤄집니다.</div>
       </div>
@@ -715,35 +715,35 @@ LS(<span class="str">"bench/"</span>)</pre>
       <div>
         <h3>WebFetch — URL 직접 읽기</h3>
         <p style="font-size:16px; margin-bottom:12px;">특정 URL의 내용을 가져와서 Claude가 직접 분석합니다.</p>
-        <pre style="font-size:13px;"><span class="comment"># 데이터시트 PDF URL 읽기</span>
-WebFetch(<span class="str">"https://nvme.org/spec/..."</span>)
+        <pre style="font-size:13px;"><span class="comment"># 라이브러리 공식 문서 읽기</span>
+WebFetch(<span class="str">"https://docs.example.com/api/..."</span>)
 
 <span class="comment"># 사내 위키 페이지 읽기</span>
-WebFetch(<span class="str">"https://wiki.internal/ssd-spec"</span>)
+WebFetch(<span class="str">"https://wiki.internal/api-spec"</span>)
 
 <span class="comment"># GitHub 이슈/PR 내용 가져오기</span>
 WebFetch(<span class="str">"https://github.com/.../issues/42"</span>)</pre>
 
-        <div class="tip">공개 데이터시트나 스펙 문서 URL을 주면 Claude가 직접 읽고 분석 가능</div>
+        <div class="tip">공개 API 문서나 라이브러리 문서 URL을 주면 Claude가 직접 읽고 분석 가능</div>
       </div>
       <div>
         <h3>WebSearch — 실시간 검색</h3>
         <p style="font-size:16px; margin-bottom:12px;">Claude 학습 데이터에 없는 최신 정보를 실시간으로 검색합니다.</p>
-        <pre style="font-size:13px;"><span class="comment"># 최신 NVMe 스펙 검색</span>
+        <pre style="font-size:13px;"><span class="comment"># 최신 라이브러리 변경사항 검색</span>
 WebSearch(
-  <span class="str">"NVMe 2.0 PCIe 5.0 latency spec"</span>)
+  <span class="str">"React 19 breaking changes migration"</span>)
 
-<span class="comment"># 드라이버 버그 검색</span>
+<span class="comment"># 프레임워크 버그 검색</span>
 WebSearch(
-  <span class="str">"linux nvme driver timeout 6.8 kernel"</span>)</pre>
+  <span class="str">"Next.js 15 server action error handling"</span>)</pre>
 
         <div class="warn" style="margin-top:14px;">사내 기밀 정보를 WebSearch 쿼리에 포함하지 말 것. 쿼리는 외부 검색엔진으로 전송됨.</div>
 
         <h3 style="margin-top:16px;">언제 쓰나</h3>
         <ul class="tight">
-          <li>최신 드라이버 / 펌웨어 릴리즈 노트 확인</li>
-          <li>경쟁사 벤치마크 결과 수집</li>
-          <li>NVMe / SATA 표준 문서 참조</li>
+          <li>최신 라이브러리 / 프레임워크 릴리즈 노트 확인</li>
+          <li>오픈소스 이슈 트래커 검색</li>
+          <li>API / 프로토콜 표준 문서 참조</li>
         </ul>
       </div>
     </div>
@@ -755,25 +755,25 @@ WebSearch(
   <div class="slide">
     <div class="slide-num">11</div>
     <div class="badge badge-purple">Tools · Bash</div>
-    <h2>Bash — SSD 분석 실전 패턴</h2>
+    <h2>Bash — 개발 실전 패턴</h2>
     <div class="two-col">
       <div>
-        <h3>패턴 1: 벤치마크 실행 후 즉시 분석</h3>
+        <h3>패턴 1: 테스트 실행 후 즉시 분석</h3>
         <pre><span class="comment"># Claude에게 이렇게 요청</span>
-<span class="str">"seq_read.fio 실행하고 결과에서
-p99 레이턴시만 뽑아줘"</span>
+<span class="str">"python run_tests.py 실행하고 결과에서
+실패한 테스트만 뽑아줘"</span>
 
 <span class="comment"># Claude가 내부적으로</span>
-$ fio seq_read.fio --output-format=json
-$ python parse_p99.py result.json</pre>
+$ python run_tests.py --output-format=json
+$ python parse_logs.py result.json</pre>
 
         <h3 style="margin-top:20px;">패턴 2: 로그에서 오류 패턴 추출</h3>
         <pre><span class="comment"># Claude에게 이렇게 요청</span>
-<span class="str">"이번 주 dmesg 로그에서
-NVMe timeout 발생 패턴 찾아줘"</span>
+<span class="str">"이번 주 app.log에서
+ERROR, WARN 발생 패턴 찾아줘"</span>
 
 <span class="comment"># Claude가 내부적으로</span>
-$ grep -n "nvme.*timeout" /var/log/dmesg \
+$ grep -n "ERROR\|WARN" /var/log/app.log \
   | tail -100</pre>
       </div>
       <div>
@@ -783,13 +783,13 @@ $ grep -n "nvme.*timeout" /var/log/dmesg \
 {
   <span class="key">"permissions"</span>: {
     <span class="key">"allow"</span>: [
-      <span class="str">"Bash(fio:*)"</span>,
       <span class="str">"Bash(python:*)"</span>,
+      <span class="str">"Bash(npm:*)"</span>,
       <span class="str">"Bash(grep:*)"</span>
     ]
   }
 }</pre>
-        <div class="warn">rm, dd, fdisk 같은 위험 명령은 절대 allow 목록에 넣지 말 것</div>
+        <div class="warn">rm, curl --data, 프로덕션 배포 명령은 절대 allow 목록에 넣지 말 것</div>
       </div>
     </div>
   </div>
@@ -808,7 +808,7 @@ $ grep -n "nvme.*timeout" /var/log/dmesg \
           <li>MongoDB · PostgreSQL · MySQL 쿼리</li>
           <li>사내 REST API 호출</li>
           <li>Jira / Confluence 조회</li>
-          <li>계측 장비 제어 (커스텀 서버)</li>
+          <li>사내 서비스 제어 (커스텀 서버)</li>
         </ul>
         <div class="tip">공식 MCP 서버 목록: <code>github.com/modelcontextprotocol/servers</code></div>
 
@@ -816,11 +816,11 @@ $ grep -n "nvme.*timeout" /var/log/dmesg \
         <pre style="font-size:12px;"><span class="comment">// ~/.claude.json (글로벌 설정)</span>
 {
   <span class="key">"mcpServers"</span>: {
-    <span class="key">"mongo-bench"</span>: {
+    <span class="key">"mongo-api-logs"</span>: {
       <span class="key">"command"</span>: <span class="str">"npx"</span>,
       <span class="key">"args"</span>: [<span class="str">"-y"</span>, <span class="str">"@modelcontextprotocol/server-mongodb"</span>],
       <span class="key">"env"</span>: {
-        <span class="key">"MONGODB_URI"</span>: <span class="str">"mongodb://localhost:27017/bench"</span>
+        <span class="key">"MONGODB_URI"</span>: <span class="str">"mongodb://localhost:27017/api_logs"</span>
       }
     }
   }
@@ -828,24 +828,24 @@ $ grep -n "nvme.*timeout" /var/log/dmesg \
       </div>
       <div>
         <h3>MongoDB MCP 실전 예시</h3>
-        <p style="font-size:14px; color:#8b949e; margin-bottom:10px;">벤치마크 결과를 MongoDB에 저장해두면 Claude가 직접 쿼리해서 분석 가능.</p>
+        <p style="font-size:14px; color:#8b949e; margin-bottom:10px;">API 로그를 MongoDB에 저장해두면 Claude가 직접 쿼리해서 분석 가능.</p>
         <pre style="font-size:12px;"><span class="comment"># 이렇게 요청하면</span>
-<span class="str">"지난 달 QD32 랜덤 4K Write에서
-IOPS가 가장 낮았던 SSD 모델 3개
+<span class="str">"지난 달 POST /api/data에서
+응답시간이 가장 높았던 엔드포인트 3개
 알려줘"</span>
 
 <span class="comment"># Claude가 MongoDB에 직접 쿼리</span>
-db.bench_results.aggregate([
+db.api_logs.aggregate([
   { <span class="key">$match</span>: {
-      pattern: <span class="str">"randwrite"</span>,
-      bs: <span class="str">"4k"</span>, qd: <span class="val">32</span>,
+      endpoint: <span class="str">"/api/data"</span>,
+      method: <span class="str">"POST"</span>, status: <span class="val">200</span>,
       date: { <span class="key">$gte</span>: <span class="str">"2026-05-01"</span> }
   }},
   { <span class="key">$group</span>: {
-      _id: <span class="str">"$model"</span>,
-      avg_iops: { <span class="key">$avg</span>: <span class="str">"$iops"</span> }
+      _id: <span class="str">"$endpoint"</span>,
+      avg_ms: { <span class="key">$avg</span>: <span class="str">"$response_ms"</span> }
   }},
-  { <span class="key">$sort</span>: { avg_iops: <span class="val">1</span> }},
+  { <span class="key">$sort</span>: { avg_ms: <span class="val">-1</span> }},
   { <span class="key">$limit</span>: <span class="val">3</span> }
 ])</pre>
         <div class="tip">SQL을 몰라도 됩니다. 자연어로 물으면 Claude가 쿼리를 직접 작성하고 실행합니다.</div>
@@ -900,39 +900,38 @@ db.bench_results.aggregate([
         </div>
 
         <div class="highlight">
-          <strong>예시 1:</strong> <code>/bench-report results/jan.json</code><br>
-          <span style="font-size:14px; color:#8b949e;">→ FIO JSON을 받아 표준 성능 리포트 자동 생성 (Project 스코프 → 팀 공유)</span>
+          <strong>예시 1:</strong> <code>/api-report logs/jan.json</code><br>
+          <span style="font-size:14px; color:#8b949e;">→ 테스트 결과 JSON을 받아 표준 API 리포트 자동 생성 (Project 스코프 → 팀 공유)</span>
         </div>
         <div class="highlight">
-          <strong>예시 2:</strong> <code>/compare-run jan.json feb.json</code><br>
-          <span style="font-size:14px; color:#8b949e;">→ 두 벤치마크 결과 비교, 회귀 감지 (Project 스코프)</span>
+          <strong>예시 2:</strong> <code>/code-review src/api.py</code><br>
+          <span style="font-size:14px; color:#8b949e;">→ 지정 파일 코드 리뷰, 개선 사항 감지 (Project 스코프)</span>
         </div>
         <div class="tip">Skills는 CLAUDE.md와 달리 <em>능동적으로 호출</em>하는 것. "이 작업을 자주 한다" 싶으면 Skill로 만들어두세요.</div>
       </div>
       <div>
-        <pre><span class="comment"># .claude/skills/bench-report.md
+        <pre><span class="comment"># .claude/skills/api-report.md
 # → Project 스코프: 팀 전체 공유</span>
 
 <span class="key">---
-description: FIO 결과 파일을 받아
-             표준 성능 리포트 생성
+description: 테스트 결과 JSON을 받아
+             표준 API 리포트 생성
 ---</span>
 
-인자로 받은 FIO JSON 파일을 읽고
+인자로 받은 테스트 결과 JSON 파일을 읽고
 아래 형식의 리포트를 작성하세요.
 
-<span class="str">## 성능 요약
-| 항목      | 측정값 | 목표치 | 판정 |
-|-----------|--------|--------|------|
-| Seq Read  | MB/s   | 7000   | ✓/✗  |
-| Rand 4K R | IOPS   | 1.5M   | ✓/✗  |
-| p99 Lat   | us     | 200    | ✓/✗  |</span>
+<span class="str">## API 상태 요약
+| 엔드포인트 | 응답시간 | 목표치 | 판정 |
+|------------|----------|--------|------|
+| GET /users | ms       | 200ms  | ✓/✗  |
+| POST /data | ms       | 500ms  | ✓/✗  |
+| RPS        | req/s    | 10K    | ✓/✗  |</span>
 
 규칙:
-- Sequential R/W 단위는 MB/s
-- Random은 IOPS
-- Latency는 p50 / p99 모두 표시
-- WAF &gt; 3.0이면 ⚠️ 경고 추가
+- 응답시간 단위는 ms
+- 에러율은 % 로 표시
+- 응답시간이 5% 이상 증가한 항목은 ⚠️ 경고 추가
 - 목표치 미달 항목은 원인 추정 작성</pre>
       </div>
     </div>
@@ -1015,8 +1014,8 @@ cp superpowers/*.md .claude/skills/</pre>
 
         <h3>수동 메모리 (Manual)</h3>
         <p style="font-size:15px; margin-bottom:10px;">"이거 기억해줘" 라고 말하거나 <code>/remember</code> 명령어를 사용합니다.</p>
-        <pre style="font-size:12px;"><span class="str">"우리 팀은 p99 레이턴시 기준이
-200us야, 기억해줘"</span>
+        <pre style="font-size:12px;"><span class="str">"우리 팀은 API 응답시간 기준이
+200ms야, 기억해줘"</span>
 
 <span class="comment">→ Claude가 memory 파일에 저장
 → 다음 대화에서 자동으로 적용</span></pre>
@@ -1027,19 +1026,19 @@ cp superpowers/*.md .claude/skills/</pre>
         <h3>메모리 종류 4가지</h3>
         <div class="card" style="margin-bottom:10px;">
           <h3 style="font-size:15px; color:#ffa64d;">user — 나에 대한 정보</h3>
-          <p style="font-size:13px;">"SSD 성능 파트, Python 사용, 리포트는 한국어로"<br>→ 매번 소개 없이 바로 맞춤 응답</p>
+          <p style="font-size:13px;">"백엔드 개발자, Python/TypeScript 사용, 리포트는 한국어로"<br>→ 매번 소개 없이 바로 맞춤 응답</p>
         </div>
         <div class="card" style="margin-bottom:10px;">
           <h3 style="font-size:15px; color:#ffa64d;">project — 현재 작업 상태</h3>
-          <p style="font-size:13px;">"NVMe Gen5 TLC 검증 중, 목표 IOPS 1.5M, 마감 7/31"<br>→ "지금 뭐 하고 있는지" 다시 설명 불필요</p>
+          <p style="font-size:13px;">"REST API 리팩토링 중, 목표 RPS 10K, 마감 7/31"<br>→ "지금 뭐 하고 있는지" 다시 설명 불필요</p>
         </div>
         <div class="card" style="margin-bottom:10px;">
           <h3 style="font-size:15px; color:#ffa64d;">feedback — 선호/비선호 방식</h3>
-          <p style="font-size:13px;">"단위 반드시 표기 (MB not M), 표는 항상 markdown 형식"<br>→ 같은 피드백을 반복할 필요 없음</p>
+          <p style="font-size:13px;">"타입 반드시 명시 (ms not 숫자만), 코드는 항상 타입 힌트 포함"<br>→ 같은 피드백을 반복할 필요 없음</p>
         </div>
         <div class="card">
           <h3 style="font-size:15px; color:#ffa64d;">reference — 외부 참조</h3>
-          <p style="font-size:13px;">"버그는 Jira BENCH 프로젝트에, 스펙은 내부 위키 참고"<br>→ 어디서 찾아야 하는지 알게 됨</p>
+          <p style="font-size:13px;">"버그는 Jira DEV 프로젝트에, 스펙은 내부 위키 참고"<br>→ 어디서 찾아야 하는지 알게 됨</p>
         </div>
       </div>
     </div>
@@ -1063,7 +1062,7 @@ cp superpowers/*.md .claude/skills/</pre>
           <li>Claude가 수정하지 않음</li>
         </ul>
         <div style="margin-top:14px; font-size:13px; color:#8b949e;">
-          예: "이 프로젝트는 FIO 기반 벤치마크 툴이며, results/ 폴더에 CSV로 저장됩니다"
+          예: "이 프로젝트는 REST API 서비스이며, logs/ 폴더에 JSON으로 저장됩니다"
         </div>
       </div>
       <div style="display:flex; align-items:center; justify-content:center; font-size:28px; color:#484f58; padding-top:60px;">vs</div>
@@ -1077,7 +1076,7 @@ cp superpowers/*.md .claude/skills/</pre>
           <li>Claude가 직접 쓰고 수정</li>
         </ul>
         <div style="margin-top:14px; font-size:13px; color:#8b949e;">
-          예: "이 사용자는 p99 기준 200us를 목표로 하며, 단위를 반드시 명시하길 원함"
+          예: "이 사용자는 API 응답시간 기준 200ms를 목표로 하며, 타입을 반드시 명시하길 원함"
         </div>
       </div>
     </div>
@@ -1176,7 +1175,7 @@ cp superpowers/*.md .claude/skills/</pre>
         <div class="tip">Hooks는 Claude가 직접 실행합니다. 승인 없이 자동으로 동작하므로 신중하게 작성하세요.</div>
       </div>
       <div>
-        <h3>SSD 파트 활용 예시</h3>
+        <h3>활용 예시</h3>
         <pre style="font-size:12px;"><span class="comment">// .claude/settings.json</span>
 {
   <span class="key">"hooks"</span>: {
@@ -1215,8 +1214,8 @@ cp superpowers/*.md .claude/skills/</pre>
       <div>
         <h3>Subagents — 전문화된 병렬 에이전트</h3>
         <p style="font-size:15px; margin-bottom:10px;">복잡한 작업을 여러 전문 에이전트에 <strong style="color:#e6edf3;">병렬로 위임</strong>합니다. 각 에이전트는 독립된 컨텍스트를 가져 서로 간섭하지 않습니다.</p>
-        <pre style="font-size:12px;"><span class="comment"># 예: 벤치마크 다중 분석</span>
-<span class="str">"3개 드라이브의 FIO 결과를
+        <pre style="font-size:12px;"><span class="comment"># 예: 서비스 다중 분석</span>
+<span class="str">"3개 마이크로서비스의 로그를
  동시에 각각 분석하고
  비교 리포트 만들어줘"</span>
 
@@ -1243,8 +1242,8 @@ Option + T  <span class="comment">(Mac)</span>
 Alt + T     <span class="comment">(Windows)</span>
 
 <span class="comment"># 또는 요청에 포함</span>
-<span class="str">"깊이 생각해서 이 레이턴시
- 스파이크의 원인을 분석해줘"</span></pre>
+<span class="str">"깊이 생각해서 이 API 오류의
+ 근본 원인을 분석해줘"</span></pre>
         <div class="warn">Extended Thinking은 응답이 느리고 비용이 높습니다. 단순 작업엔 사용하지 마세요.</div>
       </div>
     </div>
@@ -1267,36 +1266,36 @@ $ claude
 $ claude -p <span class="str">"이 코드 리뷰해줘"</span>
 
 <span class="comment"># 파이프라인 — stdin 읽기</span>
-$ cat bench_result.json \
-  | claude -p <span class="str">"p99 레이턴시 요약"</span>
+$ cat test_result.json \
+  | claude -p <span class="str">"API 응답시간 요약"</span>
 
 <span class="comment"># 파일 직접 전달</span>
 $ claude -p <span class="str">"이 로그 분석"</span> \
-  --file dmesg.log
+  --file app.log
 
 <span class="comment"># 세션 재개</span>
-$ claude -r <span class="str">"bench-session"</span> \
+$ claude -r <span class="str">"api-session"</span> \
   <span class="str">"어제 분석 이어서 해줘"</span></pre>
       </div>
       <div>
-        <h3>SSD 자동화 파이프라인 예시</h3>
+        <h3>자동화 파이프라인 예시</h3>
         <pre style="font-size:12px;"><span class="comment">#!/bin/bash
-# 매일 밤 자동 벤치마크 + 분석 + 리포트</span>
+# 매일 밤 자동 테스트 + 분석 + 리포트</span>
 
-<span class="comment"># 1. FIO 실행</span>
-fio bench/nightly.fio \
+<span class="comment"># 1. 테스트 실행</span>
+python run_tests.py \
   --output-format=json \
-  > results/$(date +%F).json
+  > logs/$(date +%F).json
 
 <span class="comment"># 2. Claude로 자동 분석</span>
-cat results/$(date +%F).json \
-  | claude -p <span class="str">"전일 대비 성능 비교
+cat logs/$(date +%F).json \
+  | claude -p <span class="str">"전일 대비 응답시간 비교
     이상값 감지, 한국어 요약"</span> \
   > reports/$(date +%F).md
 
 <span class="comment"># 3. 슬랙 알림 (선택)</span>
 cat reports/$(date +%F).md \
-  | slack-notify --channel bench</pre>
+  | slack-notify --channel dev</pre>
 
         <div class="tip">
           <code>-p</code> 플래그(print)는 stdout으로만 출력하고 종료합니다. 크론잡, 쉘 스크립트에 통합하기 좋습니다.
@@ -1328,7 +1327,7 @@ cat reports/$(date +%F).md \
           <li><strong style="color:#3fb950;">CLAUDE.md</strong> — 프로젝트 구조·컨벤션 한 번 정의, 매 대화 자동 로드</li>
           <li><strong style="color:#3fb950;">Context Engineering</strong> — 컨텍스트 구성 의도적 설계 · /clear · /compact · 캐싱</li>
           <li><strong style="color:#bc8cff;">Bash / Read / Edit / Write / Grep</strong> — 명령 실행, 파일 조작, 패턴 검색</li>
-          <li><strong style="color:#bc8cff;">WebFetch / WebSearch</strong> — 스펙 문서 조회, 최신 정보 검색</li>
+          <li><strong style="color:#bc8cff;">WebFetch / WebSearch</strong> — API 문서 조회, 최신 정보 검색</li>
           <li><strong style="color:#bc8cff;">MCP</strong> — MongoDB·DB·사내 API 연결 (항상 컨텍스트 점유 주의)</li>
           <li><strong style="color:#ffa64d;">Skills</strong> — 반복 패턴을 <code>/명령어</code>로, 3단계 스코프 (global·user·project)</li>
           <li><strong style="color:#ffa64d;">Memory</strong> — user·project·feedback·reference 4종, 영속 저장</li>
@@ -1340,10 +1339,10 @@ cat reports/$(date +%F).md \
       <div>
         <h3>오늘부터 할 수 있는 것</h3>
         <div class="card" style="margin-bottom:12px;">
-          <p style="font-size:15px;">1️⃣ 프로젝트 루트에 <strong>CLAUDE.md</strong> 만들기<br><span style="color:#8b949e;">팀 구조 + 주요 명령어 + FIO 파라미터 기준값</span></p>
+          <p style="font-size:15px;">1️⃣ 프로젝트 루트에 <strong>CLAUDE.md</strong> 만들기<br><span style="color:#8b949e;">팀 구조 + 주요 명령어 + 코딩 컨벤션 기준</span></p>
         </div>
         <div class="card" style="margin-bottom:12px;">
-          <p style="font-size:15px;">2️⃣ <strong>/bench-report</strong> Skill 하나 만들어보기<br><span style="color:#8b949e;">가장 자주 쓰는 리포트 포맷을 텍스트로 정의</span></p>
+          <p style="font-size:15px;">2️⃣ <strong>/api-report</strong> Skill 하나 만들어보기<br><span style="color:#8b949e;">가장 자주 쓰는 리포트 포맷을 텍스트로 정의</span></p>
         </div>
         <div class="card">
           <p style="font-size:15px;">3️⃣ 다음 분석 작업에서 <strong>Claude를 파트너로</strong> 써보기<br><span style="color:#8b949e;">결과 해석, 코드 작성, 리포트 초안 중 하나라도</span></p>

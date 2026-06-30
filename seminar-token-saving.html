@@ -274,7 +274,7 @@
   <div class="slide slide-title active">
     <div class="slide-num">01</div>
     <div style="max-width:760px;">
-      <div class="badge badge-teal">SSD 파트 세미나 · 별도 편</div>
+      <div class="badge badge-teal">파트 세미나 · 별도 편</div>
       <h1>토큰 절약 &amp;<br><span>비용 최적화</span></h1>
       <p class="subtitle">Claude Code를 빠르고 저렴하게 쓰는 방법</p>
       <div style="display:flex; gap:12px; margin-top:36px; flex-wrap:wrap;">
@@ -282,7 +282,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">2</span> 컨텍스트가 비용에 미치는 영향</div>
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">3</span> 절약 전략 7가지</div>
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">4</span> 모델 선택과 프롬프트 캐싱</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">5</span> SSD 분석 실전 패턴</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">5</span> 개발 실전 패턴</div>
       </div>
     </div>
   </div>
@@ -307,13 +307,13 @@
         <p style="margin-bottom:18px;">토큰은 단어보다 작은 단위입니다. 영어 기준 단어 하나 ≈ 1~2 토큰, 한국어는 글자 하나가 2~3 토큰.</p>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:20px; margin-bottom:16px;">
-          <div style="font-size:13px; color:#8b949e; margin-bottom:12px;">예: "NVMe SSD 성능 분석" 토큰화</div>
+          <div style="font-size:13px; color:#8b949e; margin-bottom:12px;">예: "API 응답시간 분석" 토큰화</div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#58a6ff;">NV</span>
-            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#bc8cff;">Me</span>
-            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#3fb950;">SSD</span>
-            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#ffa64d;">성</span>
-            <span style="background:rgba(86,211,208,0.15); border:1px solid rgba(86,211,208,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#56d3d0;">능</span>
+            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#58a6ff;">API</span>
+            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#bc8cff;">응</span>
+            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#3fb950;">답</span>
+            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#ffa64d;">시</span>
+            <span style="background:rgba(86,211,208,0.15); border:1px solid rgba(86,211,208,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#56d3d0;">간</span>
             <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#f85149;">분</span>
             <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#58a6ff;">석</span>
           </div>
@@ -416,15 +416,15 @@
         <div class="compare-row">
           <div class="bad-box">
             # 나쁜 예<br>
-            "dmesg.log 분석해줘"<br>
-            → Read("dmesg.log")<br>
+            "app.log 분석해줘"<br>
+            → Read("app.log")<br>
             → 200,000 토큰 소비
           </div>
           <div class="arrow">→</div>
           <div class="good-box">
             # 좋은 예<br>
-            "dmesg에서 NVMe<br>timeout만 찾아줘"<br>
-            → Grep("timeout", "dmesg")<br>
+            "app.log에서 ERROR<br>WARN만 찾아줘"<br>
+            → Grep("ERROR\|WARN", "app.log")<br>
             → 500 토큰 소비
           </div>
         </div>
@@ -463,7 +463,7 @@ Total:                  $0.11</pre>
         <h3 style="margin-bottom:8px;">① 작업마다 <code>/clear</code></h3>
         <p style="font-size:15px; margin-bottom:6px;">가장 효과가 큰 습관. 무관한 새 작업을 시작할 때 이전 대화를 전부 날립니다.</p>
         <div class="compare-row" style="margin-bottom:16px;">
-          <div class="bad-box">벤치 분석 50턴 후<br>→ 스크립트 작성 요청<br>= 50턴 × 매번 읽음</div>
+          <div class="bad-box">로그 분석 50턴 후<br>→ 스크립트 작성 요청<br>= 50턴 × 매번 읽음</div>
           <div class="arrow">→</div>
           <div class="good-box">/clear 후<br>스크립트 작성 요청<br>= 깨끗한 시작</div>
         </div>
@@ -473,23 +473,23 @@ Total:                  $0.11</pre>
 
         <h3 style="margin-bottom:8px;">③ 파일은 범위 지정해서 읽기</h3>
         <div class="compare-row">
-          <div class="bad-box">Read("bench.csv")<br><span style="color:#484f58; font-size:11px;">전체: ~50,000 토큰</span></div>
+          <div class="bad-box">Read("app.log")<br><span style="color:#484f58; font-size:11px;">전체: ~50,000 토큰</span></div>
           <div class="arrow">→</div>
-          <div class="good-box">Read("bench.csv",<br>  offset=0, limit=100)<br><span style="color:#484f58; font-size:11px;">일부: ~500 토큰</span></div>
+          <div class="good-box">Read("app.log",<br>  offset=0, limit=100)<br><span style="color:#484f58; font-size:11px;">일부: ~500 토큰</span></div>
         </div>
       </div>
       <div>
         <h3 style="margin-bottom:8px;">④ Grep으로 관련 부분만 추출</h3>
         <p style="font-size:15px; margin-bottom:10px;">파일 전체 대신 패턴에 맞는 줄만 가져옵니다.</p>
-        <pre style="font-size:13px;"><span class="comment"># p99 관련 줄만 검색</span>
-Grep(<span class="str">"lat_p99"</span>, <span class="str">"results/"</span>)
+        <pre style="font-size:13px;"><span class="comment"># 응답시간 관련 줄만 검색</span>
+Grep(<span class="str">"response_ms"</span>, <span class="str">"logs/"</span>)
 
 <span class="comment"># 오류 패턴만 추출</span>
 Grep(<span class="str">"ERROR|WARN|timeout"</span>,
      <span class="str">"logs/"</span>, recursive=True)
 
 <span class="comment"># Bash에서 미리 필터링</span>
-$ grep "nvme.*err" dmesg.log \
+$ grep "ERROR\|WARN" app.log \
   | tail -50</pre>
 
         <div class="tip">Grep은 파일 내용을 컨텍스트에 모두 올리지 않고 매칭된 줄만 반환합니다. 대용량 로그에서 특히 효과적.</div>
@@ -509,13 +509,13 @@ $ grep "nvme.*err" dmesg.log \
         <h3 style="margin-bottom:8px;">⑤ 구체적인 요청 = 짧은 응답</h3>
         <p style="font-size:15px; margin-bottom:10px;">출력 토큰은 입력보다 5배 비쌉니다. 응답을 짧게 만드는 것도 절약입니다.</p>
         <div class="compare-row" style="margin-bottom:16px;">
-          <div class="bad-box">"이 벤치 결과 분석해줘"<br><span style="color:#484f58; font-size:11px;">→ 2,000 토큰 응답</span></div>
+          <div class="bad-box">"이 로그 결과 분석해줘"<br><span style="color:#484f58; font-size:11px;">→ 2,000 토큰 응답</span></div>
           <div class="arrow">→</div>
-          <div class="good-box">"p99 lat만 전주 대비<br>% 변화 한 줄 요약"<br><span style="color:#484f58; font-size:11px;">→ 50 토큰 응답</span></div>
+          <div class="good-box">"API 응답시간만 전주 대비<br>% 변화 한 줄 요약"<br><span style="color:#484f58; font-size:11px;">→ 50 토큰 응답</span></div>
         </div>
 
         <h3 style="margin-bottom:8px;">⑥ CLAUDE.md — 반복 설명 제거</h3>
-        <p style="font-size:15px; margin-bottom:6px;">매번 "우리 프로젝트는 FIO 기반이고..." 설명하는 것 = 매 대화마다 수백 토큰 낭비.</p>
+        <p style="font-size:15px; margin-bottom:6px;">매번 "우리 프로젝트는 이런 구조이고..." 설명하는 것 = 매 대화마다 수백 토큰 낭비.</p>
         <div class="tip">CLAUDE.md는 <strong style="color:#e6edf3;">프롬프트 캐시</strong>되므로 반복 비용이 거의 없습니다. 자세히 써도 손해가 없어요.</div>
       </div>
       <div>
@@ -569,8 +569,8 @@ GitHub MCP   ≈ 1,200 토큰/응답
           <h3 style="color:#58a6ff; font-size:16px;">Sonnet 4.6 — 일반 개발·분석</h3>
           <ul class="tight" style="margin-top:8px;">
             <li>코드 작성 및 버그 수정</li>
-            <li>벤치마크 결과 해석 및 리포트</li>
-            <li>FIO job 파일 작성</li>
+            <li>API 응답 결과 해석 및 리포트</li>
+            <li>테스트 스크립트 작성</li>
             <li>스크립트 설계 및 구현</li>
           </ul>
         </div>
@@ -617,7 +617,7 @@ claude-opus-4-8             <span class="comment"># 고성능</span></pre>
               <td style="color:#3fb950;">87%↓</td>
             </tr>
             <tr>
-              <td>FIO 결과 포맷</td>
+              <td>테스트 결과 포맷</td>
               <td style="color:#e3b341;">$0.08</td>
               <td style="color:#3fb950;">$0.01</td>
               <td style="color:#3fb950;">88%↓</td>
@@ -681,57 +681,57 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
     <div class="big-num">05</div>
     <div class="content">
       <div class="badge badge-teal">실전</div>
-      <h2>SSD 분석 실전 패턴</h2>
+      <h2>개발 실전 패턴</h2>
       <p style="color:#8b949e;">토큰 절약을 적용한 업무 패턴 모음</p>
     </div>
   </div>
 
-  <!-- ══ SSD 실전 패턴 ══ -->
+  <!-- ══ 개발 실전 패턴 ══ -->
   <div class="slide">
     <div class="slide-num">13</div>
-    <div class="badge badge-teal">SSD 실전 패턴</div>
-    <h2>SSD 성능 분석 × 토큰 절약 패턴</h2>
+    <div class="badge badge-teal">개발 실전 패턴</div>
+    <h2>개발 업무 × 토큰 절약 패턴</h2>
     <div class="three-col">
       <div class="card">
-        <h3>벤치마크 자동화</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"bench/ 안의 모든 fio
- job을 순서대로 실행하고
- 결과를 results/에 날짜로
+        <h3>테스트 자동화</h3>
+        <pre style="font-size:11px; margin-top:8px;"><span class="str">"tests/ 안의 모든 테스트를
+ 순서대로 실행하고
+ 결과를 logs/에 날짜로
  저장해줘"</span></pre>
         <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Glob + Bash 조합. 파일 내용 읽지 않고 실행만</p>
       </div>
       <div class="card">
         <h3>회귀 분석 (절약형)</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"지난 30일 CSV에서
- Seq Read가 5% 이상
- 떨어진 날짜만 알려줘"</span></pre>
+        <pre style="font-size:11px; margin-top:8px;"><span class="str">"지난 30일 로그에서
+ 응답시간이 5% 이상
+ 증가한 날짜만 알려줘"</span></pre>
         <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Haiku 모델로 전환 + Grep으로 이상값만 추출</p>
       </div>
       <div class="card">
         <h3>리포트 생성</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"/bench-report
- results/jan_nvme.json"</span></pre>
+        <pre style="font-size:11px; margin-top:8px;"><span class="str">"/api-report
+ logs/jan_report.json"</span></pre>
         <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Skill로 프롬프트 재사용. 같은 요청 반복 안 해도 됨</p>
       </div>
       <div class="card">
         <h3>로그 장애 분석</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"dmesg.log에서 14~16시
- NVMe 에러만 요약해줘"</span></pre>
+        <pre style="font-size:11px; margin-top:8px;"><span class="str">"app.log에서 14~16시
+ ERROR 에러만 요약해줘"</span></pre>
         <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Bash로 시간 필터 후 결과만 Claude에게 전달</p>
         <pre style="font-size:11px; margin-top:6px;">$ awk '/14:0[0-9]|15:|16:00/
-  && /nvme.*err/' dmesg.log</pre>
+  && /ERROR/' app.log</pre>
       </div>
       <div class="card">
         <h3>코드 리뷰 (범위 지정)</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"parse_fio.py 50~100번째
- 줄의 p99 계산 로직만
+        <pre style="font-size:11px; margin-top:8px;"><span class="str">"parse_logs.py 50~100번째
+ 줄의 응답시간 파싱 로직만
  검토해줘"</span></pre>
         <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Read(offset=50, limit=50). 파일 전체 읽기 방지</p>
       </div>
       <div class="card">
-        <h3>MongoDB 쿼리 최적화</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"이번 달 QD32 결과에서
- IOPS 하위 3개 모델만
+        <h3>DB 쿼리 최적화</h3>
+        <pre style="font-size:11px; margin-top:8px;"><span class="str">"이번 달 API 로그에서
+ 응답시간 상위 3개 엔드포인트만
  반환하도록 쿼리 최적화"</span></pre>
         <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ DB에서 필터링 → 결과만 컨텍스트 진입. 전체 fetch 금지</p>
       </div>
