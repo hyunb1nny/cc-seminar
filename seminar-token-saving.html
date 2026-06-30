@@ -364,6 +364,85 @@
     </div>
   </div>
 
+  <!-- ══ 한국어 vs 영어 토큰 ══ -->
+  <div class="slide">
+    <div class="slide-num">04</div>
+    <div class="badge badge-teal">토큰 기초</div>
+    <h2>한국어는 영어보다 토큰을 더 씁니다</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:14px;">Claude의 토크나이저(BPE)는 영어 중심으로 학습되었습니다. 한글 한 글자는 보통 <strong style="color:#e6edf3;">2~3 토큰</strong>, 영어 단어 하나는 <strong style="color:#3fb950;">1~2 토큰</strong>.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px; margin-bottom:14px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em;">같은 의미, 다른 토큰 수</div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-size:11px; color:#3fb950; margin-bottom:4px;">🇺🇸 영어 — 약 6 토큰</div>
+            <div style="display:flex; gap:5px; flex-wrap:wrap;">
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">Ana</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">lyze</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">API</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">response</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">time</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">data</span>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size:11px; color:#f85149; margin-bottom:4px;">🇰🇷 한국어 — 약 14 토큰</div>
+            <div style="display:flex; gap:5px; flex-wrap:wrap;">
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">API</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">응</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">답</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">시</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">간</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">데</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">이</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">터</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">를</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">분</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">석</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">해</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">줘</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">언어별 토큰 효율 비교</h3>
+        <table class="cost-table" style="margin-bottom:14px;">
+          <thead>
+            <tr><th>언어</th><th>글자당 토큰</th><th>같은 내용</th><th>배율</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>영어</td>
+              <td style="color:#3fb950;">0.25~0.5</td>
+              <td style="color:#3fb950;">~6 토큰</td>
+              <td style="color:#3fb950;">1×</td>
+            </tr>
+            <tr>
+              <td>한국어</td>
+              <td style="color:#ffa64d;">2~3</td>
+              <td style="color:#ffa64d;">~14 토큰</td>
+              <td style="color:#ffa64d;">~2.5×</td>
+            </tr>
+            <tr>
+              <td>일본어·중국어</td>
+              <td style="color:#f85149;">2~3</td>
+              <td style="color:#f85149;">~13 토큰</td>
+              <td style="color:#f85149;">~2×</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tip">CLAUDE.md의 규칙·지침은 영문으로 작성하면 컨텍스트 절약에 유리합니다. 매 대화마다 읽히는 파일이므로 효과가 큽니다.</div>
+        <div class="warn" style="margin-top:10px;">대화 자체를 영어로 쓸 필요는 없습니다. 비용 차이보다 <strong style="color:#e6edf3;">정확한 의도 전달</strong>이 더 중요합니다.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ DIVIDER 2 ══ -->
   <div class="slide slide-divider">
     <div class="big-num">02</div>
