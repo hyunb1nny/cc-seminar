@@ -488,33 +488,33 @@ Total:                  $0.11</pre>
     <h2>/context — 컨텍스트 점유 현황 확인</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;">절약하기 전에 무엇이 토큰을 차지하고 있는지 먼저 파악해야 합니다. <code>/context</code> 명령어로 현재 컨텍스트 구성을 확인합니다.</p>
-        <pre style="font-size:12px;"><span class="comment"># 현재 컨텍스트 점유 현황</span>
-/context
-
-CLAUDE.md             2,341 tokens  18%
-Conversation history  5,820 tokens  44%
-Tool results          3,100 tokens  23%
-MCP schemas           1,890 tokens  14%
-Current request         120 tokens   1%
-────────────────────────────────────
-Total                13,271 / 200K tokens</pre>
-        <div class="tip">MCP 스키마가 예상보다 많은 비중을 차지한다면 사용하지 않는 서버를 비활성화하세요.</div>
+        <p style="margin-bottom:10px;">절약하기 전에 무엇이 토큰을 차지하고 있는지 먼저 파악해야 합니다. <code>/context</code>를 실행하면 시각적 그리드와 카테고리별 분석을 보여줍니다.</p>
+        <pre style="font-size:11px; line-height:1.7;">/context
+  ⎿  Context Usage
+     ⛁ ⛀ ⛀ ⛀ ⛁   claude-opus-4-8 · 227k/1000k (23%)
+     ⛁ ⛁ ⛁ ⛁ ⛁
+     ⛁ ⛁ ⛁ ⛶ ⛶   Estimated usage by category
+     ⛶ ⛶ ⛶ ⛶ ⛶   <span class="good">⛁ System prompt:   25.8k  (2.6%)</span>
+     ⛶ ⛶ ⛶ ⛶ ⛶   <span class="good">⛁ System tools:     8.5k  (0.8%)</span>
+     ⛶ ⛶ ⛶ ⛶ ⛶   <span class="good">⛁ Memory files:     8.3k  (0.8%)</span>
+     ⛶ ⛶ ⛶ ⛶ ⛶   <span class="good">⛁ Skills:           0.5k  (0.1%)</span>
+     ⛶ ⛶ ⛶ ⛶ ⛶   <span class="val">⛁ Messages:       184.5k (18.5%)</span>
+     ⛶ ⛶ ⛶ ⛝ ⛝   <span class="comment">⛶ Free space:       739k (73.9%)</span>
+                   <span class="bad">⛝ Autocompact buf:   33k  (3.3%)</span></pre>
       </div>
       <div>
-        <h3 style="margin-bottom:8px;">점검 체크리스트</h3>
+        <h3 style="margin-bottom:8px;">카테고리별 대응 전략</h3>
         <ul class="tight" style="margin-bottom:12px;">
-          <li><strong style="color:#e6edf3;">CLAUDE.md가 크다</strong> → 다이어트 (별도 슬라이드 참조)</li>
-          <li><strong style="color:#e6edf3;">대화 히스토리가 크다</strong> → <code>/compact</code> 또는 <code>/clear</code></li>
-          <li><strong style="color:#e6edf3;">Tool result가 크다</strong> → 파일 범위 지정, 출력 <code>| head</code></li>
-          <li><strong style="color:#e6edf3;">MCP 스키마가 크다</strong> → 미사용 MCP 서버 비활성화</li>
+          <li><strong style="color:#e6edf3;">Messages가 크다</strong> → <code>/compact</code> 또는 <code>/clear</code></li>
+          <li><strong style="color:#e6edf3;">Memory files가 크다</strong> → CLAUDE.md 다이어트 (@경로 참조)</li>
+          <li><strong style="color:#e6edf3;">System tools가 크다</strong> → 미사용 MCP 서버 비활성화</li>
+          <li><strong style="color:#e6edf3;">Autocompact buffer가 있다</strong> → 이미 압축 발동된 상태</li>
         </ul>
-        <div class="warn">컨텍스트가 한계에 가까워질수록 Claude의 응답 품질이 떨어집니다. 전략을 쓰기 전, 먼저 진단부터 합니다.</div>
-        <div style="margin-top:12px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:12px 14px;">
+        <div class="warn">컨텍스트가 한계에 가까워질수록 응답 품질이 떨어집니다. 전략을 쓰기 전, 먼저 진단부터.</div>
+        <div style="margin-top:10px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 14px;">
           <div style="font-size:12px; color:#8b949e; margin-bottom:6px;">함께 쓰면 좋은 명령어</div>
-          <div style="font-size:13px; color:#c9d1d9;"><code>/cost</code> — 현재 대화 비용 확인</div>
-          <div style="font-size:13px; color:#c9d1d9; margin-top:4px;"><code>/context</code> — 컨텍스트 구성 분석</div>
-          <div style="font-size:13px; color:#c9d1d9; margin-top:4px;"><code>/compact</code> — 히스토리 압축</div>
+          <div style="font-size:13px; color:#c9d1d9;"><code>/cost</code> — 현재 대화 누적 비용</div>
+          <div style="font-size:13px; color:#c9d1d9; margin-top:4px;"><code>/compact</code> — Messages 히스토리 압축</div>
         </div>
       </div>
     </div>
