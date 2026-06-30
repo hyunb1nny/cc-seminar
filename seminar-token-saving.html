@@ -275,7 +275,7 @@
 
   <!-- ══ TITLE ══ -->
   <div class="slide slide-title active">
-    <div class="slide-num">01</div>
+    <div class="slide-num">-</div>
     <div style="max-width:760px;">
       <div class="badge badge-teal">세션 2</div>
       <h1>토큰 절약 &amp;<br><span>비용 최적화</span></h1>
@@ -303,12 +303,12 @@
 
   <!-- ══ 토큰 기초 ══ -->
   <div class="slide">
-    <div class="slide-num">03</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-teal">토큰 기초</div>
     <h2>토큰 = Claude의 "글자 단위"</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:14px;">토큰은 단어보다 작은 단위입니다. 영어 기준 단어 하나 ≈ 1~2 토큰, 한국어는 글자 하나가 2~3 토큰.</p>
+        <p style="margin-bottom:14px;">토큰은 단어보다 작은 단위입니다. 영어 기준 단어 하나 ≈ 1~2 토큰, 한국어 음절 하나 ≈ 2~3 서브토큰 (아래 시각화는 음절 경계만 표시).</p>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px; margin-bottom:12px;">
           <div style="font-size:12px; color:#8b949e; margin-bottom:10px;">예: "API 응답시간 분석" 토큰화</div>
@@ -321,7 +321,7 @@
             <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">분</span>
             <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#58a6ff;">석</span>
           </div>
-          <div style="font-size:11px; color:#484f58; margin-top:8px;">= 약 7토큰 (한국어는 글자당 2~3토큰 소비)</div>
+          <div style="font-size:11px; color:#484f58; margin-top:8px;">= 실제로는 14~21 토큰 수준 (한글 음절당 2~3 서브토큰)</div>
         </div>
 
         <ul class="tight">
@@ -331,7 +331,7 @@
         </ul>
       </div>
       <div>
-        <h3>모델별 토큰 단가 (2026년 기준)</h3>
+        <h3>모델별 토큰 단가 <span style="font-size:11px; color:#484f58;">(※ 가격은 변동될 수 있으니 공식 pricing 페이지에서 확인)</span></h3>
         <table class="cost-table">
           <thead><tr><th>모델</th><th>입력</th><th>출력</th><th>용도</th></tr></thead>
           <tbody>
@@ -363,7 +363,7 @@
 
   <!-- ══ 한국어 vs 영어 토큰 ══ -->
   <div class="slide">
-    <div class="slide-num">04</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-teal">토큰 기초</div>
     <h2>한국어는 영어보다 토큰을 더 씁니다</h2>
     <div class="two-col">
@@ -431,7 +431,7 @@
 
   <!-- ══ 토큰 소비 원인 ══ -->
   <div class="slide">
-    <div class="slide-num">05</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-teal">토큰 소비 원인</div>
     <h2>어디서 토큰이 새는가</h2>
     <div class="two-col">
@@ -483,7 +483,7 @@ Total:                  $0.11</pre>
 
   <!-- ══ /context 점검 ══ -->
   <div class="slide">
-    <div class="slide-num">06</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-teal">진단 도구</div>
     <h2>/context — 컨텍스트 점유 현황 확인</h2>
     <div class="two-col">
@@ -726,7 +726,8 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
     <h2>/handoff — 맥락을 요약해 새 세션으로 넘기기</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;"><code>/handoff</code>는 현재 세션의 작업 맥락을 요약한 뒤 새 대화로 핸드오프합니다. <code>/compact</code>가 같은 세션 내 압축이라면, <code>/handoff</code>는 완전히 새로운 컨텍스트에서 재시작합니다.</p>
+        <p style="margin-bottom:6px;"><code>/handoff</code>는 현재 세션의 작업 맥락을 요약한 뒤 새 대화로 핸드오프합니다. <code>/compact</code>가 같은 세션 내 압축이라면, <code>/handoff</code>는 완전히 새로운 컨텍스트에서 재시작합니다.</p>
+        <div class="warn" style="margin-bottom:8px;"><strong style="color:#ffa64d;">커뮤니티 스킬</strong> — <code>mattpocock/skills</code>에서 설치. Claude Code 내장 명령어가 아닙니다. (<a href="https://github.com/mattpocock/skills" style="color:#8b949e;">github.com/mattpocock/skills</a>)</div>
         <div class="compare-row" style="margin-bottom:10px;">
           <div class="bad-box" style="font-size:12px;">긴 대화를 그대로 이어감<br>= 누적 히스토리 전체 재독<br>= 토큰 폭증</div>
           <div class="arrow">→</div>
@@ -906,7 +907,7 @@ data/*.csv</pre>
     <h2>CLI vs MCP — 토큰 실측 비교</h2>
     <div class="two-col">
       <div>
-        <h3 style="margin-bottom:6px;">실제 벤치마크 (Scalekit, 2026)</h3>
+        <h3 style="margin-bottom:6px;">실측 벤치마크 (Scalekit, 2026 — 동일 작업 비교)</h3>
         <table class="cost-table" style="margin-bottom:10px;">
           <thead><tr><th>작업</th><th style="color:#3fb950;">CLI</th><th style="color:#f85149;">MCP</th><th>배율</th></tr></thead>
           <tbody>
@@ -995,7 +996,8 @@ data/*.csv</pre>
     <h2>RTK — Bash 출력을 Claude에 전달하기 전에 압축</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
+        <p style="margin-bottom:6px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
+        <div class="warn" style="margin-bottom:8px;">커뮤니티 오픈소스 도구입니다. 사내 도입 전 팀 검토를 권장합니다.</div>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
           <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">30분 Claude Code 세션 기준</div>
@@ -1052,7 +1054,8 @@ $ pytest tests/
     <div class="two-col">
       <div>
         <p style="margin-bottom:4px; font-size:16px; color:#bc8cff; font-style:italic; font-weight:600;">"why use many token when few token do trick"</p>
-        <p style="margin-bottom:10px; font-size:13px; color:#8b949e;">Claude Code 스킬로 설치하면 AI의 출력 스타일 자체를 압축합니다.</p>
+        <p style="margin-bottom:6px; font-size:13px; color:#8b949e;">Claude Code 스킬로 설치하면 AI의 출력 스타일 자체를 압축합니다.</p>
+        <div class="warn" style="margin-bottom:8px;">커뮤니티 오픈소스 스킬. <code>curl | bash</code> 설치 시 스크립트 내용 확인 후 실행하세요.</div>
 
         <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
           <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">React 디버깅 설명 예시</div>
