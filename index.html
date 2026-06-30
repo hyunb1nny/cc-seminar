@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent & Claude Code 세미나</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container { max-width: 640px; width: 100%; padding: 60px 40px; text-align: center; }
+  h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+  h1 span { color: #58a6ff; }
+  .sub { font-size: 16px; color: #8b949e; margin-bottom: 48px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  a.card {
+    display: block;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  a.card:hover { border-color: #58a6ff; transform: translateY(-2px); }
+  .card-icon { font-size: 36px; margin-bottom: 12px; }
+  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #e6edf3; }
+  .card-desc { font-size: 13px; color: #8b949e; line-height: 1.6; }
+  .card-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .badge-blue   { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  .badge-teal   { background: rgba(86,211,208,0.15); color: #56d3d0; border: 1px solid rgba(86,211,208,0.3); }
+  footer { margin-top: 48px; font-size: 12px; color: #484f58; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>AI Agent &amp; <span>Claude Code</span></h1>
+  <p class="sub">SSD 파트 내부 세미나 자료</p>
+  <div class="cards">
+    <a class="card" href="seminar-slides.html">
+      <div class="card-badge badge-blue">메인 세미나</div>
+      <div class="card-icon">🚀</div>
+      <div class="card-title">Claude Code 핵심 가이드</div>
+      <div class="card-desc">CLAUDE.md · Context Engineering · Tools · Skills · Memory · Harness Engineering</div>
+    </a>
+    <a class="card" href="seminar-token-saving.html">
+      <div class="card-badge badge-teal">별도 세미나</div>
+      <div class="card-icon">💰</div>
+      <div class="card-title">토큰 절약 &amp; 비용 최적화</div>
+      <div class="card-desc">토큰 기초 · 소비 원인 분석 · 절약 전략 7가지 · 모델 선택 · 프롬프트 캐싱</div>
+    </a>
+  </div>
+  <footer>SSD Performance Lab · Claude Code Seminar</footer>
+</div>
+</body>
+</html>
