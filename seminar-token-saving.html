@@ -841,51 +841,45 @@ SSD 성능 모니터링 서비스
     </div>
   </div>
 
-  <!-- ══ .claudeignore ══ -->
+  <!-- ══ 파일 제외 설정 ══ -->
   <div class="slide">
     <div class="slide-num">-</div>
     <div class="badge badge-green">절약 전략 기초</div>
-    <h2>.claudeignore — Claude가 보지 않을 파일 지정</h2>
+    <h2>파일 제외 설정 — Claude가 읽지 않을 경로 지정</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:10px;">.gitignore처럼, Claude가 컨텍스트에 포함하지 않을 파일·디렉토리를 지정합니다.</p>
+        <p style="margin-bottom:10px;">Claude Code는 <code>.gitignore</code>를 자동으로 존중합니다. <code>node_modules/</code>, <code>dist/</code> 등은 이미 파일 검색에서 제외됩니다. git에 커밋된 파일은 <code>permissions.deny</code>로 추가 차단합니다.</p>
 
         <h3 style="margin-bottom:6px;">왜 필요한가?</h3>
         <ul class="tight" style="margin-bottom:10px;">
-          <li>대규모 파일을 실수로 읽어 컨텍스트가 터지는 것을 방지</li>
-          <li><code>node_modules</code>, <code>dist</code>, <code>*.lock</code> 등 무관한 파일 차단</li>
-          <li>민감 정보 파일 (<code>.env</code>, 키 파일) 보호</li>
-          <li>바이너리·미디어 파일 제외</li>
+          <li>vendor 코드·생성 파일을 실수로 읽어 컨텍스트 낭비 방지</li>
+          <li>커밋된 대용량 파일 (SDK 번들, 스냅샷 등) 차단</li>
+          <li>민감 정보 경로 보호</li>
         </ul>
 
-        <div class="tip">프로젝트 루트에 <code>.claudeignore</code> 파일을 두면 Claude Code가 자동으로 인식합니다.</div>
+        <div class="tip"><code>.gitignore</code>에 이미 있는 경로(node_modules, dist, .env 등)는 별도 설정 불필요 — Claude Code가 자동 존중합니다.</div>
       </div>
       <div>
-        <h3 style="margin-bottom:6px;">예시 .claudeignore</h3>
-        <pre style="font-size:12px;"><span class="comment"># 빌드 산출물</span>
-node_modules/
-dist/
-build/
-.next/
-
-<span class="comment"># 잠금 파일 (크고 불필요)</span>
-package-lock.json
-yarn.lock
-poetry.lock
-
-<span class="comment"># 민감 정보</span>
-.env
-.env.*
-*.pem
-secrets/
-
-<span class="comment"># 미디어·바이너리</span>
-*.png *.jpg *.mp4 *.zip
-
-<span class="comment"># 로그·데이터</span>
-logs/
-*.log
-data/*.csv</pre>
+        <h3 style="margin-bottom:6px;"><code>.claude/settings.json</code> — Read deny 규칙</h3>
+        <pre style="font-size:12px;"><span class="comment">// git에 커밋된 파일 중 읽지 않을 경로</span>
+{
+  <span class="key">"permissions"</span>: {
+    <span class="key">"deny"</span>: [
+      <span class="str">"Read(./**/dist/**)"</span>,
+      <span class="str">"Read(./**/build/**)"</span>,
+      <span class="str">"Read(./**/*.generated.*)"</span>,
+      <span class="str">"Read(./vendor/**)"</span>
+    ]
+  }
+}</pre>
+        <div style="margin-top:8px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">파일 제외 방법 정리</div>
+          <div style="font-size:12px; color:#c9d1d9; line-height:1.8;">
+            <span style="color:#3fb950;">✓</span> <code>.gitignore</code> — 자동 적용 (검색 시)<br>
+            <span style="color:#3fb950;">✓</span> <code>permissions.deny</code> — 커밋된 파일 Read 차단<br>
+            <span style="color:#3fb950;">✓</span> <code>claudeMdExcludes</code> — 특정 CLAUDE.md만 제외
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1219,7 +1213,7 @@ get_neighbors("UserService")</pre>
           <li><code>/handoff</code> — 새 세션 핸드오프</li>
           <li>구체적 요청 → 짧은 응답</li>
           <li>CLAUDE.md 다이어트 (@경로 참조)</li>
-          <li><code>.claudeignore</code> 설정</li>
+          <li><code>permissions.deny</code> 파일 제외 설정</li>
           <li>MCP 서버 최소화</li>
           <li><code>/context</code>로 주기적 점검</li>
         </ul>
@@ -1248,7 +1242,7 @@ get_neighbors("UserService")</pre>
         </div>
         <div class="card" style="margin-bottom:8px; border-color:rgba(255,166,77,0.3);">
           <h3 style="color:#ffa64d; font-size:13px;">설정 한 번</h3>
-          <p>.claudeignore + CLAUDE.md 다이어트 + 올바른 모델 선택</p>
+          <p>permissions.deny 설정 + CLAUDE.md 다이어트 + 올바른 모델 선택</p>
         </div>
         <div class="card" style="border-color:rgba(188,140,255,0.3);">
           <h3 style="color:#bc8cff; font-size:13px;">도구 도입</h3>
