@@ -713,44 +713,36 @@ $ grep -n "ERROR\|WARN" /var/log/app.log \
     <h2>MCP — 외부 시스템 연결</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:16px;">MCP(Model Context Protocol)는 Claude가 <strong style="color:#e6edf3;">외부 시스템을 도구로 쓸 수 있게</strong> 하는 표준 프로토콜입니다.</p>
-        <ul>
+        <p style="margin-bottom:12px;">MCP(Model Context Protocol)는 Claude가 <strong style="color:#e6edf3;">외부 시스템을 도구로 쓸 수 있게</strong> 하는 표준 프로토콜입니다.</p>
+        <ul class="tight">
           <li>MongoDB · PostgreSQL · MySQL 쿼리</li>
           <li>사내 REST API 호출</li>
           <li>Jira / Confluence 조회</li>
           <li>사내 서비스 제어 (커스텀 서버)</li>
         </ul>
-        <div class="tip">공식 MCP 서버 목록: <code>github.com/modelcontextprotocol/servers</code></div>
 
-        <h3 style="margin-top:16px;">등록 방법</h3>
-        <pre style="font-size:12px;"><span class="comment">// ~/.claude.json (글로벌 설정)</span>
+        <h3 style="margin-top:14px;">등록 방법</h3>
+        <pre style="font-size:12px;"><span class="comment">// ~/.claude.json</span>
 {
   <span class="key">"mcpServers"</span>: {
-    <span class="key">"mongo-api-logs"</span>: {
+    <span class="key">"mongo"</span>: {
       <span class="key">"command"</span>: <span class="str">"npx"</span>,
-      <span class="key">"args"</span>: [<span class="str">"-y"</span>, <span class="str">"@modelcontextprotocol/server-mongodb"</span>],
-      <span class="key">"env"</span>: {
-        <span class="key">"MONGODB_URI"</span>: <span class="str">"mongodb://localhost:27017/api_logs"</span>
-      }
+      <span class="key">"args"</span>: [<span class="str">"-y"</span>, <span class="str">"@mcp/server-mongodb"</span>],
+      <span class="key">"env"</span>: { <span class="key">"MONGODB_URI"</span>: <span class="str">"mongodb://..."</span> }
     }
   }
 }</pre>
+
+        <div class="warn" style="margin-top:12px; font-size:13px;"><strong>항상 컨텍스트 점유.</strong> 등록된 MCP 서버의 tool schema는 쓰든 안 쓰든 매 응답마다 로드됩니다. 안 쓰는 서버는 등록하지 마세요.</div>
       </div>
       <div>
-        <h3>MongoDB MCP 실전 예시</h3>
-        <p style="font-size:14px; color:#8b949e; margin-bottom:10px;">API 로그를 MongoDB에 저장해두면 Claude가 직접 쿼리해서 분석 가능.</p>
-        <pre style="font-size:12px;"><span class="comment"># 이렇게 요청하면</span>
-<span class="str">"지난 달 POST /api/data에서
-응답시간이 가장 높았던 엔드포인트 3개
-알려줘"</span>
+        <h3>실전 예시 — 자연어 → DB 쿼리</h3>
+        <pre style="font-size:12px;"><span class="comment"># 요청</span>
+<span class="str">"지난달 응답시간 가장 높은
+엔드포인트 TOP 3 알려줘"</span>
 
-<span class="comment"># Claude가 MongoDB에 직접 쿼리</span>
+<span class="comment"># Claude가 자동 생성·실행</span>
 db.api_logs.aggregate([
-  { <span class="key">$match</span>: {
-      endpoint: <span class="str">"/api/data"</span>,
-      method: <span class="str">"POST"</span>, status: <span class="val">200</span>,
-      date: { <span class="key">$gte</span>: <span class="str">"2026-05-01"</span> }
-  }},
   { <span class="key">$group</span>: {
       _id: <span class="str">"$endpoint"</span>,
       avg_ms: { <span class="key">$avg</span>: <span class="str">"$response_ms"</span> }
@@ -758,12 +750,10 @@ db.api_logs.aggregate([
   { <span class="key">$sort</span>: { avg_ms: <span class="val">-1</span> }},
   { <span class="key">$limit</span>: <span class="val">3</span> }
 ])</pre>
-        <div class="tip">SQL을 몰라도 됩니다. 자연어로 물으면 Claude가 쿼리를 직접 작성하고 실행합니다.</div>
-      </div>
-    </div>
 
-    <div class="warn" style="margin-top:20px;">
-      <strong>MCP는 항상 컨텍스트를 차지합니다.</strong> 등록된 MCP 서버의 도구 목록(tool schema)은 대화를 시작할 때부터 컨텍스트에 자동으로 로드됩니다. 서버를 많이 등록할수록 매 응답마다 더 많은 토큰을 소비합니다. <strong>실제로 쓰지 않는 MCP 서버는 등록하지 마세요.</strong>
+        <div class="tip" style="margin-top:10px;">쿼리 문법을 몰라도 됩니다. 자연어로 물으면 Claude가 직접 작성하고 실행합니다.</div>
+        <div class="tip" style="margin-top:8px;">공식 서버 목록: <code>github.com/modelcontextprotocol/servers</code></div>
+      </div>
     </div>
   </div>
 
