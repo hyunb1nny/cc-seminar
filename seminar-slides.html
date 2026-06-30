@@ -1331,11 +1331,12 @@ description: 테스트 결과 JSON을 받아
           <li><code style="color:#ff79c6;">/handoff</code> — 작업 인수인계 문서 자동 생성</li>
           <li><code style="color:#ff79c6;">/diagnosing-bugs</code> — 버그 체계적 진단</li>
         </ul>
-        <div class="tip" style="margin-top:0; font-size:13px;">
-          <strong>grill-me</strong>: 이 세미나에서 쓴 바로 그 기능. 착수 전에 요구사항·가정을 철저히 검증합니다.
-        </div>
-        <pre style="font-size:11px; margin-top:10px;"><span class="comment"># 설치</span>
-cp grill-me.md .claude/skills/</pre>
+        <pre style="font-size:11px; margin-top:10px;"><span class="comment"># 전체 설치 (프로젝트)</span>
+git clone https://github.com/mattpocock/skills
+cp skills/*.md .claude/skills/
+
+<span class="comment"># 글로벌 설치</span>
+cp skills/*.md ~/.claude/skills/</pre>
       </div>
 
       <div class="card" style="border-color:rgba(248,81,73,0.35);">
