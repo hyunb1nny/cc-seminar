@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent & Claude Code 세미나</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .deck { width: 100%; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    padding: 60px 80px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .slide.active { display: flex; }
+
+  /* ── progress bar ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #58a6ff, #bc8cff);
+    transition: width 0.3s ease;
+    z-index: 100;
+  }
+
+  /* ── nav ── */
+  #nav {
+    position: fixed;
+    bottom: 28px;
+    right: 40px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 100;
+  }
+
+  #nav button {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e6edf3;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+
+  #nav button:hover { background: rgba(255,255,255,0.14); }
+  #nav button:disabled { opacity: 0.3; cursor: default; }
+
+  #slide-counter {
+    font-size: 13px;
+    color: #8b949e;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* ── slide number (top-right) ── */
+  .slide-num {
+    position: absolute;
+    top: 24px;
+    right: 40px;
+    font-size: 12px;
+    color: #484f58;
+    font-family: monospace;
+  }
+
+  /* ── section badge ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .badge-blue  { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  .badge-green { background: rgba(63,185,80,0.15);  color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
+  .badge-purple{ background: rgba(188,140,255,0.15);color: #bc8cff; border: 1px solid rgba(188,140,255,0.3); }
+  .badge-orange{ background: rgba(255,166,77,0.15); color: #ffa64d; border: 1px solid rgba(255,166,77,0.3); }
+  .badge-pink  { background: rgba(255,121,198,0.15);color: #ff79c6; border: 1px solid rgba(255,121,198,0.3); }
+  .badge-teal  { background: rgba(86,211,208,0.15); color: #56d3d0; border: 1px solid rgba(86,211,208,0.3); }
+
+  /* ── typography ── */
+  h1 { font-size: 52px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+  h2 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 28px; }
+  h3 { font-size: 22px; font-weight: 600; color: #58a6ff; margin-bottom: 12px; }
+  p  { font-size: 18px; line-height: 1.7; color: #8b949e; }
+  .subtitle { font-size: 22px; color: #8b949e; margin-top: 16px; line-height: 1.5; }
+
+  /* ── code ── */
+  pre, code {
+    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+  }
+
+  pre {
+    padding: 20px 24px;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+
+  code {
+    padding: 2px 8px;
+    font-size: 14px;
+    color: #ff79c6;
+    border-radius: 4px;
+  }
+
+  .comment { color: #484f58; }
+  .key     { color: #58a6ff; }
+  .val     { color: #a5d6ff; }
+  .str     { color: #a5d6ff; }
+  .kw      { color: #ff7b72; }
+  .fn      { color: #d2a8ff; }
+
+  /* ── layouts ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* ── cards ── */
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .card h3 { font-size: 17px; margin-bottom: 8px; }
+  .card p  { font-size: 15px; line-height: 1.6; }
+
+  /* ── list ── */
+  ul { list-style: none; }
+  ul li { font-size: 18px; line-height: 1.7; color: #c9d1d9; padding: 6px 0; padding-left: 24px; position: relative; }
+  ul li::before { content: '›'; position: absolute; left: 0; color: #58a6ff; font-weight: 700; }
+  ul.tight li { font-size: 16px; padding: 4px 0; }
+
+  /* ── highlight box ── */
+  .highlight {
+    background: rgba(88,166,255,0.08);
+    border-left: 3px solid #58a6ff;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #c9d1d9;
+  }
+
+  /* ── title slide ── */
+  .slide-title { background: radial-gradient(ellipse at 70% 40%, rgba(88,166,255,0.06) 0%, transparent 60%); }
+  .slide-title h1 span { color: #58a6ff; }
+  .slide-title .week-pills { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+  .week-pill {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    color: #8b949e;
+  }
+  .week-pill span { color: #58a6ff; font-weight: 600; }
+
+  /* ── agenda ── */
+  .agenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid #21262d;
+  }
+  .agenda-item:last-child { border-bottom: none; }
+  .agenda-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #30363d;
+    min-width: 40px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .agenda-title { font-size: 18px; font-weight: 600; color: #e6edf3; }
+  .agenda-desc  { font-size: 14px; color: #8b949e; margin-top: 4px; }
+
+  /* ── divider slide ── */
+  .slide-divider {
+    background: #0d1117;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .slide-divider .big-num {
+    font-size: 120px;
+    font-weight: 700;
+    color: #21262d;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    z-index: 0;
+  }
+  .slide-divider .content { position: relative; z-index: 1; }
+  .slide-divider h2 { font-size: 42px; margin-bottom: 12px; }
+  .slide-divider p  { font-size: 20px; }
+
+  /* ── token meter ── */
+  .token-bar-wrap { margin: 8px 0; }
+  .token-bar-label { font-size: 13px; color: #8b949e; margin-bottom: 4px; display: flex; justify-content: space-between; }
+  .token-bar-bg { background: #21262d; border-radius: 4px; height: 8px; overflow: hidden; }
+  .token-bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+  .fill-red    { background: #f85149; }
+  .fill-green  { background: #3fb950; }
+  .fill-yellow { background: #e3b341; }
+
+  /* ── interactive demo ── */
+  .demo-box {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 16px;
+  }
+  .demo-box textarea {
+    width: 100%;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #c9d1d9;
+    font-family: 'SF Mono', monospace;
+    font-size: 13px;
+    padding: 12px;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+  }
+  .demo-box textarea:focus { border-color: #58a6ff; }
+  .demo-result {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #8b949e;
+    line-height: 1.6;
+  }
+
+  /* ── keyboard shortcut chip ── */
+  kbd {
+    background: #21262d;
+    border: 1px solid #484f58;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: monospace;
+    font-size: 13px;
+    color: #c9d1d9;
+  }
+
+  /* ── tip box ── */
+  .tip {
+    background: rgba(63,185,80,0.08);
+    border: 1px solid rgba(63,185,80,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #c9d1d9;
+    margin-top: 14px;
+  }
+  .tip::before { content: '💡 '; }
+
+  /* ── warn box ── */
+  .warn {
+    background: rgba(255,166,77,0.08);
+    border: 1px solid rgba(255,166,77,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #c9d1d9;
+    margin-top: 14px;
+  }
+  .warn::before { content: '⚠️ '; }
+
+  /* transitions */
+  .slide { animation: none; }
+  .slide.entering { animation: slideIn 0.22s ease; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 1 — TITLE
+  ═══════════════════════════════════════════ -->
+  <div class="slide slide-title active">
+    <div class="slide-num">01</div>
+    <div style="max-width: 780px;">
+      <div class="badge badge-blue">SSD 파트 내부 세미나</div>
+      <h1>AI Agent &amp;<br><span>Claude Code</span></h1>
+      <p class="subtitle">Context Engineering · Tools · Skills · CLAUDE.md<br>메모리 · Harness Engineering</p>
+      <div class="week-pills">
+        <div class="week-pill"><span>Part 1</span> CLAUDE.md &amp; Context Engineering</div>
+        <div class="week-pill"><span>Part 2</span> Tools (bash / read / edit / mcp…)</div>
+        <div class="week-pill"><span>Part 3</span> Skills &amp; Memory</div>
+        <div class="week-pill"><span>Part 4</span> Harness Engineering</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 2 — AGENDA
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">02</div>
+    <div class="badge badge-blue">Overview</div>
+    <h2>세미나 구성</h2>
+    <div class="agenda-item">
+      <div class="agenda-num">01</div>
+      <div>
+        <div class="agenda-title">CLAUDE.md &amp; Context</div>
+        <div class="agenda-desc">프로젝트를 Claude에게 한 번만 설명하기 · 컨텍스트 윈도우 이해</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">02</div>
+      <div>
+        <div class="agenda-title">Tools — bash · read · edit · write · grep · web · mcp</div>
+        <div class="agenda-desc">Claude가 실제로 파일을 읽고 수정하고 명령을 실행하는 방법 · 웹 검색 · MCP 연동</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">03</div>
+      <div>
+        <div class="agenda-title">Skills &amp; Memory</div>
+        <div class="agenda-desc">반복 워크플로우를 슬래시 명령어로 · 대화를 넘어 기억 유지</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">04</div>
+      <div>
+        <div class="agenda-title">Harness Engineering</div>
+        <div class="agenda-desc">Claude Code 전체 설정을 하나의 시스템으로 — hooks, settings, CLAUDE.md, Skills, Memory 통합</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DIVIDER — PART 1
+  ═══════════════════════════════════════════ -->
+  <div class="slide slide-divider">
+    <div class="big-num">01</div>
+    <div class="content">
+      <div class="badge badge-green">Part 1</div>
+      <h2>CLAUDE.md &amp; Context</h2>
+      <p style="color:#8b949e;">프로젝트를 Claude에게 한 번만 설명하기</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — What is CLAUDE.md
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">04</div>
+    <div class="badge badge-green">CLAUDE.md</div>
+    <h2>CLAUDE.md란?</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:16px;">Claude Code가 시작될 때 <strong style="color:#e6edf3;">자동으로 읽는</strong> 프로젝트 설명 파일.</p>
+        <ul>
+          <li>매번 "우리 프로젝트는 이런 구조야..."를 반복하지 않아도 됨</li>
+          <li>팀원 모두가 동일한 컨텍스트로 Claude 사용 가능</li>
+          <li>코드베이스 + 도메인 지식을 한 곳에 집약</li>
+        </ul>
+        <div class="tip">프로젝트 루트에 두면 자동 로드. 하위 폴더에 추가로 둘 수도 있음.</div>
+      </div>
+      <div>
+        <pre><span class="comment"># SSD Performance Lab</span>
+
+<span class="key">## 프로젝트 개요</span>
+NVMe SSD 성능 평가 자동화 도구.
+FIO 기반 벤치마크 실행 및 결과 분석.
+
+<span class="key">## 폴더 구조</span>
+bench/      - FIO job 파일
+results/    - CSV 측정 결과
+scripts/    - 분석 파이썬 스크립트
+reports/    - 자동 생성 리포트
+
+<span class="key">## 주요 지표</span>
+- Sequential R/W: MB/s
+- Random 4K IOPS
+- Latency (us): p50 / p99
+
+<span class="key">## 빌드/실행</span>
+<span class="str">python scripts/run_bench.py --preset nvme</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — CLAUDE.md 구조
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">05</div>
+    <div class="badge badge-green">CLAUDE.md</div>
+    <h2>잘 쓴 CLAUDE.md 구조</h2>
+    <div class="three-col">
+      <div class="card">
+        <h3>🗂 프로젝트 개요</h3>
+        <p>무엇을 만드는 곳인지, 핵심 도메인 용어 정의. SSD 파트라면 FIO, IOPS, WAF 같은 용어를 여기서 정의.</p>
+      </div>
+      <div class="card">
+        <h3>📁 코드 구조</h3>
+        <p>폴더별 역할 설명. Claude가 "어디를 건드려야 하는지" 탐색 없이 바로 알게 됨.</p>
+      </div>
+      <div class="card">
+        <h3>⚡ 빌드 &amp; 실행</h3>
+        <p>자주 쓰는 명령어. Claude가 직접 실행해서 결과를 확인하는 데 쓰임.</p>
+      </div>
+      <div class="card">
+        <h3>📐 코딩 컨벤션</h3>
+        <p>변수명 규칙, 단위 표기 방식 등. 생성 코드가 팀 스타일을 자동으로 따르게 됨.</p>
+      </div>
+      <div class="card">
+        <h3>🚫 하지 말아야 할 것</h3>
+        <p>"절대 raw device 직접 쓰지 말 것" 같은 도메인 금기사항. Claude가 실수로 위험한 명령을 내리지 않게 방어.</p>
+      </div>
+      <div class="card">
+        <h3>🔗 외부 참고</h3>
+        <p>내부 위키, Jira 링크, 장비 스펙 문서 위치. Claude가 모르면 어디서 찾아야 하는지 알게 됨.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Context Window 해부
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">06</div>
+    <div class="badge badge-green">Context Engineering</div>
+    <h2>컨텍스트 윈도우 — 무엇이 들어있나?</h2>
+    <p style="margin-bottom:20px; font-size:16px;">Claude는 응답을 생성할 때 컨텍스트 윈도우에 있는 <strong style="color:#e6edf3;">모든 내용을 매번 처음부터 읽습니다.</strong> 컨텍스트가 클수록 느리고 비쌉니다.</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:18px;">
+      <div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden;">
+          <div style="background:#21262d; padding:10px 16px; font-size:13px; color:#8b949e; font-family:monospace;">컨텍스트 윈도우 구성 (응답 1회 기준)</div>
+          <div style="padding:4px 0;">
+            <div style="padding:8px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #21262d;">
+              <span style="font-size:14px; color:#3fb950;">① CLAUDE.md</span>
+              <span style="font-size:12px; color:#8b949e;">자동 로드 · 고정</span>
+            </div>
+            <div style="padding:8px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #21262d;">
+              <span style="font-size:14px; color:#ff7b72;">② MCP 도구 스키마</span>
+              <span style="font-size:12px; color:#f85149;">항상 점유 · 쓰든 안 쓰든</span>
+            </div>
+            <div style="padding:8px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #21262d;">
+              <span style="font-size:14px; color:#e3b341;">③ 대화 히스토리</span>
+              <span style="font-size:12px; color:#8b949e;">누적 · 계속 증가</span>
+            </div>
+            <div style="padding:8px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #21262d;">
+              <span style="font-size:14px; color:#e3b341;">④ 도구 실행 결과</span>
+              <span style="font-size:12px; color:#8b949e;">Bash 출력, 파일 읽기 결과</span>
+            </div>
+            <div style="padding:8px 16px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:14px; color:#58a6ff;">⑤ 현재 요청</span>
+              <span style="font-size:12px; color:#8b949e;">지금 내가 입력한 메시지</span>
+            </div>
+          </div>
+        </div>
+        <div class="warn" style="margin-top:12px; font-size:14px;">파일 전체를 읽거나 Bash 출력이 길면 ④가 급격히 팽창합니다.</div>
+      </div>
+      <div>
+        <h3>컨텍스트 크기와 비용</h3>
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>CLAUDE.md + MCP 스키마만</span><span style="color:#3fb950;">저비용 ✓</span></div>
+          <div class="token-bar-bg"><div class="token-bar-fill fill-green" style="width:18%"></div></div>
+        </div>
+        <div class="token-bar-wrap" style="margin-top:10px;">
+          <div class="token-bar-label"><span>+ 대화 10턴 + 파일 일부 읽기</span><span style="color:#e3b341;">중간</span></div>
+          <div class="token-bar-bg"><div class="token-bar-fill fill-yellow" style="width:50%"></div></div>
+        </div>
+        <div class="token-bar-wrap" style="margin-top:10px;">
+          <div class="token-bar-label"><span>+ 로그 파일 전체 붙여넣기</span><span style="color:#f85149;">고비용 ✗</span></div>
+          <div class="token-bar-bg"><div class="token-bar-fill fill-red" style="width:92%"></div></div>
+        </div>
+
+        <h3 style="margin-top:20px;">컨텍스트 확인 명령어</h3>
+        <ul class="tight">
+          <li><code>/cost</code> — 현재 대화에서 쓴 토큰 · 비용 확인</li>
+          <li><code>/clear</code> — 히스토리 전체 초기화 (③④ 제거)</li>
+          <li><code>/compact</code> — 히스토리를 요약으로 압축</li>
+        </ul>
+        <div class="tip" style="margin-top:12px;">Sonnet 기준 컨텍스트 한도: <strong style="color:#e6edf3;">200K 토큰</strong> ≈ 약 15만 단어. 큰 것 같지만 대용량 로그 몇 개면 금방 찹니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Context Engineering 전략
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">07</div>
+    <div class="badge badge-green">Context Engineering</div>
+    <h2>Context Engineering — 잘 쓰는 전략</h2>
+    <p style="margin-bottom:18px; font-size:16px; color:#8b949e;">컨텍스트는 한정 자원입니다. <strong style="color:#e6edf3;">무엇을 넣을지 의도적으로 설계</strong>하는 것이 Context Engineering입니다.</p>
+    <div class="three-col">
+      <div class="card">
+        <h3 style="color:#3fb950;">① 안정적 컨텍스트 분리</h3>
+        <p style="font-size:14px; margin-bottom:10px;">자주 바뀌지 않는 정보는 <strong style="color:#e6edf3;">CLAUDE.md</strong>에 고정.<br>대화 히스토리에 반복해서 쓰지 않는다.</p>
+        <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          ✗ 매번: "우리 프로젝트는 FIO 기반이고…"<br>
+          ✓ CLAUDE.md에 한 번 → 자동 로드
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:#3fb950;">② 필요한 것만 읽기</h3>
+        <p style="font-size:14px; margin-bottom:10px;">파일 전체 대신 필요한 범위만 Read. Grep으로 관련 라인만 추출.</p>
+        <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          ✗ Read("bench_10GB.csv")<br>
+          ✓ Read("bench.csv", offset=0, limit=100)<br>
+          ✓ Grep("p99", "results/")
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:#3fb950;">③ 작업 단위로 초기화</h3>
+        <p style="font-size:14px; margin-bottom:10px;">무관한 작업 전환 시 <code>/clear</code>. 긴 작업 중간엔 <code>/compact</code>.</p>
+        <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          벤치마크 분석 끝 → /clear<br>
+          → 스크립트 작업 새로 시작<br>
+          (이전 분석 결과가 컨텍스트 낭비)
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:#e3b341;">④ 구체적인 요청</h3>
+        <p style="font-size:14px; margin-bottom:10px;">모호한 요청은 Claude가 길게 추측하며 응답 → 히스토리 팽창.</p>
+        <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          ✗ "이 결과 분석해줘"<br>
+          ✓ "p99 레이턴시만 전주 대비<br>&nbsp;&nbsp;&nbsp;% 변화로 한 줄 요약"
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:#e3b341;">⑤ 프롬프트 캐싱 활용</h3>
+        <p style="font-size:14px; margin-bottom:10px;">Claude는 반복적으로 등장하는 컨텍스트 앞부분을 <strong style="color:#e6edf3;">캐싱</strong>합니다. CLAUDE.md처럼 고정된 내용은 두 번째 읽기부터 비용이 크게 줄어듭니다.</p>
+        <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          CLAUDE.md → 캐시됨 (90% 절감)<br>
+          대화 히스토리 → 매번 새로 읽음
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:#e3b341;">⑥ MCP 서버 최소화</h3>
+        <p style="font-size:14px; margin-bottom:10px;">등록된 MCP 서버의 tool schema는 항상 컨텍스트에 상주. 안 쓰는 서버는 등록하지 않는다.</p>
+        <div style="font-size:12px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          MCP 서버 1개 ≈ 수백~수천 토큰<br>
+          10개 등록 → 항상 몇 천 토큰 낭비
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DIVIDER — PART 2
+  ═══════════════════════════════════════════ -->
+  <div class="slide slide-divider">
+    <div class="big-num">02</div>
+    <div class="content">
+      <div class="badge badge-purple">Part 2</div>
+      <h2>Tools</h2>
+      <p style="color:#8b949e;">bash · read · edit · write · grep · glob · web · mcp</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Tool 개요
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">08</div>
+    <div class="badge badge-purple">Tools</div>
+    <h2>Claude Code의 도구들</h2>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:18px;">
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">⚡ Bash</h3>
+        <p style="font-size:13px;">쉘 명령 직접 실행.<br>FIO, Python 스크립트, 시스템 명령</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">📖 Read</h3>
+        <p style="font-size:13px;">파일 내용 읽기.<br>범위 지정 가능 (offset / limit)</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">✏️ Edit</h3>
+        <p style="font-size:13px;">파일 일부 수정.<br>지정 문자열을 찾아 교체 (diff 방식)</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">📝 Write</h3>
+        <p style="font-size:13px;">새 파일 생성 또는 전체 덮어쓰기.</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">🔍 Grep</h3>
+        <p style="font-size:13px;">파일 내 텍스트 검색.<br>정규식 지원, 라인 번호 반환</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">📂 Glob / LS</h3>
+        <p style="font-size:13px;">패턴으로 파일 찾기.<br>디렉토리 목록 조회</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">🌐 Web</h3>
+        <p style="font-size:13px;">WebFetch: URL 내용 가져오기<br>WebSearch: 웹 검색</p>
+      </div>
+      <div class="card" style="padding:16px;">
+        <h3 style="color:#bc8cff; font-size:15px; margin-bottom:6px;">🔌 MCP</h3>
+        <p style="font-size:13px;">외부 시스템 연결.<br>DB, API, 장비 제어</p>
+      </div>
+    </div>
+    <div class="highlight">
+      Claude는 이 도구들을 <strong>스스로 조합해서 사용</strong>합니다. "벤치 결과 분석해줘" 한 마디에 Glob → Read → Bash(python) 순서로 자동 실행. 각 도구 실행 전 <strong>승인 요청</strong>이 뜨는 것이 기본값입니다.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — 파일 도구 (Read / Edit / Write / Grep / Glob)
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">09</div>
+    <div class="badge badge-purple">Tools · 파일</div>
+    <h2>파일 도구 — Read · Edit · Write · Grep · Glob</h2>
+    <div class="two-col">
+      <div>
+        <h3>Read — 범위 지정 읽기</h3>
+        <pre style="font-size:13px;"><span class="comment"># 전체 읽기 (토큰 낭비)</span>
+Read(<span class="str">"results/bench_10GB.csv"</span>)
+
+<span class="comment"># 범위 지정 (절약)</span>
+Read(<span class="str">"results/bench_10GB.csv"</span>,
+     offset=<span class="val">500</span>, limit=<span class="val">50</span>)</pre>
+
+        <h3 style="margin-top:16px;">Edit — 정밀 수정</h3>
+        <pre style="font-size:13px;"><span class="comment"># 파일 전체 말고 해당 부분만 교체</span>
+Edit(<span class="str">"scripts/parse.py"</span>,
+  old=<span class="str">"latency_us / 1000"</span>,
+  new=<span class="str">"latency_us / 1000.0"</span>)</pre>
+
+        <h3 style="margin-top:16px;">Write — 새 파일 생성</h3>
+        <pre style="font-size:13px;"><span class="comment"># 리포트, 스크립트, 설정 파일 생성</span>
+Write(<span class="str">"reports/jan_summary.md"</span>,
+      content=<span class="str">"..."</span>)</pre>
+      </div>
+      <div>
+        <h3>Grep — 코드/로그 검색</h3>
+        <pre style="font-size:13px;"><span class="comment"># 로그에서 패턴 검색</span>
+Grep(<span class="str">"nvme.*timeout"</span>,
+     path=<span class="str">"logs/"</span>,
+     output=<span class="str">"context"</span>)
+
+<span class="comment"># 코드에서 함수 찾기</span>
+Grep(<span class="str">"def calc_iops"</span>,
+     path=<span class="str">"scripts/"</span>)</pre>
+
+        <h3 style="margin-top:16px;">Glob / LS — 파일 탐색</h3>
+        <pre style="font-size:13px;"><span class="comment"># 특정 패턴 파일 전부 찾기</span>
+Glob(<span class="str">"results/**/*.json"</span>)
+
+<span class="comment"># 디렉토리 구조 확인</span>
+LS(<span class="str">"bench/"</span>)</pre>
+
+        <div class="tip">Claude는 보통 Glob으로 파일을 먼저 탐색하고, Read로 내용을 확인한 뒤, Edit/Write로 수정합니다. 이 순서가 자동으로 이뤄집니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — 웹 도구 (WebFetch / WebSearch)
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">10</div>
+    <div class="badge badge-purple">Tools · Web</div>
+    <h2>웹 도구 — WebFetch · WebSearch</h2>
+    <div class="two-col">
+      <div>
+        <h3>WebFetch — URL 직접 읽기</h3>
+        <p style="font-size:16px; margin-bottom:12px;">특정 URL의 내용을 가져와서 Claude가 직접 분석합니다.</p>
+        <pre style="font-size:13px;"><span class="comment"># 데이터시트 PDF URL 읽기</span>
+WebFetch(<span class="str">"https://nvme.org/spec/..."</span>)
+
+<span class="comment"># 사내 위키 페이지 읽기</span>
+WebFetch(<span class="str">"https://wiki.internal/ssd-spec"</span>)
+
+<span class="comment"># GitHub 이슈/PR 내용 가져오기</span>
+WebFetch(<span class="str">"https://github.com/.../issues/42"</span>)</pre>
+
+        <div class="tip">공개 데이터시트나 스펙 문서 URL을 주면 Claude가 직접 읽고 분석 가능</div>
+      </div>
+      <div>
+        <h3>WebSearch — 실시간 검색</h3>
+        <p style="font-size:16px; margin-bottom:12px;">Claude 학습 데이터에 없는 최신 정보를 실시간으로 검색합니다.</p>
+        <pre style="font-size:13px;"><span class="comment"># 최신 NVMe 스펙 검색</span>
+WebSearch(
+  <span class="str">"NVMe 2.0 PCIe 5.0 latency spec"</span>)
+
+<span class="comment"># 드라이버 버그 검색</span>
+WebSearch(
+  <span class="str">"linux nvme driver timeout 6.8 kernel"</span>)</pre>
+
+        <div class="warn" style="margin-top:14px;">사내 기밀 정보를 WebSearch 쿼리에 포함하지 말 것. 쿼리는 외부 검색엔진으로 전송됨.</div>
+
+        <h3 style="margin-top:16px;">언제 쓰나</h3>
+        <ul class="tight">
+          <li>최신 드라이버 / 펌웨어 릴리즈 노트 확인</li>
+          <li>경쟁사 벤치마크 결과 수집</li>
+          <li>NVMe / SATA 표준 문서 참조</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Bash Tool 실전
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">11</div>
+    <div class="badge badge-purple">Tools · Bash</div>
+    <h2>Bash — SSD 분석 실전 패턴</h2>
+    <div class="two-col">
+      <div>
+        <h3>패턴 1: 벤치마크 실행 후 즉시 분석</h3>
+        <pre><span class="comment"># Claude에게 이렇게 요청</span>
+<span class="str">"seq_read.fio 실행하고 결과에서
+p99 레이턴시만 뽑아줘"</span>
+
+<span class="comment"># Claude가 내부적으로</span>
+$ fio seq_read.fio --output-format=json
+$ python parse_p99.py result.json</pre>
+
+        <h3 style="margin-top:20px;">패턴 2: 로그에서 오류 패턴 추출</h3>
+        <pre><span class="comment"># Claude에게 이렇게 요청</span>
+<span class="str">"이번 주 dmesg 로그에서
+NVMe timeout 발생 패턴 찾아줘"</span>
+
+<span class="comment"># Claude가 내부적으로</span>
+$ grep -n "nvme.*timeout" /var/log/dmesg \
+  | tail -100</pre>
+      </div>
+      <div>
+        <h3>permission 설정</h3>
+        <p style="margin-bottom:14px;font-size:16px;">Claude가 실행하려 할 때 <strong style="color:#e6edf3;">허용 여부를 묻습니다.</strong> 자주 쓰는 명령은 <code>.claude/settings.json</code>에 등록해두면 매번 승인 불필요.</p>
+        <pre><span class="comment">// .claude/settings.json</span>
+{
+  <span class="key">"permissions"</span>: {
+    <span class="key">"allow"</span>: [
+      <span class="str">"Bash(fio:*)"</span>,
+      <span class="str">"Bash(python:*)"</span>,
+      <span class="str">"Bash(grep:*)"</span>
+    ]
+  }
+}</pre>
+        <div class="warn">rm, dd, fdisk 같은 위험 명령은 절대 allow 목록에 넣지 말 것</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — MCP
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">12</div>
+    <div class="badge badge-purple">Tools · MCP</div>
+    <h2>MCP — 외부 시스템 연결</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:16px;">MCP(Model Context Protocol)는 Claude가 <strong style="color:#e6edf3;">외부 시스템을 도구로 쓸 수 있게</strong> 하는 표준 프로토콜입니다.</p>
+        <ul>
+          <li>MongoDB · PostgreSQL · MySQL 쿼리</li>
+          <li>사내 REST API 호출</li>
+          <li>Jira / Confluence 조회</li>
+          <li>계측 장비 제어 (커스텀 서버)</li>
+        </ul>
+        <div class="tip">공식 MCP 서버 목록: <code>github.com/modelcontextprotocol/servers</code></div>
+
+        <h3 style="margin-top:16px;">등록 방법</h3>
+        <pre style="font-size:12px;"><span class="comment">// ~/.claude.json (글로벌 설정)</span>
+{
+  <span class="key">"mcpServers"</span>: {
+    <span class="key">"mongo-bench"</span>: {
+      <span class="key">"command"</span>: <span class="str">"npx"</span>,
+      <span class="key">"args"</span>: [<span class="str">"-y"</span>, <span class="str">"@modelcontextprotocol/server-mongodb"</span>],
+      <span class="key">"env"</span>: {
+        <span class="key">"MONGODB_URI"</span>: <span class="str">"mongodb://localhost:27017/bench"</span>
+      }
+    }
+  }
+}</pre>
+      </div>
+      <div>
+        <h3>MongoDB MCP 실전 예시</h3>
+        <p style="font-size:14px; color:#8b949e; margin-bottom:10px;">벤치마크 결과를 MongoDB에 저장해두면 Claude가 직접 쿼리해서 분석 가능.</p>
+        <pre style="font-size:12px;"><span class="comment"># 이렇게 요청하면</span>
+<span class="str">"지난 달 QD32 랜덤 4K Write에서
+IOPS가 가장 낮았던 SSD 모델 3개
+알려줘"</span>
+
+<span class="comment"># Claude가 MongoDB에 직접 쿼리</span>
+db.bench_results.aggregate([
+  { <span class="key">$match</span>: {
+      pattern: <span class="str">"randwrite"</span>,
+      bs: <span class="str">"4k"</span>, qd: <span class="val">32</span>,
+      date: { <span class="key">$gte</span>: <span class="str">"2026-05-01"</span> }
+  }},
+  { <span class="key">$group</span>: {
+      _id: <span class="str">"$model"</span>,
+      avg_iops: { <span class="key">$avg</span>: <span class="str">"$iops"</span> }
+  }},
+  { <span class="key">$sort</span>: { avg_iops: <span class="val">1</span> }},
+  { <span class="key">$limit</span>: <span class="val">3</span> }
+])</pre>
+        <div class="tip">SQL을 몰라도 됩니다. 자연어로 물으면 Claude가 쿼리를 직접 작성하고 실행합니다.</div>
+      </div>
+    </div>
+
+    <div class="warn" style="margin-top:20px;">
+      <strong>MCP는 항상 컨텍스트를 차지합니다.</strong> 등록된 MCP 서버의 도구 목록(tool schema)은 대화를 시작할 때부터 컨텍스트에 자동으로 로드됩니다. 서버를 많이 등록할수록 매 응답마다 더 많은 토큰을 소비합니다. <strong>실제로 쓰지 않는 MCP 서버는 등록하지 마세요.</strong>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DIVIDER — PART 3
+  ═══════════════════════════════════════════ -->
+  <div class="slide slide-divider">
+    <div class="big-num">03</div>
+    <div class="content">
+      <div class="badge badge-orange">Part 3</div>
+      <h2>Skills &amp; Memory</h2>
+      <p style="color:#8b949e;">반복 워크플로우를 명령어로 · 대화를 넘어 기억 유지</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Skills
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">14</div>
+    <div class="badge badge-orange">Skills</div>
+    <h2>Skills — 나만의 슬래시 명령어</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:14px;">자주 쓰는 프롬프트 패턴을 <code>/명령어</code> 하나로 등록하는 기능.<br>마크다운 파일 하나로 팀 전체가 쓸 수 있는 명령어가 만들어집니다.</p>
+
+        <h3>적용 범위 (Scope)</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px;">
+          <div class="card" style="padding:12px; border-color:rgba(88,166,255,0.4);">
+            <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:6px;">🌍 Global</div>
+            <div style="font-size:12px; color:#8b949e; margin-bottom:6px;"><code>~/.claude/skills/</code></div>
+            <div style="font-size:12px; color:#c9d1d9;">모든 프로젝트에서 사용 가능. 개인 공통 명령어.</div>
+          </div>
+          <div class="card" style="padding:12px; border-color:rgba(255,166,77,0.4);">
+            <div style="font-size:12px; font-weight:700; color:#ffa64d; margin-bottom:6px;">👤 User</div>
+            <div style="font-size:12px; color:#8b949e; margin-bottom:6px;"><code>~/.claude/skills/<br>프로젝트명/</code></div>
+            <div style="font-size:12px; color:#c9d1d9;">특정 프로젝트에서만 개인이 쓰는 명령어.</div>
+          </div>
+          <div class="card" style="padding:12px; border-color:rgba(63,185,80,0.4);">
+            <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:6px;">📁 Project</div>
+            <div style="font-size:12px; color:#8b949e; margin-bottom:6px;"><code>.claude/skills/</code></div>
+            <div style="font-size:12px; color:#c9d1d9;">팀 공유. git에 커밋하면 팀원 모두가 동일한 명령어 사용.</div>
+          </div>
+        </div>
+
+        <div class="highlight">
+          <strong>예시 1:</strong> <code>/bench-report results/jan.json</code><br>
+          <span style="font-size:14px; color:#8b949e;">→ FIO JSON을 받아 표준 성능 리포트 자동 생성 (Project 스코프 → 팀 공유)</span>
+        </div>
+        <div class="highlight">
+          <strong>예시 2:</strong> <code>/compare-run jan.json feb.json</code><br>
+          <span style="font-size:14px; color:#8b949e;">→ 두 벤치마크 결과 비교, 회귀 감지 (Project 스코프)</span>
+        </div>
+        <div class="tip">Skills는 CLAUDE.md와 달리 <em>능동적으로 호출</em>하는 것. "이 작업을 자주 한다" 싶으면 Skill로 만들어두세요.</div>
+      </div>
+      <div>
+        <pre><span class="comment"># .claude/skills/bench-report.md
+# → Project 스코프: 팀 전체 공유</span>
+
+<span class="key">---
+description: FIO 결과 파일을 받아
+             표준 성능 리포트 생성
+---</span>
+
+인자로 받은 FIO JSON 파일을 읽고
+아래 형식의 리포트를 작성하세요.
+
+<span class="str">## 성능 요약
+| 항목      | 측정값 | 목표치 | 판정 |
+|-----------|--------|--------|------|
+| Seq Read  | MB/s   | 7000   | ✓/✗  |
+| Rand 4K R | IOPS   | 1.5M   | ✓/✗  |
+| p99 Lat   | us     | 200    | ✓/✗  |</span>
+
+규칙:
+- Sequential R/W 단위는 MB/s
+- Random은 IOPS
+- Latency는 p50 / p99 모두 표시
+- WAF &gt; 3.0이면 ⚠️ 경고 추가
+- 목표치 미달 항목은 원인 추정 작성</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Memory
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">15</div>
+    <div class="badge badge-orange">Memory</div>
+    <h2>Memory — 대화를 넘어서 기억하기</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:16px;">Claude는 기본적으로 <strong style="color:#f85149;">대화가 끝나면 모든 것을 잊습니다.</strong><br>메모리 시스템은 중요한 사실을 파일로 영구 저장해서, 다음 대화 시작 때 자동으로 불러옵니다.</p>
+
+        <h3>자동 메모리 (Auto)</h3>
+        <p style="font-size:15px; margin-bottom:14px;">Claude가 대화 중 중요하다고 판단한 내용을 <code>.claude/memory/</code>에 마크다운 파일로 직접 저장합니다. 사용자가 아무것도 안 해도 됩니다.</p>
+
+        <h3>수동 메모리 (Manual)</h3>
+        <p style="font-size:15px; margin-bottom:10px;">"이거 기억해줘" 라고 말하거나 <code>/remember</code> 명령어를 사용합니다.</p>
+        <pre style="font-size:12px;"><span class="str">"우리 팀은 p99 레이턴시 기준이
+200us야, 기억해줘"</span>
+
+<span class="comment">→ Claude가 memory 파일에 저장
+→ 다음 대화에서 자동으로 적용</span></pre>
+
+        <div class="tip">팀 공유: <code>.claude/memory/</code>를 git에 커밋하면 팀원 전체가 같은 컨텍스트 공유 가능</div>
+      </div>
+      <div>
+        <h3>메모리 종류 4가지</h3>
+        <div class="card" style="margin-bottom:10px;">
+          <h3 style="font-size:15px; color:#ffa64d;">user — 나에 대한 정보</h3>
+          <p style="font-size:13px;">"SSD 성능 파트, Python 사용, 리포트는 한국어로"<br>→ 매번 소개 없이 바로 맞춤 응답</p>
+        </div>
+        <div class="card" style="margin-bottom:10px;">
+          <h3 style="font-size:15px; color:#ffa64d;">project — 현재 작업 상태</h3>
+          <p style="font-size:13px;">"NVMe Gen5 TLC 검증 중, 목표 IOPS 1.5M, 마감 7/31"<br>→ "지금 뭐 하고 있는지" 다시 설명 불필요</p>
+        </div>
+        <div class="card" style="margin-bottom:10px;">
+          <h3 style="font-size:15px; color:#ffa64d;">feedback — 선호/비선호 방식</h3>
+          <p style="font-size:13px;">"단위 반드시 표기 (MB not M), 표는 항상 markdown 형식"<br>→ 같은 피드백을 반복할 필요 없음</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px; color:#ffa64d;">reference — 외부 참조</h3>
+          <p style="font-size:13px;">"버그는 Jira BENCH 프로젝트에, 스펙은 내부 위키 참고"<br>→ 어디서 찾아야 하는지 알게 됨</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — CLAUDE.md vs Memory 차이
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">16</div>
+    <div class="badge badge-orange">CLAUDE.md vs Memory</div>
+    <h2>CLAUDE.md와 Memory, 무엇이 다른가?</h2>
+    <div style="display:grid; grid-template-columns:1fr 60px 1fr; gap:0; align-items:start; margin-bottom:20px;">
+      <div class="card" style="border-color:rgba(63,185,80,0.4);">
+        <h3 style="color:#3fb950; font-size:18px; margin-bottom:14px;">📄 CLAUDE.md</h3>
+        <ul class="tight">
+          <li>사람이 <strong style="color:#e6edf3;">직접 작성</strong>하는 파일</li>
+          <li><strong style="color:#e6edf3;">프로젝트 전체</strong>에 대한 고정 정보</li>
+          <li>git에 커밋 → 팀 전체 공유</li>
+          <li>바뀌지 않는 것: 구조, 컨벤션, 실행 명령</li>
+          <li>Claude가 수정하지 않음</li>
+        </ul>
+        <div style="margin-top:14px; font-size:13px; color:#8b949e;">
+          예: "이 프로젝트는 FIO 기반 벤치마크 툴이며, results/ 폴더에 CSV로 저장됩니다"
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:center; font-size:28px; color:#484f58; padding-top:60px;">vs</div>
+      <div class="card" style="border-color:rgba(255,166,77,0.4);">
+        <h3 style="color:#ffa64d; font-size:18px; margin-bottom:14px;">🧠 Memory</h3>
+        <ul class="tight">
+          <li><strong style="color:#e6edf3;">Claude가 자동으로</strong> 저장하는 파일</li>
+          <li><strong style="color:#e6edf3;">나(사용자)에 대한</strong> 가변적 정보</li>
+          <li>대화마다 업데이트됨</li>
+          <li>바뀌는 것: 현재 작업, 선호 방식, 피드백</li>
+          <li>Claude가 직접 쓰고 수정</li>
+        </ul>
+        <div style="margin-top:14px; font-size:13px; color:#8b949e;">
+          예: "이 사용자는 p99 기준 200us를 목표로 하며, 단위를 반드시 명시하길 원함"
+        </div>
+      </div>
+    </div>
+    <div class="highlight">
+      <strong>한 줄 요약:</strong> CLAUDE.md = <em>"우리 프로젝트는 이런 곳이야"</em> (팀이 Claude에게) &nbsp;|&nbsp; Memory = <em>"너(Claude)가 나에 대해 배운 것"</em> (Claude가 스스로 기록)
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DIVIDER — PART 4
+  ═══════════════════════════════════════════ -->
+  <div class="slide slide-divider">
+    <div class="big-num">04</div>
+    <div class="content">
+      <div class="badge badge-pink">Part 4</div>
+      <h2>Harness Engineering</h2>
+      <p style="color:#8b949e;">Claude Code 전체를 하나의 시스템으로 설계하기</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Harness 개념
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">20</div>
+    <div class="badge badge-pink">Harness Engineering</div>
+    <h2>Harness Engineering이란?</h2>
+    <p style="margin-bottom:20px; font-size:16px;">Claude Code를 그냥 "대화 도구"로 쓰는 것과, <strong style="color:#e6edf3;">잘 설계된 시스템으로 세팅해두고 쓰는 것</strong>의 차이입니다.<br>Harness = Claude를 감싸는 모든 설정의 총합.</p>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-bottom:20px;">
+      <div class="card" style="border-color:rgba(63,185,80,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">📄</div>
+        <div style="font-size:14px; font-weight:700; color:#3fb950; margin-bottom:6px;">CLAUDE.md</div>
+        <div style="font-size:13px; color:#8b949e;">프로젝트 컨텍스트<br>팀 컨벤션 · 도메인 지식</div>
+      </div>
+      <div class="card" style="border-color:rgba(88,166,255,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚙️</div>
+        <div style="font-size:14px; font-weight:700; color:#58a6ff; margin-bottom:6px;">settings.json</div>
+        <div style="font-size:13px; color:#8b949e;">권한 설정 · 모델 선택<br>MCP 서버 등록</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,121,198,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🪝</div>
+        <div style="font-size:14px; font-weight:700; color:#ff79c6; margin-bottom:6px;">Hooks</div>
+        <div style="font-size:13px; color:#8b949e;">이벤트 기반 자동화<br>도구 실행 전후 스크립트</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,166,77,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚡</div>
+        <div style="font-size:14px; font-weight:700; color:#ffa64d; margin-bottom:6px;">Skills</div>
+        <div style="font-size:13px; color:#8b949e;">슬래시 명령어<br>팀 공유 워크플로우</div>
+      </div>
+      <div class="card" style="border-color:rgba(188,140,255,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🧠</div>
+        <div style="font-size:14px; font-weight:700; color:#bc8cff; margin-bottom:6px;">Memory</div>
+        <div style="font-size:13px; color:#8b949e;">영속적 사용자 컨텍스트<br>선호 · 피드백 · 현재 작업</div>
+      </div>
+      <div class="card" style="border-color:rgba(86,211,208,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🤖</div>
+        <div style="font-size:14px; font-weight:700; color:#56d3d0; margin-bottom:6px;">Subagents</div>
+        <div style="font-size:13px; color:#8b949e;">병렬 전문화 에이전트<br>복잡한 작업 위임</div>
+      </div>
+    </div>
+    <div class="highlight">
+      이 6가지를 함께 설계하면 Claude는 단순한 채팅 상대가 아니라 <strong>팀의 자동화된 파트너</strong>가 됩니다. 각각을 개별로 아는 것과, <em>시스템으로 묶어 설계하는 것</em>이 Harness Engineering의 핵심입니다.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Hooks
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">21</div>
+    <div class="badge badge-pink">Hooks</div>
+    <h2>Hooks — 이벤트 기반 자동화</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:16px;">Claude가 특정 행동을 할 때 <strong style="color:#e6edf3;">자동으로 실행되는 쉘 스크립트</strong>입니다.<br>"Claude가 파일을 수정하면 자동으로 린터 실행" 같은 자동화가 가능합니다.</p>
+
+        <h3>주요 Hook 이벤트</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+          <div class="card" style="padding:10px 14px;">
+            <div style="font-size:12px; font-weight:700; color:#ff79c6; margin-bottom:4px;">PreToolUse</div>
+            <div style="font-size:12px; color:#8b949e;">도구 실행 직전 (차단 가능)</div>
+          </div>
+          <div class="card" style="padding:10px 14px;">
+            <div style="font-size:12px; font-weight:700; color:#ff79c6; margin-bottom:4px;">PostToolUse</div>
+            <div style="font-size:12px; color:#8b949e;">도구 실행 직후</div>
+          </div>
+          <div class="card" style="padding:10px 14px;">
+            <div style="font-size:12px; font-weight:700; color:#ff79c6; margin-bottom:4px;">Stop</div>
+            <div style="font-size:12px; color:#8b949e;">Claude가 응답 완료 시</div>
+          </div>
+          <div class="card" style="padding:10px 14px;">
+            <div style="font-size:12px; font-weight:700; color:#ff79c6; margin-bottom:4px;">Notification</div>
+            <div style="font-size:12px; color:#8b949e;">알림 발생 시</div>
+          </div>
+        </div>
+        <div class="tip">Hooks는 Claude가 직접 실행합니다. 승인 없이 자동으로 동작하므로 신중하게 작성하세요.</div>
+      </div>
+      <div>
+        <h3>SSD 파트 활용 예시</h3>
+        <pre style="font-size:12px;"><span class="comment">// .claude/settings.json</span>
+{
+  <span class="key">"hooks"</span>: {
+    <span class="key">"PostToolUse"</span>: [{
+      <span class="key">"matcher"</span>: <span class="str">"Write|Edit"</span>,
+      <span class="key">"hooks"</span>: [{
+        <span class="key">"type"</span>: <span class="str">"command"</span>,
+        <span class="key">"command"</span>: <span class="str">"python -m pytest scripts/ -q"</span>
+      }]
+    }],
+    <span class="key">"PreToolUse"</span>: [{
+      <span class="key">"matcher"</span>: <span class="str">"Bash"</span>,
+      <span class="key">"hooks"</span>: [{
+        <span class="key">"type"</span>: <span class="str">"command"</span>,
+        <span class="key">"command"</span>: <span class="str">"scripts/check_dangerous_cmd.sh"</span>
+      }]
+    }]
+  }
+}</pre>
+        <div style="margin-top:10px; font-size:13px; color:#8b949e;">
+          → 스크립트 수정 시 자동 테스트 실행<br>
+          → 위험 명령(dd, fdisk) 사전 차단
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — Subagents & Planning Mode
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">22</div>
+    <div class="badge badge-pink">Subagents &amp; Planning</div>
+    <h2>Subagents · Planning Mode · Extended Thinking</h2>
+    <div class="two-col">
+      <div>
+        <h3>Subagents — 전문화된 병렬 에이전트</h3>
+        <p style="font-size:15px; margin-bottom:10px;">복잡한 작업을 여러 전문 에이전트에 <strong style="color:#e6edf3;">병렬로 위임</strong>합니다. 각 에이전트는 독립된 컨텍스트를 가져 서로 간섭하지 않습니다.</p>
+        <pre style="font-size:12px;"><span class="comment"># 예: 벤치마크 다중 분석</span>
+<span class="str">"3개 드라이브의 FIO 결과를
+ 동시에 각각 분석하고
+ 비교 리포트 만들어줘"</span>
+
+<span class="comment">→ Claude가 3개 Subagent 생성
+→ 각자 독립적으로 분석
+→ 결과를 모아 최종 비교</span></pre>
+        <div class="tip">Subagent는 메인 컨텍스트를 오염시키지 않습니다. 대용량 분석에 적합합니다.</div>
+      </div>
+      <div>
+        <h3>Planning Mode — 실행 전 계획 수립</h3>
+        <p style="font-size:15px; margin-bottom:10px;">복잡한 작업 전에 Claude가 <strong style="color:#e6edf3;">먼저 계획을 세우고 승인을 받은 뒤</strong> 실행합니다.</p>
+        <pre style="font-size:12px;"><span class="comment"># 활성화</span>
+/plan
+
+<span class="comment"># 또는 요청에 포함</span>
+<span class="str">"실행 전에 먼저 계획을
+ 보여줘, 확인 후 진행할게"</span></pre>
+        <p style="font-size:14px; color:#8b949e; margin-bottom:16px;">→ 대규모 리팩토링, 여러 파일 수정 전 검토에 유용</p>
+
+        <h3>Extended Thinking</h3>
+        <p style="font-size:15px; margin-bottom:10px;">Claude가 응답 전 <strong style="color:#e6edf3;">더 깊이 추론</strong>하도록 합니다. 복잡한 성능 병목 원인 분석에 효과적입니다.</p>
+        <pre style="font-size:12px;"><span class="comment"># 토글 단축키</span>
+Option + T  <span class="comment">(Mac)</span>
+Alt + T     <span class="comment">(Windows)</span>
+
+<span class="comment"># 또는 요청에 포함</span>
+<span class="str">"깊이 생각해서 이 레이턴시
+ 스파이크의 원인을 분석해줘"</span></pre>
+        <div class="warn">Extended Thinking은 응답이 느리고 비용이 높습니다. 단순 작업엔 사용하지 마세요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — CLI 활용
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">23</div>
+    <div class="badge badge-pink">CLI</div>
+    <h2>CLI 활용 — 파이프라인 &amp; 자동화</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:14px;">Claude Code는 대화형 모드 외에 <strong style="color:#e6edf3;">CLI 비대화형 모드</strong>로 쓸 수 있습니다. 스크립트, CI/CD, 쉘 파이프라인에 통합할 때 사용합니다.</p>
+        <pre style="font-size:13px;"><span class="comment"># 대화형 (기본)</span>
+$ claude
+
+<span class="comment"># 비대화형 (스크립트용)</span>
+$ claude -p <span class="str">"이 코드 리뷰해줘"</span>
+
+<span class="comment"># 파이프라인 — stdin 읽기</span>
+$ cat bench_result.json \
+  | claude -p <span class="str">"p99 레이턴시 요약"</span>
+
+<span class="comment"># 파일 직접 전달</span>
+$ claude -p <span class="str">"이 로그 분석"</span> \
+  --file dmesg.log
+
+<span class="comment"># 세션 재개</span>
+$ claude -r <span class="str">"bench-session"</span> \
+  <span class="str">"어제 분석 이어서 해줘"</span></pre>
+      </div>
+      <div>
+        <h3>SSD 자동화 파이프라인 예시</h3>
+        <pre style="font-size:12px;"><span class="comment">#!/bin/bash
+# 매일 밤 자동 벤치마크 + 분석 + 리포트</span>
+
+<span class="comment"># 1. FIO 실행</span>
+fio bench/nightly.fio \
+  --output-format=json \
+  > results/$(date +%F).json
+
+<span class="comment"># 2. Claude로 자동 분석</span>
+cat results/$(date +%F).json \
+  | claude -p <span class="str">"전일 대비 성능 비교
+    이상값 감지, 한국어 요약"</span> \
+  > reports/$(date +%F).md
+
+<span class="comment"># 3. 슬랙 알림 (선택)</span>
+cat reports/$(date +%F).md \
+  | slack-notify --channel bench</pre>
+
+        <div class="tip">
+          <code>-p</code> 플래그(print)는 stdout으로만 출력하고 종료합니다. 크론잡, 쉘 스크립트에 통합하기 좋습니다.
+        </div>
+
+        <div style="margin-top:12px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:14px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:8px;">유용한 플래그</div>
+          <div style="font-size:13px; font-family:monospace; line-height:1.8; color:#c9d1d9;">
+            <span style="color:#58a6ff;">-p</span> "prompt"  출력만 하고 종료<br>
+            <span style="color:#58a6ff;">-r</span> "name"    이름 붙인 세션 재개<br>
+            <span style="color:#58a6ff;">--file</span>       파일 첨부<br>
+            <span style="color:#58a6ff;">--model</span>      모델 지정
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — 정리
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">24</div>
+    <div class="badge badge-blue">Summary</div>
+    <h2>핵심 정리</h2>
+    <div class="two-col">
+      <div>
+        <ul>
+          <li><strong style="color:#3fb950;">CLAUDE.md</strong> — 프로젝트 구조·컨벤션 한 번 정의, 매 대화 자동 로드</li>
+          <li><strong style="color:#3fb950;">Context Engineering</strong> — 컨텍스트 구성 의도적 설계 · /clear · /compact · 캐싱</li>
+          <li><strong style="color:#bc8cff;">Bash / Read / Edit / Write / Grep</strong> — 명령 실행, 파일 조작, 패턴 검색</li>
+          <li><strong style="color:#bc8cff;">WebFetch / WebSearch</strong> — 스펙 문서 조회, 최신 정보 검색</li>
+          <li><strong style="color:#bc8cff;">MCP</strong> — MongoDB·DB·사내 API 연결 (항상 컨텍스트 점유 주의)</li>
+          <li><strong style="color:#ffa64d;">Skills</strong> — 반복 패턴을 <code>/명령어</code>로, 3단계 스코프 (global·user·project)</li>
+          <li><strong style="color:#ffa64d;">Memory</strong> — user·project·feedback·reference 4종, 영속 저장</li>
+          <li><strong style="color:#ff79c6;">Hooks</strong> — 이벤트 기반 자동화, Pre/PostToolUse 스크립트</li>
+          <li><strong style="color:#ff79c6;">Subagents</strong> — 병렬 전문 에이전트, 독립 컨텍스트</li>
+          <li><strong style="color:#ff79c6;">CLI</strong> — <code>claude -p</code> 파이프라인, 크론잡 자동화</li>
+        </ul>
+      </div>
+      <div>
+        <h3>오늘부터 할 수 있는 것</h3>
+        <div class="card" style="margin-bottom:12px;">
+          <p style="font-size:15px;">1️⃣ 프로젝트 루트에 <strong>CLAUDE.md</strong> 만들기<br><span style="color:#8b949e;">팀 구조 + 주요 명령어 + FIO 파라미터 기준값</span></p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <p style="font-size:15px;">2️⃣ <strong>/bench-report</strong> Skill 하나 만들어보기<br><span style="color:#8b949e;">가장 자주 쓰는 리포트 포맷을 텍스트로 정의</span></p>
+        </div>
+        <div class="card">
+          <p style="font-size:15px;">3️⃣ 다음 분석 작업에서 <strong>Claude를 파트너로</strong> 써보기<br><span style="color:#8b949e;">결과 해석, 코드 작성, 리포트 초안 중 하나라도</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE — END
+  ═══════════════════════════════════════════ -->
+  <div class="slide" style="justify-content:center; align-items:center; text-align:center;">
+    <div class="slide-num">25</div>
+    <div>
+      <div style="font-size:64px; margin-bottom:24px;">🚀</div>
+      <h2 style="font-size:42px; margin-bottom:16px;">이제 직접 써보세요</h2>
+      <p style="font-size:20px; max-width:500px; margin:0 auto;">질문은 언제든 환영합니다.<br>Claude Code에서 <code>/help</code> 를 먼저 쳐보세요.</p>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ── nav ── -->
+<div id="nav">
+  <button id="btn-prev" onclick="go(-1)" disabled>← 이전</button>
+  <span id="slide-counter">1 / 24</span>
+  <button id="btn-next" onclick="go(1)">다음 →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let cur = 0;
+
+  function go(dir) {
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(total - 1, cur + dir));
+    const s = slides[cur];
+    s.classList.add('active');
+    s.classList.remove('entering');
+    void s.offsetWidth; // reflow
+    s.classList.add('entering');
+
+    document.getElementById('slide-counter').textContent = `${cur + 1} / ${total}`;
+    document.getElementById('btn-prev').disabled = cur === 0;
+    document.getElementById('btn-next').disabled = cur === total - 1;
+    document.getElementById('progress-bar').style.width = `${((cur + 1) / total) * 100}%`;
+  }
+
+  // keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ')  { e.preventDefault(); go(1);  }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                      { e.preventDefault(); go(-1); }
+  });
+
+  // touch swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  });
+
+  // init progress
+  document.getElementById('progress-bar').style.width = `${(1 / total) * 100}%`;
+</script>
+</body>
+</html>
