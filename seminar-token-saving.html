@@ -23,9 +23,10 @@
     width: 100%;
     height: 100%;
     display: none;
-    padding: 60px 80px;
+    padding: 36px 64px 52px;
     flex-direction: column;
     justify-content: center;
+    overflow-y: auto;
   }
 
   .slide.active { display: flex; }
@@ -87,20 +88,21 @@
     text-transform: uppercase;
     padding: 4px 12px;
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
-  .badge-teal  { background: rgba(86,211,208,0.15); color: #56d3d0; border: 1px solid rgba(86,211,208,0.3); }
-  .badge-blue  { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
-  .badge-green { background: rgba(63,185,80,0.15);  color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
-  .badge-orange{ background: rgba(255,166,77,0.15); color: #ffa64d; border: 1px solid rgba(255,166,77,0.3); }
-  .badge-red   { background: rgba(248,81,73,0.15);  color: #f85149; border: 1px solid rgba(248,81,73,0.3); }
+  .badge-teal   { background: rgba(86,211,208,0.15);  color: #56d3d0; border: 1px solid rgba(86,211,208,0.3); }
+  .badge-blue   { background: rgba(88,166,255,0.15);  color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  .badge-green  { background: rgba(63,185,80,0.15);   color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
+  .badge-orange { background: rgba(255,166,77,0.15);  color: #ffa64d; border: 1px solid rgba(255,166,77,0.3); }
+  .badge-purple { background: rgba(188,140,255,0.15); color: #bc8cff; border: 1px solid rgba(188,140,255,0.3); }
+  .badge-red    { background: rgba(248,81,73,0.15);   color: #f85149; border: 1px solid rgba(248,81,73,0.3); }
 
-  h1 { font-size: 52px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
-  h2 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 28px; }
-  h3 { font-size: 20px; font-weight: 600; color: #56d3d0; margin-bottom: 12px; }
-  p  { font-size: 18px; line-height: 1.7; color: #8b949e; }
-  .subtitle { font-size: 20px; color: #8b949e; margin-top: 16px; }
+  h1 { font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+  h2 { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+  h3 { font-size: 18px; font-weight: 600; color: #56d3d0; margin-bottom: 10px; }
+  p  { font-size: 16px; line-height: 1.65; color: #8b949e; }
+  .subtitle { font-size: 18px; color: #8b949e; margin-top: 14px; }
 
   pre, code {
     font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
@@ -109,8 +111,8 @@
     border-radius: 8px;
   }
 
-  pre { padding: 18px 22px; font-size: 14px; line-height: 1.7; overflow-x: auto; margin: 12px 0; }
-  code { padding: 2px 8px; font-size: 14px; color: #ff79c6; border-radius: 4px; }
+  pre { padding: 12px 16px; font-size: 12px; line-height: 1.6; overflow-x: auto; margin: 8px 0; }
+  code { padding: 2px 8px; font-size: 13px; color: #ff79c6; border-radius: 4px; }
 
   .comment { color: #484f58; }
   .key     { color: #58a6ff; }
@@ -118,32 +120,33 @@
   .val     { color: #79c0ff; }
   .good    { color: #3fb950; }
   .bad     { color: #f85149; }
+  .kw      { color: #c9d1d9; }
 
-  .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
   .card {
     background: #161b22;
     border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 22px;
+    border-radius: 10px;
+    padding: 14px;
   }
 
-  .card h3 { font-size: 16px; margin-bottom: 8px; }
-  .card p  { font-size: 14px; line-height: 1.6; }
+  .card h3 { font-size: 14px; margin-bottom: 6px; }
+  .card p  { font-size: 13px; line-height: 1.55; }
 
   ul { list-style: none; }
-  ul li { font-size: 17px; line-height: 1.7; color: #c9d1d9; padding: 5px 0 5px 24px; position: relative; }
+  ul li { font-size: 15px; line-height: 1.6; color: #c9d1d9; padding: 3px 0 3px 22px; position: relative; }
   ul li::before { content: '›'; position: absolute; left: 0; color: #56d3d0; font-weight: 700; }
-  ul.tight li { font-size: 15px; }
+  ul.tight li { font-size: 13px; padding: 2px 0 2px 18px; }
 
   .highlight {
     background: rgba(86,211,208,0.07);
     border-left: 3px solid #56d3d0;
     border-radius: 0 8px 8px 0;
-    padding: 14px 18px;
-    margin: 12px 0;
-    font-size: 15px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 13px;
     line-height: 1.6;
     color: #c9d1d9;
   }
@@ -152,11 +155,11 @@
     background: rgba(63,185,80,0.08);
     border: 1px solid rgba(63,185,80,0.25);
     border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 15px;
-    line-height: 1.6;
+    padding: 8px 14px;
+    font-size: 13px;
+    line-height: 1.55;
     color: #c9d1d9;
-    margin-top: 12px;
+    margin-top: 10px;
   }
   .tip::before { content: '💡 '; }
 
@@ -164,28 +167,28 @@
     background: rgba(255,166,77,0.08);
     border: 1px solid rgba(255,166,77,0.25);
     border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 15px;
-    line-height: 1.6;
+    padding: 8px 14px;
+    font-size: 13px;
+    line-height: 1.55;
     color: #c9d1d9;
-    margin-top: 12px;
+    margin-top: 10px;
   }
   .warn::before { content: '⚠️ '; }
 
   .compare-row {
     display: grid;
-    grid-template-columns: 1fr 40px 1fr;
+    grid-template-columns: 1fr 36px 1fr;
     gap: 0;
     align-items: center;
-    margin: 10px 0;
+    margin: 8px 0;
   }
 
   .bad-box {
     background: rgba(248,81,73,0.07);
     border: 1px solid rgba(248,81,73,0.2);
     border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: 8px 12px;
+    font-size: 12px;
     font-family: monospace;
     color: #f85149;
     line-height: 1.5;
@@ -195,18 +198,18 @@
     background: rgba(63,185,80,0.07);
     border: 1px solid rgba(63,185,80,0.2);
     border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: 8px 12px;
+    font-size: 12px;
     font-family: monospace;
     color: #3fb950;
     line-height: 1.5;
   }
 
-  .arrow { text-align: center; color: #484f58; font-size: 18px; }
+  .arrow { text-align: center; color: #484f58; font-size: 16px; }
 
-  .token-bar-wrap { margin: 8px 0; }
-  .token-bar-label { font-size: 13px; color: #8b949e; margin-bottom: 4px; display: flex; justify-content: space-between; }
-  .token-bar-bg { background: #21262d; border-radius: 4px; height: 10px; overflow: hidden; }
+  .token-bar-wrap { margin: 6px 0; }
+  .token-bar-label { font-size: 12px; color: #8b949e; margin-bottom: 3px; display: flex; justify-content: space-between; }
+  .token-bar-bg { background: #21262d; border-radius: 4px; height: 8px; overflow: hidden; }
   .token-bar-fill { height: 100%; border-radius: 4px; }
   .fill-red    { background: #f85149; }
   .fill-green  { background: #3fb950; }
@@ -233,7 +236,7 @@
     z-index: 0;
   }
   .slide-divider .content { position: relative; z-index: 1; }
-  .slide-divider h2 { font-size: 42px; margin-bottom: 12px; }
+  .slide-divider h2 { font-size: 40px; margin-bottom: 12px; }
 
   .slide { animation: none; }
   .slide.entering { animation: fadeUp 0.22s ease; }
@@ -245,18 +248,18 @@
   .cost-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 13px;
   }
   .cost-table th {
     background: #161b22;
     color: #8b949e;
-    padding: 10px 14px;
+    padding: 8px 12px;
     text-align: left;
     border-bottom: 1px solid #30363d;
     font-weight: 600;
   }
   .cost-table td {
-    padding: 10px 14px;
+    padding: 8px 12px;
     border-bottom: 1px solid #21262d;
     color: #c9d1d9;
   }
@@ -274,15 +277,16 @@
   <div class="slide slide-title active">
     <div class="slide-num">01</div>
     <div style="max-width:760px;">
-      <div class="badge badge-teal">파트 세미나 · 별도 편</div>
+      <div class="badge badge-teal">세션 2</div>
       <h1>토큰 절약 &amp;<br><span>비용 최적화</span></h1>
       <p class="subtitle">Claude Code를 빠르고 저렴하게 쓰는 방법</p>
-      <div style="display:flex; gap:12px; margin-top:36px; flex-wrap:wrap;">
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">1</span> 토큰이란 무엇인가</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">2</span> 컨텍스트가 비용에 미치는 영향</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">3</span> 절약 전략 7가지</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">4</span> 모델 선택과 프롬프트 캐싱</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 18px; font-size:14px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">5</span> 개발 실전 패턴</div>
+      <div style="display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;">
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">1</span> 토큰이란 무엇인가</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">2</span> 컨텍스트가 비용에 미치는 영향</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#ffa64d; font-weight:600;">3</span> 모델 선택 &amp; 프롬프트 캐싱</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#3fb950; font-weight:600;">4</span> 절약 전략 — 기초</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#bc8cff; font-weight:600;">5</span> 절약 전략 — 심화</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">6</span> 개발 실전 패턴</div>
       </div>
     </div>
   </div>
@@ -304,20 +308,20 @@
     <h2>토큰 = Claude의 "글자 단위"</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:18px;">토큰은 단어보다 작은 단위입니다. 영어 기준 단어 하나 ≈ 1~2 토큰, 한국어는 글자 하나가 2~3 토큰.</p>
+        <p style="margin-bottom:14px;">토큰은 단어보다 작은 단위입니다. 영어 기준 단어 하나 ≈ 1~2 토큰, 한국어는 글자 하나가 2~3 토큰.</p>
 
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:20px; margin-bottom:16px;">
-          <div style="font-size:13px; color:#8b949e; margin-bottom:12px;">예: "API 응답시간 분석" 토큰화</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px; margin-bottom:12px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:10px;">예: "API 응답시간 분석" 토큰화</div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#58a6ff;">API</span>
-            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#bc8cff;">응</span>
-            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#3fb950;">답</span>
-            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#ffa64d;">시</span>
-            <span style="background:rgba(86,211,208,0.15); border:1px solid rgba(86,211,208,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#56d3d0;">간</span>
-            <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#f85149;">분</span>
-            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:4px 10px; font-size:13px; font-family:monospace; color:#58a6ff;">석</span>
+            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#58a6ff;">API</span>
+            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#bc8cff;">응</span>
+            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">답</span>
+            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#ffa64d;">시</span>
+            <span style="background:rgba(86,211,208,0.15); border:1px solid rgba(86,211,208,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#56d3d0;">간</span>
+            <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">분</span>
+            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#58a6ff;">석</span>
           </div>
-          <div style="font-size:12px; color:#484f58; margin-top:10px;">= 약 7토큰 (한국어는 글자당 2~3토큰 소비)</div>
+          <div style="font-size:11px; color:#484f58; margin-top:8px;">= 약 7토큰 (한국어는 글자당 2~3토큰 소비)</div>
         </div>
 
         <ul class="tight">
@@ -329,14 +333,7 @@
       <div>
         <h3>모델별 토큰 단가 (2026년 기준)</h3>
         <table class="cost-table">
-          <thead>
-            <tr>
-              <th>모델</th>
-              <th>입력</th>
-              <th>출력</th>
-              <th>용도</th>
-            </tr>
-          </thead>
+          <thead><tr><th>모델</th><th>입력</th><th>출력</th><th>용도</th></tr></thead>
           <tbody>
             <tr>
               <td>Claude Haiku 4.5</td>
@@ -358,7 +355,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="tip" style="margin-top:16px;">1M 토큰 ≈ 약 75만 단어 ≈ 책 5권 분량. 일상 업무에서 한 달 수백만 토큰 쓰는 건 흔함.</div>
+        <div class="tip" style="margin-top:12px;">1M 토큰 ≈ 약 75만 단어 ≈ 책 5권 분량. 일상 업무에서 한 달 수백만 토큰 쓰는 건 흔함.</div>
         <div class="warn">출력 토큰이 입력보다 5배 비쌉니다. 짧게 명확하게 답하도록 요청하면 비용이 크게 줄어듭니다.</div>
       </div>
     </div>
@@ -371,74 +368,53 @@
     <h2>한국어는 영어보다 토큰을 더 씁니다</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:14px;">Claude의 토크나이저(BPE)는 영어 중심으로 학습되었습니다. 한글 한 글자는 보통 <strong style="color:#e6edf3;">2~3 토큰</strong>, 영어 단어 하나는 <strong style="color:#3fb950;">1~2 토큰</strong>.</p>
+        <p style="margin-bottom:12px;">Claude의 토크나이저(BPE)는 영어 중심으로 학습되었습니다. 한글 한 글자는 보통 <strong style="color:#e6edf3;">2~3 토큰</strong>, 영어 단어 하나는 <strong style="color:#3fb950;">1~2 토큰</strong>.</p>
 
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px; margin-bottom:14px;">
-          <div style="font-size:12px; color:#8b949e; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em;">같은 의미, 다른 토큰 수</div>
-
-          <div style="margin-bottom:12px;">
-            <div style="font-size:11px; color:#3fb950; margin-bottom:4px;">🇺🇸 영어 — 약 6 토큰</div>
-            <div style="display:flex; gap:5px; flex-wrap:wrap;">
-              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">Ana</span>
-              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">lyze</span>
-              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">API</span>
-              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">response</span>
-              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">time</span>
-              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#3fb950;">data</span>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px; margin-bottom:12px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em;">같은 의미, 다른 토큰 수</div>
+          <div style="margin-bottom:10px;">
+            <div style="font-size:11px; color:#3fb950; margin-bottom:3px;">🇺🇸 영어 — 약 6 토큰</div>
+            <div style="display:flex; gap:4px; flex-wrap:wrap;">
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#3fb950;">Ana</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#3fb950;">lyze</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#3fb950;">API</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#3fb950;">response</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#3fb950;">time</span>
+              <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#3fb950;">data</span>
             </div>
           </div>
-
           <div>
-            <div style="font-size:11px; color:#f85149; margin-bottom:4px;">🇰🇷 한국어 — 약 14 토큰</div>
-            <div style="display:flex; gap:5px; flex-wrap:wrap;">
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">API</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">응</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">답</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">시</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">간</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">데</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">이</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">터</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">를</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">분</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">석</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">해</span>
-              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:3px 8px; font-size:12px; font-family:monospace; color:#f85149;">줘</span>
+            <div style="font-size:11px; color:#f85149; margin-bottom:3px;">🇰🇷 한국어 — 약 14 토큰</div>
+            <div style="display:flex; gap:4px; flex-wrap:wrap;">
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">API</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">응</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">답</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">시</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">간</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">데</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">이</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">터</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">를</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">분</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">석</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">해</span>
+              <span style="background:rgba(248,81,73,0.15); border:1px solid rgba(248,81,73,0.3); border-radius:4px; padding:2px 6px; font-size:11px; font-family:monospace; color:#f85149;">줘</span>
             </div>
           </div>
         </div>
       </div>
-
       <div>
-        <h3 style="margin-bottom:10px;">언어별 토큰 효율 비교</h3>
-        <table class="cost-table" style="margin-bottom:14px;">
-          <thead>
-            <tr><th>언어</th><th>글자당 토큰</th><th>같은 내용</th><th>배율</th></tr>
-          </thead>
+        <h3 style="margin-bottom:8px;">언어별 토큰 효율 비교</h3>
+        <table class="cost-table" style="margin-bottom:12px;">
+          <thead><tr><th>언어</th><th>글자당 토큰</th><th>같은 내용</th><th>배율</th></tr></thead>
           <tbody>
-            <tr>
-              <td>영어</td>
-              <td style="color:#3fb950;">0.25~0.5</td>
-              <td style="color:#3fb950;">~6 토큰</td>
-              <td style="color:#3fb950;">1×</td>
-            </tr>
-            <tr>
-              <td>한국어</td>
-              <td style="color:#ffa64d;">2~3</td>
-              <td style="color:#ffa64d;">~14 토큰</td>
-              <td style="color:#ffa64d;">~2.5×</td>
-            </tr>
-            <tr>
-              <td>일본어·중국어</td>
-              <td style="color:#f85149;">2~3</td>
-              <td style="color:#f85149;">~13 토큰</td>
-              <td style="color:#f85149;">~2×</td>
-            </tr>
+            <tr><td>영어</td><td style="color:#3fb950;">0.25~0.5</td><td style="color:#3fb950;">~6 토큰</td><td style="color:#3fb950;">1×</td></tr>
+            <tr><td>한국어</td><td style="color:#ffa64d;">2~3</td><td style="color:#ffa64d;">~14 토큰</td><td style="color:#ffa64d;">~2.5×</td></tr>
+            <tr><td>일본어·중국어</td><td style="color:#f85149;">2~3</td><td style="color:#f85149;">~13 토큰</td><td style="color:#f85149;">~2×</td></tr>
           </tbody>
         </table>
-
         <div class="tip">CLAUDE.md의 규칙·지침은 영문으로 작성하면 컨텍스트 절약에 유리합니다. 매 대화마다 읽히는 파일이므로 효과가 큽니다.</div>
-        <div class="warn" style="margin-top:10px;">대화 자체를 영어로 쓸 필요는 없습니다. 비용 차이보다 <strong style="color:#e6edf3;">정확한 의도 전달</strong>이 더 중요합니다.</div>
+        <div class="warn" style="margin-top:8px;">대화 자체를 영어로 쓸 필요는 없습니다. 비용 차이보다 <strong style="color:#e6edf3;">정확한 의도 전달</strong>이 더 중요합니다.</div>
       </div>
     </div>
   </div>
@@ -464,56 +440,39 @@
           <div class="token-bar-label"><span>① 긴 대화 히스토리 누적</span><span style="color:#f85149;">최대 원인</span></div>
           <div class="token-bar-bg"><div class="token-bar-fill fill-red" style="width:85%"></div></div>
         </div>
-        <div style="font-size:13px; color:#8b949e; margin-bottom:14px; padding-left:2px;">매 응답마다 이전 대화 전체를 다시 읽음. 50턴 대화 = 매번 50턴 분량 입력.</div>
+        <div style="font-size:12px; color:#8b949e; margin-bottom:10px; padding-left:2px;">매 응답마다 이전 대화 전체를 다시 읽음. 50턴 대화 = 매번 50턴 분량 입력.</div>
 
         <div class="token-bar-wrap">
           <div class="token-bar-label"><span>② 파일 전체 읽기</span><span style="color:#f85149;">고위험</span></div>
           <div class="token-bar-bg"><div class="token-bar-fill fill-red" style="width:70%"></div></div>
         </div>
-        <div style="font-size:13px; color:#8b949e; margin-bottom:14px; padding-left:2px;">10MB 로그 파일 Read() → 수십만 토큰 한 번에 소진.</div>
+        <div style="font-size:12px; color:#8b949e; margin-bottom:10px; padding-left:2px;">10MB 로그 파일 Read() → 수십만 토큰 한 번에 소진.</div>
 
         <div class="token-bar-wrap">
           <div class="token-bar-label"><span>③ MCP 도구 스키마</span><span style="color:#e3b341;">상시 점유</span></div>
           <div class="token-bar-bg"><div class="token-bar-fill fill-yellow" style="width:45%"></div></div>
         </div>
-        <div style="font-size:13px; color:#8b949e; margin-bottom:14px; padding-left:2px;">등록한 MCP 서버 수 × 스키마 크기만큼 매 응답 입력에 포함.</div>
+        <div style="font-size:12px; color:#8b949e; margin-bottom:10px; padding-left:2px;">등록한 MCP 서버 수 × 스키마 크기만큼 매 응답 입력에 포함.</div>
 
         <div class="token-bar-wrap">
           <div class="token-bar-label"><span>④ 긴 Bash 출력</span><span style="color:#e3b341;">주의</span></div>
           <div class="token-bar-bg"><div class="token-bar-fill fill-yellow" style="width:35%"></div></div>
         </div>
-        <div style="font-size:13px; color:#8b949e; margin-bottom:14px; padding-left:2px;">명령 결과가 수천 줄이면 전부 컨텍스트에 쌓임.</div>
-
-        <div class="token-bar-wrap">
-          <div class="token-bar-label"><span>⑤ 모호한 요청 → 긴 응답</span><span style="color:#e3b341;">출력 비용</span></div>
-          <div class="token-bar-bg"><div class="token-bar-fill fill-yellow" style="width:40%"></div></div>
-        </div>
-        <div style="font-size:13px; color:#8b949e; padding-left:2px;">Claude가 추측하며 길게 답 → 출력 토큰 낭비 + 히스토리 팽창.</div>
+        <div style="font-size:12px; color:#8b949e; padding-left:2px;">명령 결과가 수천 줄이면 전부 컨텍스트에 쌓임.</div>
       </div>
       <div>
         <h3>실제 사례: 로그 분석 비교</h3>
         <div class="compare-row">
-          <div class="bad-box">
-            # 나쁜 예<br>
-            "app.log 분석해줘"<br>
-            → Read("app.log")<br>
-            → 200,000 토큰 소비
-          </div>
+          <div class="bad-box">"app.log 분석해줘"<br>→ Read("app.log")<br>→ 200,000 토큰</div>
           <div class="arrow">→</div>
-          <div class="good-box">
-            # 좋은 예<br>
-            "app.log에서 ERROR<br>WARN만 찾아줘"<br>
-            → Grep("ERROR\|WARN", "app.log")<br>
-            → 500 토큰 소비
-          </div>
+          <div class="good-box">"ERROR·WARN만 찾아줘"<br>→ Grep("ERROR|WARN")<br>→ 500 토큰</div>
         </div>
-        <div style="text-align:center; font-size:13px; color:#8b949e; margin: 8px 0 18px;">= <strong style="color:#3fb950;">400배 차이</strong></div>
+        <div style="text-align:center; font-size:12px; color:#8b949e; margin: 6px 0 12px;">= <strong style="color:#3fb950;">400배 차이</strong></div>
 
-        <h3>비용 확인 방법</h3>
-        <pre style="font-size:13px;"><span class="comment"># 현재 대화 비용 실시간 확인</span>
+        <h3>비용 실시간 확인</h3>
+        <pre style="font-size:12px;"><span class="comment"># 현재 대화 비용 확인</span>
 /cost
 
-<span class="comment"># 출력 예시</span>
 Input:  45,231 tokens  ($0.14)
 Output:  3,821 tokens  ($0.06)
 Cache:  12,000 tokens  (-$0.09)
@@ -522,383 +481,50 @@ Total:                  $0.11</pre>
     </div>
   </div>
 
-  <!-- ══ DIVIDER 3 ══ -->
+  <!-- ══ /context 점검 ══ -->
+  <div class="slide">
+    <div class="slide-num">06</div>
+    <div class="badge badge-teal">진단 도구</div>
+    <h2>/context — 컨텍스트 점유 현황 확인</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">절약하기 전에 무엇이 토큰을 차지하고 있는지 먼저 파악해야 합니다. <code>/context</code> 명령어로 현재 컨텍스트 구성을 확인합니다.</p>
+        <pre style="font-size:12px;"><span class="comment"># 현재 컨텍스트 점유 현황</span>
+/context
+
+CLAUDE.md             2,341 tokens  18%
+Conversation history  5,820 tokens  44%
+Tool results          3,100 tokens  23%
+MCP schemas           1,890 tokens  14%
+Current request         120 tokens   1%
+────────────────────────────────────
+Total                13,271 / 200K tokens</pre>
+        <div class="tip">MCP 스키마가 예상보다 많은 비중을 차지한다면 사용하지 않는 서버를 비활성화하세요.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">점검 체크리스트</h3>
+        <ul class="tight" style="margin-bottom:12px;">
+          <li><strong style="color:#e6edf3;">CLAUDE.md가 크다</strong> → 다이어트 (별도 슬라이드 참조)</li>
+          <li><strong style="color:#e6edf3;">대화 히스토리가 크다</strong> → <code>/compact</code> 또는 <code>/clear</code></li>
+          <li><strong style="color:#e6edf3;">Tool result가 크다</strong> → 파일 범위 지정, 출력 <code>| head</code></li>
+          <li><strong style="color:#e6edf3;">MCP 스키마가 크다</strong> → 미사용 MCP 서버 비활성화</li>
+        </ul>
+        <div class="warn">컨텍스트가 한계에 가까워질수록 Claude의 응답 품질이 떨어집니다. 전략을 쓰기 전, 먼저 진단부터 합니다.</div>
+        <div style="margin-top:12px; background:#161b22; border:1px solid #30363d; border-radius:8px; padding:12px 14px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:6px;">함께 쓰면 좋은 명령어</div>
+          <div style="font-size:13px; color:#c9d1d9;"><code>/cost</code> — 현재 대화 비용 확인</div>
+          <div style="font-size:13px; color:#c9d1d9; margin-top:4px;"><code>/context</code> — 컨텍스트 구성 분석</div>
+          <div style="font-size:13px; color:#c9d1d9; margin-top:4px;"><code>/compact</code> — 히스토리 압축</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER 모델 선택 ══ -->
   <div class="slide slide-divider">
     <div class="big-num">03</div>
     <div class="content">
-      <div class="badge badge-green">전략</div>
-      <h2>절약 전략 7가지</h2>
-      <p style="color:#8b949e;">하나씩 습관으로 만들면 비용이 눈에 띄게 줄어든다</p>
-    </div>
-  </div>
-
-  <!-- ══ 절약 전략 1~4 ══ -->
-  <div class="slide">
-    <div class="slide-num">07</div>
-    <div class="badge badge-green">절약 전략 1~2</div>
-    <h2>입력 토큰 줄이기</h2>
-    <div class="two-col">
-      <div>
-        <h3 style="margin-bottom:8px;">① 작업마다 <code>/clear</code></h3>
-        <p style="font-size:15px; margin-bottom:10px;">가장 효과가 큰 습관. 무관한 새 작업을 시작할 때 이전 대화를 전부 날립니다.</p>
-        <div class="compare-row" style="margin-bottom:14px;">
-          <div class="bad-box">로그 분석 50턴 후<br>→ 스크립트 작성 요청<br>= 50턴 × 매번 읽음</div>
-          <div class="arrow">→</div>
-          <div class="good-box">/clear 후<br>스크립트 작성 요청<br>= 깨끗한 시작</div>
-        </div>
-        <div class="tip"><code>/clear</code>는 히스토리를 완전 삭제. CLAUDE.md와 설정은 그대로 유지됩니다.</div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">② <code>/compact</code> — 맥락은 유지하면서</h3>
-        <p style="font-size:15px; margin-bottom:10px;">히스토리를 요약본으로 압축합니다. 긴 작업을 이어갈 때 사용합니다.</p>
-        <div class="compare-row" style="margin-bottom:14px;">
-          <div class="bad-box">대화 100턴<br>= 수만 토큰 누적</div>
-          <div class="arrow">→</div>
-          <div class="good-box">/compact 후<br>= 요약 ~2,000 토큰<br>맥락은 유지</div>
-        </div>
-        <div class="tip"><code>/clear</code>와 달리 이전 작업 결과가 요약으로 남습니다. 리팩토링처럼 긴 작업 중간에 활용하세요. 컨텍스트가 한계에 가까워지면 Claude가 자동으로 실행하기도 합니다.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ 원본 편집 ══ -->
-  <div class="slide">
-    <div class="slide-num">07</div>
-    <div class="badge badge-green">절약 전략</div>
-    <h2>후속 메시지 말고, 원본을 편집하세요</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:14px;">Claude가 원하는 대로 답하지 않았을 때 이런 충동이 드실 겁니다.</p>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px 16px; margin-bottom:14px; font-size:14px; line-height:1.8;">
-          <div style="color:#f85149; margin-bottom:4px;">❌ 이렇게 하면 안 됩니다</div>
-          <div style="color:#8b949e;">"아니, 내 말은 이거야..."</div>
-          <div style="color:#8b949e;">"그게 아니라, 다시 해줘..."</div>
-          <div style="color:#8b949e;">"아 그리고 하나 더..."</div>
-        </div>
-        <p style="margin-bottom:14px;">후속 메시지를 보낼 때마다 Claude는 <strong style="color:#e6edf3;">이전 대화 전체를 다시 읽습니다</strong>. 쓸모없어진 메시지까지 전부요.</p>
-
-        <h3 style="margin-bottom:8px; color:#3fb950;">대신: Edit 버튼으로 원본 수정</h3>
-        <div style="background:#161b22; border:1px solid rgba(63,185,80,0.3); border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.8;">
-          <div style="color:#3fb950; margin-bottom:4px;">✓ 원본 메시지 Edit → 수정 → 재생성</div>
-          <div style="color:#8b949e;">이전 대화가 쌓이지 않습니다.</div>
-          <div style="color:#8b949e;">컨텍스트가 깔끔하게 유지됩니다.</div>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">메시지가 쌓일수록 비용이 폭증합니다</h3>
-        <table class="cost-table" style="margin-bottom:14px;">
-          <thead><tr><th>메시지 수</th><th>누적 토큰</th><th>상대 비용</th></tr></thead>
-          <tbody>
-            <tr><td>5개</td><td>7,500</td><td style="color:#3fb950;">1×</td></tr>
-            <tr><td>10개</td><td>27,500</td><td style="color:#e3b341;">3.7×</td></tr>
-            <tr><td>20개</td><td>105,000</td><td style="color:#ffa64d;">14×</td></tr>
-            <tr class="highlight-row"><td>30개</td><td style="color:#f85149;">232,000</td><td style="color:#f85149;">31×</td></tr>
-          </tbody>
-        </table>
-        <div style="text-align:center; padding:12px; background:rgba(248,81,73,0.08); border:1px solid rgba(248,81,73,0.25); border-radius:8px;">
-          <div style="font-size:13px; color:#8b949e; margin-bottom:4px;">30번째 메시지는 첫 메시지보다</div>
-          <div style="font-size:32px; font-weight:700; color:#f85149;">31배</div>
-          <div style="font-size:13px; color:#8b949e;">더 비쌉니다</div>
-        </div>
-        <div class="tip" style="margin-top:12px;">실수로 긴 대화가 쌓였다면 <code>/compact</code>로 요약 압축하거나 <code>/clear</code>로 초기화하세요.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ 절약 전략 3~5 ══ -->
-  <div class="slide">
-    <div class="slide-num">08</div>
-    <div class="badge badge-green">절약 전략 3~5</div>
-    <h2>출력 · 구조 · MCP 최적화</h2>
-    <div class="two-col">
-      <div>
-        <h3 style="margin-bottom:8px;">③ 구체적인 요청 = 짧은 응답</h3>
-        <p style="font-size:15px; margin-bottom:10px;">출력 토큰은 입력보다 5배 비쌉니다. 응답을 짧게 만드는 것도 절약입니다.</p>
-        <div class="compare-row" style="margin-bottom:16px;">
-          <div class="bad-box">"이 로그 결과 분석해줘"<br><span style="color:#484f58; font-size:11px;">→ 2,000 토큰 응답</span></div>
-          <div class="arrow">→</div>
-          <div class="good-box">"API 응답시간만 전주 대비<br>% 변화 한 줄 요약"<br><span style="color:#484f58; font-size:11px;">→ 50 토큰 응답</span></div>
-        </div>
-
-        <h3 style="margin-bottom:8px;">④ CLAUDE.md — 반복 설명 제거</h3>
-        <p style="font-size:15px; margin-bottom:6px;">매번 "우리 프로젝트는 이런 구조이고..." 설명하는 것 = 매 대화마다 수백 토큰 낭비.</p>
-        <div class="tip">CLAUDE.md는 <strong style="color:#e6edf3;">프롬프트 캐시</strong>되므로 반복 비용이 거의 없습니다. 자세히 써도 손해가 없어요.</div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">⑤ MCP 서버 최소화</h3>
-        <p style="font-size:15px; margin-bottom:10px;">등록된 MCP 서버의 tool schema는 <strong style="color:#e6edf3;">쓰든 안 쓰든 항상</strong> 컨텍스트에 포함됩니다.</p>
-        <pre style="font-size:13px;"><span class="comment">// MCP 서버 1개당 대략적인 비용</span>
-MongoDB MCP  ≈ 800 토큰/응답
-Jira MCP     ≈ 600 토큰/응답
-GitHub MCP   ≈ 1,200 토큰/응답
-
-<span class="comment">// 3개 등록 시 100회 응답 기준</span>
-2,600 × 100 = 260,000 토큰
-= Sonnet 기준 약 $0.78 추가 비용</pre>
-
-        <div class="warn">사용하지 않는 날에도 MCP를 켜두면 비용이 발생합니다. 프로젝트별로 필요한 것만 등록하세요.</div>
-
-        <div class="tip" style="margin-top:10px;">MCP 서버를 많이 쓴다면 <strong style="color:#e6edf3;">프로젝트별 설정 분리</strong>: <code>.claude/settings.json</code>에서 해당 프로젝트에 필요한 서버만 활성화.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ CLI vs MCP ══ -->
-  <div class="slide">
-    <div class="slide-num">09</div>
-    <div class="badge badge-green">심화 전략</div>
-    <h2>CLI + Skills vs MCP — 토큰 실측 비교</h2>
-    <div class="two-col">
-      <div>
-        <h3 style="margin-bottom:8px;">실제 벤치마크 (Scalekit, 2026)</h3>
-        <table class="cost-table" style="margin-bottom:12px;">
-          <thead><tr><th>작업</th><th style="color:#3fb950;">CLI</th><th style="color:#f85149;">MCP</th><th>배율</th></tr></thead>
-          <tbody>
-            <tr><td>레포 언어 확인</td><td style="color:#3fb950;">1,365</td><td style="color:#f85149;">44,026</td><td style="color:#ffa64d;">32×</td></tr>
-            <tr><td>PR 목록 조회</td><td style="color:#3fb950;">1,648</td><td style="color:#f85149;">32,279</td><td style="color:#ffa64d;">20×</td></tr>
-            <tr><td>기기 50개 점검</td><td style="color:#3fb950;">4,150</td><td style="color:#f85149;">145,000</td><td style="color:#ffa64d;">35×</td></tr>
-          </tbody>
-        </table>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:12px 14px; margin-bottom:10px;">
-          <div style="font-size:12px; color:#8b949e; margin-bottom:6px;">월 10,000회 실행 기준 비용</div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:15px;">CLI + Skills</span>
-            <span style="font-size:20px; font-weight:700; color:#3fb950;">$3.20</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
-            <span style="font-size:15px;">MCP</span>
-            <span style="font-size:20px; font-weight:700; color:#f85149;">$55.20</span>
-          </div>
-        </div>
-        <div class="warn">MCP 스키마는 쓰든 안 쓰든 항상 컨텍스트에 올라옵니다. GitHub MCP 단독으로 ~1,200 토큰 상시 점유.</div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px; color:#3fb950;">CLI + Skills가 유리한 경우</h3>
-        <ul class="tight" style="margin-bottom:14px;">
-          <li>기성 CLI 존재 (<code>git</code>, <code>gh</code>, <code>aws</code>, <code>kubectl</code>)</li>
-          <li>고빈도 반복 작업 — 비용 격차가 누적됨</li>
-          <li>파이프 조합이 필요한 경우 (<code>| grep | jq</code>)</li>
-          <li>단일 개발자 환경 (공유 인증 불필요)</li>
-        </ul>
-        <h3 style="margin-bottom:8px; color:#ffa64d;">MCP가 필요한 경우</h3>
-        <ul class="tight" style="margin-bottom:12px;">
-          <li>CLI 없는 SaaS — Figma, Notion, Salesforce, Workday</li>
-          <li>OAuth 기반 다중 사용자 인증 필요</li>
-          <li>기업 감사 로그 / 거버넌스 요구사항</li>
-          <li>팀 전체 표준 도구 통일이 목적</li>
-        </ul>
-        <div class="tip">결론: 이미 CLI가 있으면 CLI 우선. CLI가 없는 SaaS에만 MCP를 씁니다.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ CLAUDE.md 다이어트 ══ -->
-  <div class="slide">
-    <div class="slide-num">09</div>
-    <div class="badge badge-green">심화 전략</div>
-    <h2>CLAUDE.md 다이어트 — 참조는 경로로</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:12px;">CLAUDE.md는 매 대화마다 자동으로 컨텍스트에 올라옵니다. 내용이 클수록 <strong style="color:#f85149;">항상</strong> 그만큼 소비됩니다.</p>
-
-        <div class="compare-row" style="margin-bottom:14px;">
-          <div class="bad-box" style="font-size:12px; line-height:1.6;">
-            <strong style="color:#f85149;">CLAUDE.md (2,000줄)</strong><br>
-            # API Spec<br>
-            GET /users → ...<br>
-            POST /orders → ...<br>
-            (전체 스펙 복붙)<br>
-            <span style="color:#484f58; font-size:11px;">= 매 대화 ~8,000 토큰</span>
-          </div>
-          <div class="arrow">→</div>
-          <div class="good-box" style="font-size:12px; line-height:1.6;">
-            <strong style="color:#3fb950;">CLAUDE.md (50줄)</strong><br>
-            # 참조 파일<br>
-            API 스펙: @docs/api.md<br>
-            DB 스키마: @docs/schema.md<br>
-            <br>
-            <span style="color:#484f58; font-size:11px;">= 매 대화 ~200 토큰</span>
-          </div>
-        </div>
-
-        <div class="tip">CLAUDE.md는 색인(index)처럼 씁니다. 세부 내용은 별도 파일로 두고, Claude가 작업 중 필요할 때 <code>Read</code>로 가져오게 합니다.</div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">권장 구조</h3>
-        <pre style="font-size:12px;"><span class="comment"># CLAUDE.md — 항상 로드됨 (작게 유지)</span>
-<span class="kw">## 프로젝트 개요</span>
-SSD 성능 모니터링 서비스
-
-<span class="kw">## 참조 문서</span>
-<span class="str">- API 스펙: @docs/api-spec.md</span>
-<span class="str">- DB 스키마: @docs/schema.md</span>
-<span class="str">- 배포 가이드: @docs/deploy.md</span>
-
-<span class="kw">## 핵심 규칙</span> <span class="comment"># 여기만 직접 작성</span>
-- 테스트는 반드시 실 DB 사용
-- PR은 main에 직접 push 금지</pre>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:12px 14px; margin-top:12px;">
-          <div style="font-size:12px; color:#8b949e; margin-bottom:6px;">절약 효과 (예시)</div>
-          <div style="font-size:13px; color:#c9d1d9;">CLAUDE.md 2,000줄 → 50줄</div>
-          <div style="font-size:13px; color:#3fb950; margin-top:4px;">월 200회 대화 기준 ~1,560,000 토큰 절약</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ .claudeignore ══ -->
-  <div class="slide">
-    <div class="slide-num">09</div>
-    <div class="badge badge-green">심화 전략</div>
-    <h2>.claudeignore — Claude가 보지 않을 파일 지정</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:12px;">.gitignore처럼, Claude가 컨텍스트에 포함하지 않을 파일·디렉토리를 지정합니다. Claude Code가 자동으로 파일을 탐색할 때 적용됩니다.</p>
-
-        <h3 style="margin-bottom:8px;">왜 필요한가?</h3>
-        <ul class="tight" style="margin-bottom:14px;">
-          <li>대규모 파일을 실수로 읽어 컨텍스트가 터지는 것을 방지</li>
-          <li><code>node_modules</code>, <code>dist</code>, <code>*.lock</code> 등 무관한 파일 차단</li>
-          <li>민감 정보 파일 (<code>.env</code>, 키 파일) 보호</li>
-          <li>바이너리·미디어 파일 제외</li>
-        </ul>
-
-        <div class="tip">프로젝트 루트에 <code>.claudeignore</code> 파일을 두면 Claude Code가 자동으로 인식합니다.</div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">예시 .claudeignore</h3>
-        <pre style="font-size:12px;"><span class="comment"># 빌드 산출물</span>
-node_modules/
-dist/
-build/
-.next/
-__pycache__/
-
-<span class="comment"># 잠금 파일 (크고 불필요)</span>
-package-lock.json
-yarn.lock
-poetry.lock
-
-<span class="comment"># 민감 정보</span>
-.env
-.env.*
-*.pem
-secrets/
-
-<span class="comment"># 미디어·바이너리</span>
-*.png
-*.jpg
-*.mp4
-*.zip
-
-<span class="comment"># 로그·데이터</span>
-logs/
-*.log
-data/*.csv</pre>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ RTK ══ -->
-  <div class="slide">
-    <div class="slide-num">09</div>
-    <div class="badge badge-green">심화 전략</div>
-    <h2>RTK — Bash 출력을 Claude에 전달하기 전에 압축</h2>
-    <div class="two-col">
-      <div>
-        <p style="margin-bottom:12px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
-          <div style="font-size:12px; color:#8b949e; margin-bottom:10px;">30분 Claude Code 세션 기준</div>
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
-            <span style="font-size:13px; color:#8b949e; min-width:80px;">RTK 없이</span>
-            <div style="flex:1; background:#21262d; border-radius:4px; height:10px; overflow:hidden;">
-              <div style="width:100%; height:100%; background:#f85149; border-radius:4px;"></div>
-            </div>
-            <span style="font-size:13px; color:#f85149; min-width:70px; text-align:right;">118,000 토큰</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <span style="font-size:13px; color:#8b949e; min-width:80px;">RTK 적용</span>
-            <div style="flex:1; background:#21262d; border-radius:4px; height:10px; overflow:hidden;">
-              <div style="width:20%; height:100%; background:#3fb950; border-radius:4px;"></div>
-            </div>
-            <span style="font-size:13px; color:#3fb950; min-width:70px; text-align:right;">23,900 토큰</span>
-          </div>
-          <div style="font-size:12px; color:#3fb950; margin-top:10px; text-align:right; font-weight:600;">80% 절감</div>
-        </div>
-
-        <h3 style="margin-bottom:8px;">4가지 압축 전략</h3>
-        <ul class="tight">
-          <li><strong style="color:#e6edf3;">필터링</strong> — 노이즈·보일러플레이트 제거</li>
-          <li><strong style="color:#e6edf3;">집계</strong> — 유사 항목 묶어 요약</li>
-          <li><strong style="color:#e6edf3;">트런케이션</strong> — 맥락 보존하며 잘라내기</li>
-          <li><strong style="color:#e6edf3;">중복 제거</strong> — 반복 출력 단일화</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="margin-bottom:8px;">동작 방식</h3>
-        <pre style="font-size:12px;"><span class="comment"># Bash hook으로 투명하게 동작</span>
-<span class="comment"># 명시적 호출 없이 자동 적용</span>
-
-<span class="comment"># 예: git status 출력 압축</span>
-<span class="comment"># 원본: 수십 줄의 상세 출력</span>
-$ git status
-<span class="str">→ RTK가 가로채서</span>
-<span class="str">→ "3 modified, 1 untracked" 로 요약</span>
-
-<span class="comment"># 테스트: 실패 케이스만 전달</span>
-$ pytest tests/
-<span class="str">→ pass 결과 제거</span>
-<span class="str">→ FAILED 2개만 상세 출력</span></pre>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:12px 14px; margin-top:12px;">
-          <div style="font-size:12px; color:#8b949e; margin-bottom:8px;">지원 환경</div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#58a6ff;">Claude Code</span>
-            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#bc8cff;">Cursor</span>
-            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#3fb950;">Gemini CLI</span>
-            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:3px 10px; font-size:12px; color:#ffa64d;">+ 11개 더</span>
-          </div>
-        </div>
-
-        <div class="tip" style="margin-top:12px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. Bash hook 설정만으로 100+ 명령에 자동 적용. 명령 실패 시에는 원본 출력을 보존해 디버깅 지원.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ Caveman ══ -->
-  <div class="slide" style="align-items:center; text-align:center;">
-    <div class="badge badge-green" style="margin-bottom:24px;">원시 전략</div>
-    <div style="font-size:72px; margin-bottom:16px;">🪨</div>
-    <h2 style="font-size:40px; margin-bottom:12px;">사실 이것만 알아도 됩니다</h2>
-    <p style="font-size:20px; color:#8b949e; margin-bottom:32px;">전략이 복잡하게 느껴진다면</p>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:640px; text-align:left;">
-      <div class="card" style="border-color:rgba(88,166,255,0.3);">
-        <div style="font-size:13px; color:#8b949e; margin-bottom:6px;">새 작업 시작할 때</div>
-        <code style="font-size:18px; color:#58a6ff;">/clear</code>
-      </div>
-      <div class="card" style="border-color:rgba(63,185,80,0.3);">
-        <div style="font-size:13px; color:#8b949e; margin-bottom:6px;">파일이 크다면</div>
-        <div style="font-size:14px; color:#3fb950;">"이 부분만 봐줘"</div>
-      </div>
-      <div class="card" style="border-color:rgba(255,166,77,0.3);">
-        <div style="font-size:13px; color:#8b949e; margin-bottom:6px;">응답이 길면</div>
-        <div style="font-size:14px; color:#ffa64d;">"한 줄로 요약해줘"</div>
-      </div>
-      <div class="card" style="border-color:rgba(188,140,255,0.3);">
-        <div style="font-size:13px; color:#8b949e; margin-bottom:6px;">뭘 해야 할지 모를 때</div>
-        <div style="font-size:14px; color:#bc8cff;">새 대화 시작</div>
-      </div>
-    </div>
-    <div class="tip" style="max-width:560px; margin-top:24px; text-align:left;">이 네 가지 습관만으로 토큰 비용의 절반 이상이 해결됩니다. 나머지는 부록입니다.</div>
-  </div>
-
-  <!-- ══ DIVIDER 4 ══ -->
-  <div class="slide slide-divider">
-    <div class="big-num">04</div>
-    <div class="content">
-      <div class="badge badge-orange">고급</div>
+      <div class="badge badge-orange">비용 구조</div>
       <h2>모델 선택 &amp; 프롬프트 캐싱</h2>
       <p style="color:#8b949e;">같은 작업을 더 싸게 하는 방법</p>
     </div>
@@ -906,43 +532,40 @@ $ pytest tests/
 
   <!-- ══ 모델 선택 ══ -->
   <div class="slide">
-    <div class="slide-num">10</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-orange">모델 선택</div>
     <h2>작업에 맞는 모델 고르기</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:18px;">모든 작업에 Sonnet이나 Opus가 필요하지 않습니다. 작업 복잡도에 따라 모델을 선택하면 비용을 크게 줄일 수 있습니다.</p>
+        <p style="margin-bottom:12px;">모든 작업에 Sonnet이나 Opus가 필요하지 않습니다. 작업 복잡도에 따라 모델을 선택하면 비용을 크게 줄일 수 있습니다.</p>
 
-        <div class="card" style="margin-bottom:12px; border-color:rgba(63,185,80,0.3);">
-          <h3 style="color:#3fb950; font-size:16px;">Haiku 4.5 — 단순·반복 작업</h3>
-          <ul class="tight" style="margin-top:8px;">
+        <div class="card" style="margin-bottom:8px; border-color:rgba(63,185,80,0.3);">
+          <h3 style="color:#3fb950; font-size:14px;">Haiku 4.5 — 단순·반복 작업</h3>
+          <ul class="tight" style="margin-top:6px;">
             <li>CSV 파싱, 숫자 포맷 변환</li>
             <li>긴 로그에서 특정 패턴 추출</li>
-            <li>데이터 단위 변환 (us → ms)</li>
             <li>표 형식 정리, 마크다운 변환</li>
           </ul>
         </div>
-        <div class="card" style="margin-bottom:12px; border-color:rgba(88,166,255,0.3);">
-          <h3 style="color:#58a6ff; font-size:16px;">Sonnet 4.6 — 일반 개발·분석</h3>
-          <ul class="tight" style="margin-top:8px;">
+        <div class="card" style="margin-bottom:8px; border-color:rgba(88,166,255,0.3);">
+          <h3 style="color:#58a6ff; font-size:14px;">Sonnet 4.6 — 일반 개발·분석</h3>
+          <ul class="tight" style="margin-top:6px;">
             <li>코드 작성 및 버그 수정</li>
             <li>API 응답 결과 해석 및 리포트</li>
             <li>테스트 스크립트 작성</li>
-            <li>스크립트 설계 및 구현</li>
           </ul>
         </div>
         <div class="card" style="border-color:rgba(248,81,73,0.3);">
-          <h3 style="color:#f85149; font-size:16px;">Opus 4.8 — 복잡한 추론만</h3>
-          <ul class="tight" style="margin-top:8px;">
+          <h3 style="color:#f85149; font-size:14px;">Opus 4.8 — 복잡한 추론만</h3>
+          <ul class="tight" style="margin-top:6px;">
             <li>장애 원인 심층 분석 (여러 요인 교차)</li>
             <li>아키텍처 설계 결정</li>
-            <li>복잡한 알고리즘 구현</li>
           </ul>
         </div>
       </div>
       <div>
         <h3>Claude Code에서 모델 전환</h3>
-        <pre style="font-size:13px;"><span class="comment"># 설정에서 변경</span>
+        <pre style="font-size:12px;"><span class="comment"># 설정에서 변경</span>
 /model
 
 <span class="comment"># 또는 settings.json</span>
@@ -950,35 +573,18 @@ $ pytest tests/
   <span class="key">"model"</span>: <span class="str">"claude-haiku-4-5-20251001"</span>
 }
 
-<span class="comment"># 사용 가능한 모델 ID</span>
+<span class="comment"># 모델 ID</span>
 claude-haiku-4-5-20251001   <span class="comment"># 저렴</span>
 claude-sonnet-4-6           <span class="comment"># 기본</span>
 claude-opus-4-8             <span class="comment"># 고성능</span></pre>
 
-        <h3 style="margin-top:20px;">비용 비교 시뮬레이션</h3>
+        <h3 style="margin-top:12px;">비용 비교</h3>
         <table class="cost-table">
-          <thead>
-            <tr><th>작업</th><th>Sonnet</th><th>Haiku</th><th>절감</th></tr>
-          </thead>
+          <thead><tr><th>작업</th><th>Sonnet</th><th>Haiku</th><th>절감</th></tr></thead>
           <tbody>
-            <tr>
-              <td>CSV 100개 파싱</td>
-              <td style="color:#e3b341;">$0.45</td>
-              <td style="color:#3fb950;">$0.06</td>
-              <td style="color:#3fb950;">87%↓</td>
-            </tr>
-            <tr>
-              <td>로그 패턴 추출 × 50</td>
-              <td style="color:#e3b341;">$1.20</td>
-              <td style="color:#3fb950;">$0.15</td>
-              <td style="color:#3fb950;">87%↓</td>
-            </tr>
-            <tr>
-              <td>테스트 결과 포맷</td>
-              <td style="color:#e3b341;">$0.08</td>
-              <td style="color:#3fb950;">$0.01</td>
-              <td style="color:#3fb950;">88%↓</td>
-            </tr>
+            <tr><td>CSV 100개 파싱</td><td style="color:#e3b341;">$0.45</td><td style="color:#3fb950;">$0.06</td><td style="color:#3fb950;">87%↓</td></tr>
+            <tr><td>로그 패턴 추출 × 50</td><td style="color:#e3b341;">$1.20</td><td style="color:#3fb950;">$0.15</td><td style="color:#3fb950;">87%↓</td></tr>
+            <tr><td>테스트 결과 포맷</td><td style="color:#e3b341;">$0.08</td><td style="color:#3fb950;">$0.01</td><td style="color:#3fb950;">88%↓</td></tr>
           </tbody>
         </table>
       </div>
@@ -987,22 +593,22 @@ claude-opus-4-8             <span class="comment"># 고성능</span></pre>
 
   <!-- ══ 프롬프트 캐싱 ══ -->
   <div class="slide">
-    <div class="slide-num">11</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-orange">프롬프트 캐싱</div>
     <h2>프롬프트 캐싱 — 반복 비용 90% 절감</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:16px;">Claude는 컨텍스트 앞부분이 반복될 때 <strong style="color:#e6edf3;">자동으로 캐싱</strong>합니다. 캐시된 토큰은 일반 입력 대비 <strong style="color:#3fb950;">90% 저렴</strong>합니다.</p>
+        <p style="margin-bottom:12px;">Claude는 컨텍스트 앞부분이 반복될 때 <strong style="color:#e6edf3;">자동으로 캐싱</strong>합니다. 캐시된 토큰은 일반 입력 대비 <strong style="color:#3fb950;">90% 저렴</strong>합니다.</p>
 
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:16px;">
-          <div style="background:#21262d; padding:8px 14px; font-size:12px; color:#8b949e;">캐시 작동 원리</div>
-          <div style="padding:14px;">
-            <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
-              <div style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:6px 10px; font-size:12px; color:#3fb950; flex:1; text-align:center;">CLAUDE.md<br><span style="color:#484f58;">고정 · 캐시됨</span></div>
-              <div style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:6px 10px; font-size:12px; color:#3fb950; flex:1; text-align:center;">MCP 스키마<br><span style="color:#484f58;">고정 · 캐시됨</span></div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:12px;">
+          <div style="background:#21262d; padding:6px 14px; font-size:11px; color:#8b949e;">캐시 작동 원리</div>
+          <div style="padding:12px;">
+            <div style="display:flex; gap:8px; align-items:center; margin-bottom:6px;">
+              <div style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:5px 8px; font-size:11px; color:#3fb950; flex:1; text-align:center;">CLAUDE.md<br><span style="color:#484f58;">고정 · 캐시됨</span></div>
+              <div style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:5px 8px; font-size:11px; color:#3fb950; flex:1; text-align:center;">MCP 스키마<br><span style="color:#484f58;">고정 · 캐시됨</span></div>
             </div>
-            <div style="background:rgba(227,179,65,0.1); border:1px solid rgba(227,179,65,0.25); border-radius:4px; padding:6px 10px; font-size:12px; color:#e3b341; text-align:center;">대화 히스토리 (변동 · 매번 읽음)</div>
-            <div style="margin-top:8px; background:rgba(88,166,255,0.1); border:1px solid rgba(88,166,255,0.25); border-radius:4px; padding:6px 10px; font-size:12px; color:#58a6ff; text-align:center;">현재 요청</div>
+            <div style="background:rgba(227,179,65,0.1); border:1px solid rgba(227,179,65,0.25); border-radius:4px; padding:5px 8px; font-size:11px; color:#e3b341; text-align:center;">대화 히스토리 (변동 · 매번 읽음)</div>
+            <div style="margin-top:6px; background:rgba(88,166,255,0.1); border:1px solid rgba(88,166,255,0.25); border-radius:4px; padding:5px 8px; font-size:11px; color:#58a6ff; text-align:center;">현재 요청</div>
           </div>
         </div>
 
@@ -1010,14 +616,14 @@ claude-opus-4-8             <span class="comment"># 고성능</span></pre>
       </div>
       <div>
         <h3>캐싱이 적용되는 조건</h3>
-        <ul class="tight">
+        <ul class="tight" style="margin-bottom:12px;">
           <li>동일한 컨텍스트 prefix가 <strong style="color:#e6edf3;">1,024 토큰 이상</strong></li>
           <li>캐시 유효 시간: <strong style="color:#e6edf3;">5분</strong> (5분 내 다음 요청이 오면 유지)</li>
           <li>CLAUDE.md, 시스템 프롬프트, MCP 스키마가 주요 대상</li>
         </ul>
 
-        <h3 style="margin-top:20px;">실제 비용 비교 (/cost 출력)</h3>
-        <pre style="font-size:13px;"><span class="comment"># 캐싱 없을 때</span>
+        <h3>실제 비용 비교 (/cost 출력)</h3>
+        <pre style="font-size:12px;"><span class="comment"># 캐싱 없을 때</span>
 Input:  8,400 tokens    ($0.025)
 Output:   320 tokens    ($0.005)
 Total:                   $0.030
@@ -1033,9 +639,512 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
     </div>
   </div>
 
-  <!-- ══ DIVIDER 5 ══ -->
+  <!-- ══ DIVIDER 절약 기초 ══ -->
+  <div class="slide slide-divider">
+    <div class="big-num">04</div>
+    <div class="content">
+      <div class="badge badge-green">전략</div>
+      <h2>절약 전략 — 기초</h2>
+      <p style="color:#8b949e;">습관으로 만들면 비용이 눈에 띄게 줄어든다</p>
+    </div>
+  </div>
+
+  <!-- ══ 원본 편집 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>후속 메시지 말고, 원본을 편집하세요</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">Claude가 원하는 대로 답하지 않았을 때 이런 충동이 드실 겁니다.</p>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px; font-size:13px; line-height:1.8;">
+          <div style="color:#f85149; margin-bottom:3px;">❌ 이렇게 하면 안 됩니다</div>
+          <div style="color:#8b949e;">"아니, 내 말은 이거야..."</div>
+          <div style="color:#8b949e;">"그게 아니라, 다시 해줘..."</div>
+        </div>
+        <p style="margin-bottom:10px;">후속 메시지를 보낼 때마다 Claude는 <strong style="color:#e6edf3;">이전 대화 전체를 다시 읽습니다</strong>.</p>
+        <h3 style="margin-bottom:6px; color:#3fb950;">대신: Edit 버튼으로 원본 수정</h3>
+        <div style="background:#161b22; border:1px solid rgba(63,185,80,0.3); border-radius:8px; padding:10px 14px; font-size:13px; line-height:1.7;">
+          <div style="color:#3fb950; margin-bottom:3px;">✓ 원본 메시지 Edit → 수정 → 재생성</div>
+          <div style="color:#8b949e;">이전 대화가 쌓이지 않고 깔끔하게 유지됩니다.</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">메시지가 쌓일수록 비용이 폭증합니다</h3>
+        <table class="cost-table" style="margin-bottom:12px;">
+          <thead><tr><th>메시지 수</th><th>누적 토큰</th><th>상대 비용</th></tr></thead>
+          <tbody>
+            <tr><td>5개</td><td>7,500</td><td style="color:#3fb950;">1×</td></tr>
+            <tr><td>10개</td><td>27,500</td><td style="color:#e3b341;">3.7×</td></tr>
+            <tr><td>20개</td><td>105,000</td><td style="color:#ffa64d;">14×</td></tr>
+            <tr class="highlight-row"><td>30개</td><td style="color:#f85149;">232,000</td><td style="color:#f85149;">31×</td></tr>
+          </tbody>
+        </table>
+        <div style="text-align:center; padding:10px; background:rgba(248,81,73,0.08); border:1px solid rgba(248,81,73,0.25); border-radius:8px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:3px;">30번째 메시지는 첫 메시지보다</div>
+          <div style="font-size:28px; font-weight:700; color:#f85149;">31배</div>
+          <div style="font-size:12px; color:#8b949e;">더 비쌉니다</div>
+        </div>
+        <div class="tip">실수로 긴 대화가 쌓였다면 <code>/compact</code>로 요약 압축하거나 <code>/clear</code>로 초기화하세요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 절약 전략 /clear /compact ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>입력 토큰 줄이기</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:6px;">① 작업마다 <code>/clear</code></h3>
+        <p style="font-size:14px; margin-bottom:8px;">가장 효과가 큰 습관. 무관한 새 작업을 시작할 때 이전 대화를 전부 날립니다.</p>
+        <div class="compare-row" style="margin-bottom:10px;">
+          <div class="bad-box">로그 분석 50턴 후<br>→ 스크립트 작성 요청<br>= 50턴 × 매번 읽음</div>
+          <div class="arrow">→</div>
+          <div class="good-box">/clear 후<br>스크립트 작성 요청<br>= 깨끗한 시작</div>
+        </div>
+        <div class="tip"><code>/clear</code>는 히스토리를 완전 삭제. CLAUDE.md와 설정은 그대로 유지됩니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">② <code>/compact</code> — 맥락은 유지하면서</h3>
+        <p style="font-size:14px; margin-bottom:8px;">히스토리를 요약본으로 압축합니다. 긴 작업을 이어갈 때 사용합니다.</p>
+        <div class="compare-row" style="margin-bottom:10px;">
+          <div class="bad-box">대화 100턴<br>= 수만 토큰 누적</div>
+          <div class="arrow">→</div>
+          <div class="good-box">/compact 후<br>= 요약 ~2,000 토큰<br>맥락은 유지</div>
+        </div>
+        <div class="tip"><code>/clear</code>와 달리 이전 작업 결과가 요약으로 남습니다. 컨텍스트가 한계에 가까워지면 Claude가 자동으로 실행하기도 합니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 출력 토큰 줄이기 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>출력 토큰 줄이기</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:6px;">③ 구체적인 요청 = 짧은 응답</h3>
+        <p style="font-size:14px; margin-bottom:8px;">출력 토큰은 입력보다 5배 비쌉니다. 응답을 짧게 만드는 것도 절약입니다.</p>
+        <div class="compare-row" style="margin-bottom:12px;">
+          <div class="bad-box">"이 로그 결과 분석해줘"<br><span style="color:#484f58; font-size:11px;">→ 2,000 토큰 응답</span></div>
+          <div class="arrow">→</div>
+          <div class="good-box">"API 응답시간만 전주 대비<br>% 변화 한 줄 요약"<br><span style="color:#484f58; font-size:11px;">→ 50 토큰 응답</span></div>
+        </div>
+        <h3 style="margin-bottom:6px;">④ MCP 서버 최소화</h3>
+        <p style="font-size:14px; margin-bottom:6px;">등록된 MCP 서버의 tool schema는 쓰든 안 쓰든 항상 컨텍스트에 포함됩니다.</p>
+        <pre style="font-size:11px;">MongoDB MCP  ≈ 800 토큰/응답
+GitHub MCP   ≈ 1,200 토큰/응답
+<span class="comment">// 3개 × 100회 = 260,000 토큰 추가</span></pre>
+        <div class="warn">사용하지 않는 날에도 MCP를 켜두면 비용이 발생합니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">⑤ CLAUDE.md — 반복 설명 제거</h3>
+        <p style="font-size:14px; margin-bottom:6px;">매번 "우리 프로젝트는..." 설명하는 것 = 매 대화마다 수백 토큰 낭비.</p>
+        <div class="tip">CLAUDE.md는 <strong style="color:#e6edf3;">프롬프트 캐시</strong>되어 반복 비용이 거의 없습니다. 단, 파일 자체가 클수록 첫 로드 비용은 높아지므로 꼭 필요한 내용만 담으세요.</div>
+        <h3 style="margin-bottom:6px; margin-top:14px;">⑥ Bash 출력 잘라내기</h3>
+        <pre style="font-size:12px;"><span class="comment"># 출력이 길면 앞부분만</span>
+$ pytest tests/ 2>&1 | head -50
+
+<span class="comment"># 오류만 필터</span>
+$ grep "ERROR\|FAIL" app.log | tail -20</pre>
+        <div class="tip">Claude는 Bash 출력 전체를 컨텍스트에 저장합니다. <code>| head -N</code>으로 반드시 잘라주세요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CLAUDE.md 다이어트 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>CLAUDE.md 다이어트 — 참조는 경로로</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">CLAUDE.md는 매 대화마다 자동으로 컨텍스트에 올라옵니다. 내용이 클수록 <strong style="color:#f85149;">항상</strong> 그만큼 소비됩니다.</p>
+
+        <div class="compare-row" style="margin-bottom:12px;">
+          <div class="bad-box" style="font-size:11px; line-height:1.6;">
+            <strong style="color:#f85149;">CLAUDE.md (2,000줄)</strong><br>
+            # API Spec<br>
+            GET /users → ...<br>
+            POST /orders → ...<br>
+            (전체 스펙 복붙)<br>
+            <span style="color:#484f58; font-size:10px;">= 매 대화 ~8,000 토큰</span>
+          </div>
+          <div class="arrow">→</div>
+          <div class="good-box" style="font-size:11px; line-height:1.6;">
+            <strong style="color:#3fb950;">CLAUDE.md (50줄)</strong><br>
+            # 참조 파일<br>
+            API 스펙: @docs/api.md<br>
+            DB 스키마: @docs/schema.md<br>
+            <br>
+            <span style="color:#484f58; font-size:10px;">= 매 대화 ~200 토큰</span>
+          </div>
+        </div>
+
+        <div class="tip">CLAUDE.md는 색인(index)처럼 씁니다. 세부 내용은 별도 파일로 두고, Claude가 필요할 때 <code>Read</code>로 가져오게 합니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">권장 구조</h3>
+        <pre style="font-size:11px;"><span class="comment"># CLAUDE.md — 항상 로드됨 (작게 유지)</span>
+<span class="kw">## 프로젝트 개요</span>
+SSD 성능 모니터링 서비스
+
+<span class="kw">## 참조 문서</span>
+<span class="str">- API 스펙: @docs/api-spec.md</span>
+<span class="str">- DB 스키마: @docs/schema.md</span>
+<span class="str">- 배포 가이드: @docs/deploy.md</span>
+
+<span class="kw">## 핵심 규칙</span> <span class="comment"># 여기만 직접 작성</span>
+- 테스트는 반드시 실 DB 사용
+- PR은 main에 직접 push 금지</pre>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px; margin-top:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:4px;">절약 효과 (예시)</div>
+          <div style="font-size:12px; color:#c9d1d9;">CLAUDE.md 2,000줄 → 50줄</div>
+          <div style="font-size:12px; color:#3fb950; margin-top:3px;">월 200회 대화 기준 ~1,560,000 토큰 절약</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ .claudeignore ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>.claudeignore — Claude가 보지 않을 파일 지정</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">.gitignore처럼, Claude가 컨텍스트에 포함하지 않을 파일·디렉토리를 지정합니다.</p>
+
+        <h3 style="margin-bottom:6px;">왜 필요한가?</h3>
+        <ul class="tight" style="margin-bottom:10px;">
+          <li>대규모 파일을 실수로 읽어 컨텍스트가 터지는 것을 방지</li>
+          <li><code>node_modules</code>, <code>dist</code>, <code>*.lock</code> 등 무관한 파일 차단</li>
+          <li>민감 정보 파일 (<code>.env</code>, 키 파일) 보호</li>
+          <li>바이너리·미디어 파일 제외</li>
+        </ul>
+
+        <div class="tip">프로젝트 루트에 <code>.claudeignore</code> 파일을 두면 Claude Code가 자동으로 인식합니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">예시 .claudeignore</h3>
+        <pre style="font-size:12px;"><span class="comment"># 빌드 산출물</span>
+node_modules/
+dist/
+build/
+.next/
+
+<span class="comment"># 잠금 파일 (크고 불필요)</span>
+package-lock.json
+yarn.lock
+poetry.lock
+
+<span class="comment"># 민감 정보</span>
+.env
+.env.*
+*.pem
+secrets/
+
+<span class="comment"># 미디어·바이너리</span>
+*.png *.jpg *.mp4 *.zip
+
+<span class="comment"># 로그·데이터</span>
+logs/
+*.log
+data/*.csv</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ /handoff ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-green">절약 전략 기초</div>
+    <h2>/handoff — 맥락을 요약해 새 세션으로 넘기기</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;"><code>/handoff</code>는 현재 세션의 작업 맥락을 요약한 뒤 새 대화로 핸드오프합니다. <code>/compact</code>가 같은 세션 내 압축이라면, <code>/handoff</code>는 완전히 새로운 컨텍스트에서 재시작합니다.</p>
+        <div class="compare-row" style="margin-bottom:10px;">
+          <div class="bad-box" style="font-size:12px;">긴 대화를 그대로 이어감<br>= 누적 히스토리 전체 재독<br>= 토큰 폭증</div>
+          <div class="arrow">→</div>
+          <div class="good-box" style="font-size:12px;">/handoff<br>= 요약 + 새 세션 시작<br>= 깨끗한 컨텍스트</div>
+        </div>
+        <div class="tip">큰 리팩토링이나 여러 단계로 나뉜 작업에서 단계를 넘어갈 때 사용하면 효과적입니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">/clear · /compact · /handoff 비교</h3>
+        <table class="cost-table" style="margin-bottom:12px;">
+          <thead><tr><th>명령어</th><th>히스토리</th><th>맥락</th><th>세션</th></tr></thead>
+          <tbody>
+            <tr><td><code>/clear</code></td><td style="color:#f85149;">삭제</td><td style="color:#f85149;">없음</td><td style="color:#8b949e;">유지</td></tr>
+            <tr><td><code>/compact</code></td><td style="color:#e3b341;">요약</td><td style="color:#3fb950;">유지</td><td style="color:#8b949e;">유지</td></tr>
+            <tr class="highlight-row"><td><code>/handoff</code></td><td style="color:#e3b341;">요약</td><td style="color:#3fb950;">유지</td><td style="color:#58a6ff;">새 세션</td></tr>
+          </tbody>
+        </table>
+        <div class="warn">새 세션으로 넘어가므로 이전 대화 파일, 열린 에디터 상태는 초기화됩니다. 단계 전환 시점에 사용하세요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER 절약 심화 ══ -->
   <div class="slide slide-divider">
     <div class="big-num">05</div>
+    <div class="content">
+      <div class="badge badge-purple">도구 & 아키텍처</div>
+      <h2>절약 전략 — 심화</h2>
+      <p style="color:#8b949e;">도구 도입과 설계로 구조적으로 줄이기</p>
+    </div>
+  </div>
+
+  <!-- ══ CLI vs MCP ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-purple">절약 전략 심화</div>
+    <h2>CLI vs MCP — 토큰 실측 비교</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:6px;">실제 벤치마크 (Scalekit, 2026)</h3>
+        <table class="cost-table" style="margin-bottom:10px;">
+          <thead><tr><th>작업</th><th style="color:#3fb950;">CLI</th><th style="color:#f85149;">MCP</th><th>배율</th></tr></thead>
+          <tbody>
+            <tr><td>레포 언어 확인</td><td style="color:#3fb950;">1,365</td><td style="color:#f85149;">44,026</td><td style="color:#ffa64d;">32×</td></tr>
+            <tr><td>PR 목록 조회</td><td style="color:#3fb950;">1,648</td><td style="color:#f85149;">32,279</td><td style="color:#ffa64d;">20×</td></tr>
+            <tr><td>기기 50개 점검</td><td style="color:#3fb950;">4,150</td><td style="color:#f85149;">145,000</td><td style="color:#ffa64d;">35×</td></tr>
+          </tbody>
+        </table>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px; margin-bottom:8px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:5px;">월 10,000회 실행 기준 비용</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px;">CLI</span>
+            <span style="font-size:18px; font-weight:700; color:#3fb950;">$3.20</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+            <span style="font-size:14px;">MCP</span>
+            <span style="font-size:18px; font-weight:700; color:#f85149;">$55.20</span>
+          </div>
+        </div>
+        <div class="warn">MCP 스키마는 쓰든 안 쓰든 항상 컨텍스트에 올라옵니다.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px; color:#3fb950;">CLI가 유리한 경우</h3>
+        <ul class="tight" style="margin-bottom:12px;">
+          <li>기성 CLI 존재 (<code>git</code>, <code>gh</code>, <code>aws</code>, <code>kubectl</code>)</li>
+          <li>고빈도 반복 작업 — 비용 격차가 누적됨</li>
+          <li>파이프 조합 (<code>| grep | jq</code>) 필요</li>
+          <li>터미널에서 직접 실행 가능 — <strong style="color:#e6edf3;">유저와 Agent가 같은 결과를 확인할 수 있어 디버깅이 쉬움</strong></li>
+        </ul>
+        <h3 style="margin-bottom:6px; color:#ffa64d;">MCP가 필요한 경우</h3>
+        <ul class="tight" style="margin-bottom:10px;">
+          <li>CLI 없는 SaaS — Figma, Notion, Salesforce</li>
+          <li>OAuth 기반 다중 사용자 인증 필요</li>
+          <li>기업 감사 로그 / 거버넌스</li>
+        </ul>
+        <div class="tip">결론: 이미 CLI가 있으면 CLI 우선. CLI가 없는 SaaS에만 MCP를 씁니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RTK ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-purple">절약 전략 심화</div>
+    <h2>RTK — Bash 출력을 Claude에 전달하기 전에 압축</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;"><strong style="color:#e6edf3;">Rust Token Killer</strong> — Bash 명령의 출력을 가로채서 노이즈를 제거하고 Claude에게 필요한 부분만 전달하는 CLI 프록시 도구입니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">30분 Claude Code 세션 기준</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span style="font-size:12px; color:#8b949e; min-width:72px;">RTK 없이</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:100%; height:100%; background:#f85149; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#f85149; min-width:70px; text-align:right;">118,000 토큰</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; color:#8b949e; min-width:72px;">RTK 적용</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:20%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#3fb950; min-width:70px; text-align:right;">23,900 토큰</span>
+          </div>
+          <div style="font-size:11px; color:#3fb950; margin-top:8px; text-align:right; font-weight:600;">80% 절감</div>
+        </div>
+
+        <ul class="tight">
+          <li><strong style="color:#e6edf3;">필터링</strong> — 노이즈·보일러플레이트 제거</li>
+          <li><strong style="color:#e6edf3;">집계</strong> — 유사 항목 묶어 요약</li>
+          <li><strong style="color:#e6edf3;">트런케이션</strong> — 맥락 보존하며 잘라내기</li>
+          <li><strong style="color:#e6edf3;">중복 제거</strong> — 반복 출력 단일화</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">동작 방식</h3>
+        <pre style="font-size:11px;"><span class="comment"># Bash hook으로 투명하게 동작</span>
+$ git status
+<span class="str">→ RTK: "3 modified, 1 untracked"</span>
+
+$ pytest tests/
+<span class="str">→ RTK: pass 제거, FAILED 2개만 출력</span></pre>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px; margin-top:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">지원 환경</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#58a6ff;">Claude Code</span>
+            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#bc8cff;">Cursor</span>
+            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#3fb950;">Gemini CLI</span>
+            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#ffa64d;">+ 11개 더</span>
+          </div>
+        </div>
+
+        <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. 명령 실패 시 원본 출력 보존.</div>
+        <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/rtk-ai/rtk" style="color:#484f58;">github.com/rtk-ai/rtk</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Caveman 도구 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-purple">절약 전략 심화</div>
+    <h2>Caveman — AI 응답 자체를 압축하는 스킬</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:4px; font-size:16px; color:#bc8cff; font-style:italic; font-weight:600;">"why use many token when few token do trick"</p>
+        <p style="margin-bottom:10px; font-size:13px; color:#8b949e;">Claude Code 스킬로 설치하면 AI의 출력 스타일 자체를 압축합니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">React 디버깅 설명 예시</div>
+          <div style="margin-bottom:8px;">
+            <div style="font-size:11px; color:#f85149; margin-bottom:3px;">일반 응답 — 69 토큰</div>
+            <div style="font-size:11px; color:#8b949e; line-height:1.6;">"The issue you're experiencing is likely due to a missing dependency in your useEffect hook. You should add the variable to the dependency array..."</div>
+          </div>
+          <div style="border-top:1px solid #21262d; padding-top:6px;">
+            <div style="font-size:11px; color:#3fb950; margin-bottom:3px;">Caveman 응답 — 19 토큰</div>
+            <div style="font-size:11px; color:#c9d1d9;">"useEffect missing dep. Add variable to array."</div>
+          </div>
+        </div>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">평균 출력 토큰 절감</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:65%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
+            <span style="font-size:16px; font-weight:700; color:#3fb950;">65%</span>
+            <span style="font-size:11px; color:#8b949e;">(22~87%)</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">설치 및 사용</h3>
+        <pre style="font-size:11px;"><span class="comment"># 설치 (macOS/Linux)</span>
+curl -fsSL https://raw.githubusercontent.com/\
+JuliusBrussee/caveman/main/install.sh | bash
+
+/caveman          <span class="comment"># 활성화</span>
+"talk like caveman"  <span class="comment"># 자연어로도 가능</span></pre>
+
+        <h3 style="margin-bottom:6px; margin-top:10px;">압축 레벨 & 추가 명령어</h3>
+        <table class="cost-table" style="margin-bottom:8px;">
+          <thead><tr><th>레벨</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td><code>lite</code></td><td style="color:#8b949e;">최소 압축</td></tr>
+            <tr class="highlight-row"><td><code>full</code></td><td style="color:#8b949e;">기본값 — 균형</td></tr>
+            <tr><td><code>ultra</code></td><td style="color:#8b949e;">최대 압축</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px; color:#8b949e; margin-bottom:8px;"><code>/caveman-commit</code> · <code>/caveman-review</code> · <code>/caveman-stats</code></div>
+        <div class="tip">응답 속도도 <strong style="color:#e6edf3;">약 3배</strong> 빨라집니다.</div>
+        <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/juliusbrussee/caveman" style="color:#484f58;">github.com/juliusbrussee/caveman</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Subagent ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-purple">절약 전략 심화</div>
+    <h2>Subagent — 독립 컨텍스트로 격리해 절약</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;">Subagent는 별도 컨텍스트 윈도우에서 실행됩니다. 메인 세션의 긴 히스토리 없이 작업을 처리하고 결과만 반환합니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px; font-size:12px; line-height:1.8;">
+          <div style="color:#8b949e; margin-bottom:5px; font-size:11px;">메인 세션 (50,000 토큰 누적)</div>
+          <div style="color:#e6edf3;">Agent("로그 파일 분석해줘")</div>
+          <div style="color:#8b949e; margin-left:16px; font-size:11px;">↳ 새 컨텍스트 (0 토큰에서 시작)</div>
+          <div style="color:#8b949e; margin-left:16px; font-size:11px;">↳ 분석 완료 후 결과만 반환</div>
+          <div style="color:#3fb950; margin-left:16px; font-size:11px;">= 메인 세션은 결과 텍스트만 추가</div>
+        </div>
+
+        <ul class="tight">
+          <li>메인 세션에 불필요한 중간 결과가 쌓이지 않음</li>
+          <li>여러 Subagent를 병렬 실행해 작업 분담</li>
+          <li>실패해도 메인 컨텍스트가 오염되지 않음</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">적합한 작업 유형</h3>
+        <div class="card" style="margin-bottom:8px; border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">대용량 파일 분석</h3>
+          <p>로그, CSV — 메인 세션에 올리지 않고 Subagent가 요약만 반환</p>
+        </div>
+        <div class="card" style="margin-bottom:8px; border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">병렬 코드 리뷰</h3>
+          <p>여러 PR을 동시에 리뷰 — 각각 독립 컨텍스트, 결과만 취합</p>
+        </div>
+        <div class="card" style="border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">탐색 작업 격리</h3>
+          <p>관련 파일 탐색 — 탐색 과정을 메인 컨텍스트에 남기지 않음</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Graphify ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-purple">절약 전략 심화</div>
+    <h2>Graphify — 프로젝트를 Knowledge Graph로 만들어 Grep 제거</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:10px;"><code>/graphify .</code> 한 번으로 프로젝트 전체를 쿼리 가능한 지식 그래프로 변환합니다. 파일을 전부 읽지 않고 필요한 서브그래프만 가져옵니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">기존 방식 vs Graphify</div>
+          <div style="margin-bottom:8px;">
+            <div style="font-size:11px; color:#f85149; margin-bottom:2px;">❌ 기존 — 파일 전체 읽기</div>
+            <div style="font-size:11px; color:#8b949e;">Grep → Read(file) → Read(file2) → ... = 수만 토큰</div>
+          </div>
+          <div style="border-top:1px solid #21262d; padding-top:6px;">
+            <div style="font-size:11px; color:#3fb950; margin-bottom:2px;">✓ Graphify — 그래프 쿼리</div>
+            <div style="font-size:11px; color:#8b949e;">query_graph("인증 관련 코드") → 관련 노드만 = 수백 토큰</div>
+          </div>
+        </div>
+        <div class="tip">한 번 생성한 그래프는 여러 대화에서 재사용됩니다. 생성 비용은 1회, 절약은 매번.</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">주요 기능</h3>
+        <ul class="tight" style="margin-bottom:10px;">
+          <li><strong style="color:#e6edf3;">God nodes</strong> — 가장 많이 연결된 핵심 개념 식별</li>
+          <li><strong style="color:#e6edf3;">Cross-file 관계</strong> — 파일 간 의존성 발견</li>
+          <li><strong style="color:#e6edf3;">36개 언어</strong> 지원 (tree-sitter 기반)</li>
+          <li><strong style="color:#e6edf3;">PreToolUse hook</strong> — 파일 읽기 전 그래프 먼저 조회</li>
+        </ul>
+        <pre style="font-size:11px;"><span class="comment"># 설치 및 실행</span>
+/graphify .          <span class="comment"># 프로젝트 그래프 생성</span>
+
+<span class="comment"># MCP 도구로 쿼리</span>
+query_graph("auth")
+get_neighbors("UserService")
+shortest_path("Login", "DB")</pre>
+        <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/safishamsi/graphify" style="color:#484f58;">github.com/safishamsi/graphify</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER 개발 실전 ══ -->
+  <div class="slide slide-divider">
+    <div class="big-num">06</div>
     <div class="content">
       <div class="badge badge-teal">실전</div>
       <h2>개발 실전 패턴</h2>
@@ -1045,93 +1154,98 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
 
   <!-- ══ 개발 실전 패턴 ══ -->
   <div class="slide">
-    <div class="slide-num">13</div>
+    <div class="slide-num">-</div>
     <div class="badge badge-teal">개발 실전 패턴</div>
     <h2>개발 업무 × 토큰 절약 패턴</h2>
     <div class="three-col">
       <div class="card">
         <h3>테스트 자동화</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"tests/ 안의 모든 테스트를
- 순서대로 실행하고
- 결과를 logs/에 날짜로
- 저장해줘"</span></pre>
-        <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Glob + Bash 조합. 파일 내용 읽지 않고 실행만</p>
+        <pre style="font-size:10px; margin-top:6px;"><span class="str">"tests/ 안의 모든 테스트를
+ 실행하고 logs/에 저장해줘"</span></pre>
+        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Glob + Bash 조합. 파일 내용 읽지 않고 실행만</p>
       </div>
       <div class="card">
         <h3>회귀 분석 (절약형)</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"지난 30일 로그에서
- 응답시간이 5% 이상
- 증가한 날짜만 알려줘"</span></pre>
-        <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Haiku 모델로 전환 + Grep으로 이상값만 추출</p>
+        <pre style="font-size:10px; margin-top:6px;"><span class="str">"30일 로그에서 응답시간
+ 5% 이상 증가한 날짜만"</span></pre>
+        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Haiku 모델 + Grep으로 이상값만 추출</p>
       </div>
       <div class="card">
         <h3>리포트 생성</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"/api-report
+        <pre style="font-size:10px; margin-top:6px;"><span class="str">"/api-report
  logs/jan_report.json"</span></pre>
-        <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Skill로 프롬프트 재사용. 같은 요청 반복 안 해도 됨</p>
+        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Skill로 프롬프트 재사용</p>
       </div>
       <div class="card">
         <h3>로그 장애 분석</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"app.log에서 14~16시
- ERROR 에러만 요약해줘"</span></pre>
-        <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Bash로 시간 필터 후 결과만 Claude에게 전달</p>
-        <pre style="font-size:11px; margin-top:6px;">$ awk '/14:0[0-9]|15:|16:00/
-  && /ERROR/' app.log</pre>
+        <pre style="font-size:10px; margin-top:6px;"><span class="str">"app.log에서 14~16시
+ ERROR만 요약해줘"</span></pre>
+        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Bash로 시간 필터 후 결과만 전달</p>
       </div>
       <div class="card">
         <h3>코드 리뷰 (범위 지정)</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"parse_logs.py 50~100번째
- 줄의 응답시간 파싱 로직만
- 검토해줘"</span></pre>
-        <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ Read(offset=50, limit=50). 파일 전체 읽기 방지</p>
+        <pre style="font-size:10px; margin-top:6px;"><span class="str">"parse_logs.py 50~100번째
+ 줄만 검토해줘"</span></pre>
+        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ Read(offset=50, limit=50)</p>
       </div>
       <div class="card">
         <h3>DB 쿼리 최적화</h3>
-        <pre style="font-size:11px; margin-top:8px;"><span class="str">"이번 달 API 로그에서
- 응답시간 상위 3개 엔드포인트만
- 반환하도록 쿼리 최적화"</span></pre>
-        <p style="margin-top:8px; font-size:13px; color:#8b949e;">→ DB에서 필터링 → 결과만 컨텍스트 진입. 전체 fetch 금지</p>
+        <pre style="font-size:10px; margin-top:6px;"><span class="str">"응답시간 상위 3개
+ 엔드포인트만 반환하도록"</span></pre>
+        <p style="margin-top:6px; font-size:12px; color:#8b949e;">→ DB에서 필터링 → 결과만 컨텍스트 진입</p>
       </div>
     </div>
   </div>
 
   <!-- ══ SUMMARY ══ -->
   <div class="slide">
-    <div class="slide-num">14</div>
-    <div class="badge badge-blue">Summary</div>
-    <h2>토큰 절약 핵심 정리</h2>
-    <div class="two-col">
+    <div class="slide-num">-</div>
+    <div class="badge badge-blue">핵심 정리</div>
+    <h2>토큰 절약 전략 전체 정리</h2>
+    <div class="three-col">
       <div>
-        <h3>7가지 전략 체크리스트</h3>
-        <ul>
-          <li>① 새 작업 시작 전 <code>/clear</code></li>
-          <li>② 이어갈 때 <code>/compact</code>로 압축</li>
-          <li>③ 파일은 <code>Read(offset, limit)</code>으로 범위 지정</li>
-          <li>④ <code>Grep</code>으로 필요한 줄만 추출</li>
-          <li>⑤ 요청은 구체적으로 → 응답이 짧아짐</li>
-          <li>⑥ CLAUDE.md로 반복 설명 제거 + 자동 캐싱</li>
-          <li>⑦ MCP 서버는 실제 쓰는 것만 등록</li>
+        <h3 style="color:#3fb950; margin-bottom:8px;">기초 전략</h3>
+        <ul class="tight">
+          <li>원본 메시지 Edit 재생성</li>
+          <li><code>/clear</code> — 새 작업 시 리셋</li>
+          <li><code>/compact</code> — 맥락 유지 압축</li>
+          <li><code>/handoff</code> — 새 세션 핸드오프</li>
+          <li>구체적 요청 → 짧은 응답</li>
+          <li>CLAUDE.md 다이어트 (@경로 참조)</li>
+          <li><code>.claudeignore</code> 설정</li>
+          <li>MCP 서버 최소화</li>
+          <li><code>/context</code>로 주기적 점검</li>
         </ul>
-        <div class="tip" style="margin-top:16px;">위 7가지를 모두 적용하면 같은 작업을 <strong style="color:#e6edf3;">5~10배 저렴하게</strong> 할 수 있습니다.</div>
       </div>
       <div>
-        <h3>모델 선택 기준</h3>
-        <div class="card" style="margin-bottom:10px;">
-          <p style="font-size:14px;"><strong style="color:#3fb950;">Haiku</strong> — 파싱, 포맷, 단순 추출 (87% 절감)</p>
+        <h3 style="color:#bc8cff; margin-bottom:8px;">심화 전략</h3>
+        <ul class="tight">
+          <li>CLI 우선 (MCP보다 최대 35×)</li>
+          <li>RTK — Bash 출력 자동 압축 (80%)</li>
+          <li>Caveman — AI 응답 압축 (65%)</li>
+          <li>Subagent로 컨텍스트 격리</li>
+          <li>Graphify — 파일 대신 그래프 쿼리</li>
+        </ul>
+        <h3 style="color:#ffa64d; margin-bottom:8px; margin-top:12px;">비용 구조</h3>
+        <ul class="tight">
+          <li>Haiku → Sonnet → Opus 단계별 선택</li>
+          <li>프롬프트 캐싱 — 반복 비용 90% 절감</li>
+          <li>한국어보다 영어가 ~2.5× 효율적</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#58a6ff; margin-bottom:8px;">우선순위</h3>
+        <div class="card" style="margin-bottom:8px; border-color:rgba(248,81,73,0.3);">
+          <h3 style="color:#f85149; font-size:13px;">즉시 효과</h3>
+          <p>/clear 습관 + 원본 편집</p>
         </div>
-        <div class="card" style="margin-bottom:10px;">
-          <p style="font-size:14px;"><strong style="color:#58a6ff;">Sonnet</strong> — 코드 작성, 분석, 리포트 (기본)</p>
+        <div class="card" style="margin-bottom:8px; border-color:rgba(255,166,77,0.3);">
+          <h3 style="color:#ffa64d; font-size:13px;">설정 한 번</h3>
+          <p>.claudeignore + CLAUDE.md 다이어트 + 올바른 모델 선택</p>
         </div>
-        <div class="card" style="margin-bottom:18px;">
-          <p style="font-size:14px;"><strong style="color:#f85149;">Opus</strong> — 복잡한 추론, 아키텍처 결정만</p>
-        </div>
-
-        <h3>오늘부터 할 수 있는 것</h3>
-        <div class="card" style="margin-bottom:8px;">
-          <p style="font-size:14px;">📍 <code>/cost</code>로 현재 비용 확인하는 습관</p>
-        </div>
-        <div class="card">
-          <p style="font-size:14px;">📍 단순 파싱 작업 하나를 Haiku로 전환해보기</p>
+        <div class="card" style="border-color:rgba(188,140,255,0.3);">
+          <h3 style="color:#bc8cff; font-size:13px;">도구 도입</h3>
+          <p>RTK · Caveman · Graphify 설치</p>
         </div>
       </div>
     </div>
@@ -1139,11 +1253,11 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
 
   <!-- ══ END ══ -->
   <div class="slide" style="justify-content:center; align-items:center; text-align:center;">
-    <div class="slide-num">15</div>
+    <div class="slide-num">-</div>
     <div>
-      <div style="font-size:64px; margin-bottom:24px;">💰</div>
-      <h2 style="font-size:42px; margin-bottom:16px;">적게 쓰고, 더 잘 쓰기</h2>
-      <p style="font-size:20px; max-width:500px; margin:0 auto;">토큰을 아끼는 것은 습관입니다.<br><code>/cost</code>를 매일 확인하는 것부터 시작하세요.</p>
+      <div style="font-size:64px; margin-bottom:20px;">💰</div>
+      <h2 style="font-size:40px; margin-bottom:14px;">적게 쓰고, 더 잘 쓰기</h2>
+      <p style="font-size:18px; max-width:500px; margin:0 auto;">토큰을 아끼는 것은 습관입니다.<br><code>/cost</code>와 <code>/context</code>를 매일 확인하는 것부터 시작하세요.</p>
     </div>
   </div>
 
@@ -1151,7 +1265,7 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
 
 <div id="nav">
   <button id="btn-prev" onclick="go(-1)" disabled>← 이전</button>
-  <span id="slide-counter">1 / 15</span>
+  <span id="slide-counter">1 / ?</span>
   <button id="btn-next" onclick="go(1)">다음 →</button>
 </div>
 
@@ -1159,6 +1273,8 @@ Total:                   $0.010  <span class="good">← 67% 절감</span></pre>
   const slides = document.querySelectorAll('.slide');
   const total  = slides.length;
   let cur = 0;
+
+  document.getElementById('slide-counter').textContent = `1 / ${total}`;
 
   function go(dir) {
     slides[cur].classList.remove('active');
