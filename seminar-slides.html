@@ -778,13 +778,25 @@ db.api_logs.aggregate([
     <h2>CLAUDE.md란?</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:16px;">Claude Code가 시작될 때 <strong style="color:#e6edf3;">자동으로 읽는</strong> 프로젝트 설명 파일.</p>
-        <ul>
+        <p style="margin-bottom:14px;">Claude Code가 시작될 때 <strong style="color:#e6edf3;">자동으로 읽는</strong> 프로젝트 설명 파일.</p>
+        <ul style="margin-bottom:14px;">
           <li>매번 "우리 프로젝트는 이런 구조야..."를 반복하지 않아도 됨</li>
           <li>팀원 모두가 동일한 컨텍스트로 Claude 사용 가능</li>
           <li>코드베이스 + 도메인 지식을 한 곳에 집약</li>
         </ul>
-        <div class="tip">프로젝트 루트에 두면 자동 로드. 하위 폴더에 추가로 둘 수도 있음.</div>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden;">
+          <div style="background:#21262d; padding:7px 14px; font-size:12px; color:#8b949e;">누가 수정하나?</div>
+          <div style="padding:10px 14px; border-bottom:1px solid #21262d;">
+            <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:4px;">👤 사람이 직접 작성</div>
+            <div style="font-size:13px; color:#8b949e;">프로젝트 초기 설정, 컨벤션·규칙 정의, 도메인 지식 입력</div>
+          </div>
+          <div style="padding:10px 14px;">
+            <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:4px;">🤖 Claude가 직접 수정</div>
+            <div style="font-size:13px; color:#8b949e;">"CLAUDE.md에 이 컨벤션 추가해줘" 요청 시, 또는 작업 중 새로운 패턴을 발견하면 Claude가 스스로 Edit 도구로 업데이트 가능</div>
+          </div>
+        </div>
+        <div class="tip" style="margin-top:10px;">프로젝트 루트에 두면 자동 로드. 하위 폴더에 추가로 둘 수도 있음.</div>
       </div>
       <div>
         <pre><span class="comment"># Service Monitor</span>
