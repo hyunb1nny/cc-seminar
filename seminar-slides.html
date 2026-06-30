@@ -928,10 +928,77 @@ reports/    - 자동 생성 리포트
   </div>
 
   <!-- ═══════════════════════════════════════════
+       SLIDE — Context란?
+  ═══════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-num">13</div>
+    <div class="badge badge-green">Context Engineering</div>
+    <h2>Context란 무엇인가?</h2>
+    <div class="two-col">
+      <div>
+        <h3>Claude에게는 기억이 없습니다</h3>
+        <p style="font-size:15px; margin-bottom:16px; color:#8b949e;">Claude는 <strong style="color:#e6edf3;">무상태(stateless)</strong> 모델입니다. 대화가 끝나면 모든 것을 잊습니다. 어제 나눈 대화도, 방금 분석한 파일도 기억하지 않습니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px; margin-bottom:16px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:10px;">새 대화를 시작하면</div>
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:8px;">
+            <div style="width:36px; height:36px; border-radius:50%; background:#21262d; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">🤖</div>
+            <div style="font-size:14px; color:#c9d1d9;">완전한 백지 상태로 시작합니다.<br><span style="font-size:12px; color:#484f58;">어떤 프로젝트인지, 이전에 무슨 작업을 했는지 전혀 모름</span></div>
+          </div>
+        </div>
+
+        <h3>Context = Claude의 작업 메모리</h3>
+        <p style="font-size:15px; color:#8b949e; margin-bottom:14px;">Claude가 응답을 생성하기 직전, <strong style="color:#e6edf3;">"지금 이 순간 알고 있는 모든 것"</strong>이 Context입니다. 대화창에 보이는 내용 + 시스템이 자동으로 넣어준 내용 전부.</p>
+
+        <div class="tip">컴퓨터의 RAM과 같습니다. 전원을 끄면(=대화 종료) 사라지고, 켜는 동안(=한 대화 안에서)만 유지됩니다.</div>
+      </div>
+      <div>
+        <h3>Context가 중요한 이유</h3>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:14px;">
+          <div style="background:#21262d; padding:8px 16px; font-size:12px; color:#8b949e;">Context에 있는 것 vs 없는 것</div>
+          <div style="padding:12px 16px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:8px;">✓ Context 안에 있으면</div>
+                <div style="font-size:13px; color:#8b949e; line-height:1.8;">
+                  Claude가 알고 있음<br>
+                  답할 수 있음<br>
+                  실행에 반영됨
+                </div>
+              </div>
+              <div>
+                <div style="font-size:12px; font-weight:700; color:#f85149; margin-bottom:8px;">✗ Context 밖에 있으면</div>
+                <div style="font-size:13px; color:#8b949e; line-height:1.8;">
+                  Claude가 모름<br>
+                  추측하거나 틀림<br>
+                  반영되지 않음
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px; margin-bottom:14px;">
+          <div style="font-size:12px; color:#8b949e; margin-bottom:8px;">예시</div>
+          <div style="font-size:13px; color:#c9d1d9; line-height:1.9;">
+            <span style="color:#f85149;">✗</span> "API 에러 왜 났어?"<br>
+            <span style="color:#484f58; font-size:12px; display:block; margin-bottom:10px;">→ 프로젝트 정보, 에러 내용이 Context에 없음. Claude는 모름.</span>
+            <span style="color:#3fb950;">✓</span> "API 에러 왜 났어?"<br>
+            <span style="color:#484f58; font-size:12px; display:block;">→ CLAUDE.md + logs/error.log가 Context에 있음. Claude가 분석 가능.</span>
+          </div>
+        </div>
+
+        <div class="warn" style="font-size:14px;">Context Engineering = 무엇을 Context에 넣을지 <strong style="color:#e6edf3;">의도적으로 설계</strong>하는 것</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
        SLIDE — Context Window 해부
   ═══════════════════════════════════════════ -->
   <div class="slide">
-    <div class="slide-num">12</div>
+    <div class="slide-num">14</div>
     <div class="badge badge-green">Context Engineering</div>
     <h2>컨텍스트 윈도우 — 무엇이 들어있나?</h2>
     <p style="margin-bottom:20px; font-size:16px;">Claude는 응답을 생성할 때 컨텍스트 윈도우에 있는 <strong style="color:#e6edf3;">모든 내용을 매번 처음부터 읽습니다.</strong> 컨텍스트가 클수록 느리고 비쌉니다.</p>
