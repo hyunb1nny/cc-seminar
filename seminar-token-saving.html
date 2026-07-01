@@ -1214,6 +1214,59 @@ $ pytest tests/
     </div>
   </div>
 
+  <!-- ══ Headroom ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-blue">커뮤니티 도구</div>
+    <h2>Headroom — 모든 컨텍스트(도구 출력·로그·RAG·파일)를 압축</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:6px;"><strong style="color:#e6edf3;">"60–95% fewer tokens · same answers"</strong> — LLM에 보내기 전 모든 컨텍스트를 압축하는 로컬 우선 도구. RTK가 Bash 출력에 집중한다면, Headroom은 도구 출력·로그·RAG 청크·파일 전체를 대상으로 합니다.</p>
+
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">실제 워크로드 절감률</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span style="font-size:12px; color:#8b949e; min-width:110px;">코드 검색 (100건)</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:8%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#3fb950; min-width:44px; text-align:right;">92%↓</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span style="font-size:12px; color:#8b949e; min-width:110px;">SRE 인시던트 디버깅</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:8%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#3fb950; min-width:44px; text-align:right;">92%↓</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; color:#8b949e; min-width:110px;">GitHub 이슈 분류</span>
+            <div style="flex:1; background:#21262d; border-radius:4px; height:8px; overflow:hidden;"><div style="width:27%; height:100%; background:#3fb950; border-radius:4px;"></div></div>
+            <span style="font-size:12px; color:#3fb950; min-width:44px; text-align:right;">73%↓</span>
+          </div>
+        </div>
+
+        <ul class="tight">
+          <li><strong style="color:#e6edf3;">스마트 압축</strong> — JSON(SmartCrusher) · AST 인식 코드 압축 · 전용 텍스트 압축 모델</li>
+          <li><strong style="color:#e6edf3;">역가능 압축(CCR)</strong> — 원본을 로컬 캐시, 필요 시 복원</li>
+          <li><strong style="color:#e6edf3;">교차 에이전트 메모리</strong> — Claude·Copilot·Cursor 등 도구 간 공유</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">설치 및 사용 (라이브러리 / 프록시 / MCP)</h3>
+        <pre style="font-size:11px;"><span class="comment"># 설치 (Python)</span>
+pip install "headroom-ai[all]"
+
+<span class="comment"># 코딩 에이전트 래핑 — 가장 간단</span>
+headroom wrap claude
+
+<span class="comment"># 또는 드롭인 프록시로 실행</span>
+headroom proxy --port 8787
+
+<span class="comment"># 설정 점검</span>
+headroom doctor</pre>
+        <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">세 가지 배포 방식</strong> — 라이브러리로 직접 통합, 프록시로 투명하게, 또는 MCP 서버로 등록. 프로젝트 구조를 바꾸지 않고 도입 가능합니다.</div>
+        <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/headroomlabs-ai/headroom" style="color:#484f58;">github.com/headroomlabs-ai/headroom</a></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ SUMMARY ══ -->
   <div class="slide">
     <div class="slide-num">-</div>
@@ -1240,6 +1293,7 @@ $ pytest tests/
         <ul class="tight">
           <li>CLI 우선 (MCP보다 최대 35×)</li>
           <li>RTK — Bash 출력 자동 압축 (80%)</li>
+          <li>Headroom — 전체 컨텍스트 압축 (최대 92%)</li>
           <li>Caveman — AI 응답 압축 (65%)</li>
           <li>Subagent로 컨텍스트 격리</li>
           <li>Graphify — 파일 대신 그래프 쿼리</li>
