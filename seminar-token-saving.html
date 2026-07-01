@@ -286,6 +286,7 @@
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#ffa64d; font-weight:600;">3</span> 모델 선택 &amp; 프롬프트 캐싱</div>
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#3fb950; font-weight:600;">4</span> 절약 전략 — 기초</div>
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#bc8cff; font-weight:600;">5</span> 절약 전략 — 심화</div>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#58a6ff; font-weight:600;">6</span> 커뮤니티 플러그인 &amp; 도구</div>
       </div>
     </div>
   </div>
@@ -891,23 +892,23 @@ SSD 성능 모니터링 서비스
         <ul class="tight" style="margin-bottom:12px;">
           <li>페이지 번호 · 머리글 · 바닥글이 매 페이지 반복 → 중복 토큰</li>
           <li>구조 없는 텍스트 추출 → Claude가 문맥 파악에 더 많은 토큰 사용</li>
-          <li><code>Grep</code> 불가 — 원하는 섹션을 찾으려면 전체를 읽어야 함</li>
-          <li><code>Read(offset, limit)</code> 범위 지정 불가 — 전체 읽기만 가능</li>
+          <li><code>Grep</code> 불가 — 압축된 바이너리라 텍스트 검색 안 됨</li>
+          <li>페이지 단위(<code>pages</code> 파라미터)로만 범위 지정 가능, 최대 20페이지/요청 — 줄(line) 기반 <code>offset/limit</code> 불가</li>
         </ul>
 
         <div class="compare-row" style="margin-bottom:12px;">
           <div class="bad-box" style="font-size:11px; line-height:1.6;">
             <strong style="color:#f85149;">NVMe Spec (PDF)</strong><br>
             반복 헤더·푸터 노이즈<br>
-            Grep · 범위 읽기 불가<br>
-            전체 읽기 강제<br>
-            <span style="color:#484f58; font-size:10px;">= 수만 토큰 낭비</span>
+            Grep 불가<br>
+            페이지 단위 읽기만 가능<br>
+            <span style="color:#484f58; font-size:10px;">= 섹션 찾기 어려움</span>
           </div>
           <div class="arrow">→</div>
           <div class="good-box" style="font-size:11px; line-height:1.6;">
             <strong style="color:#3fb950;">nvme-spec.md</strong><br>
             섹션별 Grep 가능<br>
-            Read(offset, limit)<br>
+            Read(offset, limit) 줄 단위<br>
             캐시 적용 가능<br>
             <span style="color:#484f58; font-size:10px;">= 필요한 부분만 읽기</span>
           </div>
@@ -1065,6 +1066,18 @@ markitdown deck.pptx -o deck.md</pre>
           </div>
         </div>
 
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:12px 14px; margin-bottom:10px;">
+          <div style="font-size:11px; color:#8b949e; margin-bottom:8px;">NVMe 스펙 질문 예시 (한국어)</div>
+          <div style="margin-bottom:8px;">
+            <div style="font-size:11px; color:#f85149; margin-bottom:3px;">일반 응답 — 62 토큰</div>
+            <div style="font-size:11px; color:#8b949e; line-height:1.6;">"NVMe 1.4 스펙에서 큐 깊이는 최대 65,535까지 지원됩니다. 이는 SQ(Submission Queue)와 CQ(Completion Queue) 각각에 적용되는 값입니다."</div>
+          </div>
+          <div style="border-top:1px solid #21262d; padding-top:6px;">
+            <div style="font-size:11px; color:#3fb950; margin-bottom:3px;">Caveman 응답 — 18 토큰</div>
+            <div style="font-size:11px; color:#c9d1d9;">"큐 깊이 최대 65535. SQ·CQ 각각 적용."</div>
+          </div>
+        </div>
+
         <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px;">
           <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">평균 출력 토큰 절감</div>
           <div style="display:flex; align-items:center; gap:8px;">
@@ -1184,16 +1197,6 @@ $ git status
 
 $ pytest tests/
 <span class="str">→ RTK: pass 제거, FAILED 2개만 출력</span></pre>
-
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 12px; margin-top:10px;">
-          <div style="font-size:11px; color:#8b949e; margin-bottom:6px;">지원 환경</div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span style="background:rgba(88,166,255,0.15); border:1px solid rgba(88,166,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#58a6ff;">Claude Code</span>
-            <span style="background:rgba(188,140,255,0.15); border:1px solid rgba(188,140,255,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#bc8cff;">Cursor</span>
-            <span style="background:rgba(63,185,80,0.15); border:1px solid rgba(63,185,80,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#3fb950;">Gemini CLI</span>
-            <span style="background:rgba(255,166,77,0.15); border:1px solid rgba(255,166,77,0.3); border-radius:4px; padding:2px 8px; font-size:11px; color:#ffa64d;">+ 11개 더</span>
-          </div>
-        </div>
 
         <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">단일 바이너리</strong>, 의존성 없음. 명령 실패 시 원본 출력 보존.</div>
         <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/rtk-ai/rtk" style="color:#484f58;">github.com/rtk-ai/rtk</a></div>
