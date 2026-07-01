@@ -429,6 +429,51 @@
     </div>
   </div>
 
+  <!-- ══ 입력 vs 출력, 무엇이 더 중요한가 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-teal">토큰 기초</div>
+    <h2>출력이 5배 비싼데, 왜 입력 절감이 더 중요할까?</h2>
+    <div class="two-col">
+      <div>
+        <p style="margin-bottom:12px;">단가만 보면 출력이 5배 비쌉니다. 하지만 실제 청구 금액은 <strong style="color:#e6edf3;">단가 × 볼륨</strong>입니다. 에이전틱 대화에서는 입력 토큰이 전체의 80~90%를 차지하기 때문에, 볼륨 격차가 단가 격차를 압도합니다.</p>
+
+        <table class="cost-table" style="margin-bottom:12px;">
+          <thead><tr><th></th><th>단가 (Sonnet)</th><th>실제 비중</th></tr></thead>
+          <tbody>
+            <tr><td>입력</td><td>$3/M</td><td style="color:#3fb950;">80~90%</td></tr>
+            <tr><td>출력</td><td style="color:#f85149;">$15/M (5×)</td><td style="color:#ffa64d;">10~20%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>20턴 대화 — 장황한 응답 (턴당 800 토큰)</span><span style="color:#f85149;">$0.70</span></div>
+          <div class="token-bar-bg"><div class="token-bar-fill fill-red" style="width:100%"></div></div>
+        </div>
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>20턴 대화 — 간결한 응답 (턴당 150 토큰)</span><span style="color:#3fb950;">$0.14</span></div>
+          <div class="token-bar-bg"><div class="token-bar-fill fill-green" style="width:20%"></div></div>
+        </div>
+        <div style="font-size:11px; color:#484f58; margin-top:4px;">Sonnet 단가 기준, 출력이 매 턴 히스토리로 재전송되는 비용까지 합산 · <strong style="color:#3fb950;">80% 절감</strong></div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">숨겨진 함정: 출력이 다음 턴의 입력이 된다</h3>
+        <p style="font-size:13px; margin-bottom:10px;">Claude는 상태를 기억하지 않으므로, 이번 턴의 응답은 다음 턴부터 대화 히스토리로 <strong style="color:#e6edf3;">매번 재전송</strong>됩니다. 장황한 응답 하나가 이후 모든 턴에서 입력 비용으로 반복 청구되는 셈입니다.</p>
+
+        <pre style="font-size:11px;"><span class="comment"># 턴 1: 응답 800 토큰 생성 (출력 단가 적용)</span>
+Turn 1 → Output: 800 tokens
+
+<span class="comment"># 턴 2~20: 이 800 토큰이 매번 입력으로 재전송 (입력 단가 적용)</span>
+Turn 2  Input: ...+800 tokens
+Turn 3  Input: ...+800 tokens
+<span class="comment">...(19회 반복)</span></pre>
+
+        <div class="tip" style="margin-top:10px;">그래서 <strong style="color:#e6edf3;">출력을 짧게 만드는 것</strong>은 출력 단가 절감 + 이후 모든 턴의 입력 절감이 동시에 일어나는 <strong style="color:#3fb950;">복리 효과</strong>입니다.</div>
+        <div class="warn" style="margin-top:8px;"><strong style="color:#e6edf3;">결론</strong> — 기본 전략은 입력 절감(범위 지정 읽기·/clear·CLAUDE.md 다이어트), 출력 압축(Caveman 등)은 그 효과를 증폭시키는 승수로 이해하면 됩니다.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ DIVIDER 2 ══ -->
   <div class="slide slide-divider">
     <div class="big-num">02</div>
@@ -1263,6 +1308,47 @@ headroom proxy --port 8787
 headroom doctor</pre>
         <div class="tip" style="margin-top:10px;"><strong style="color:#e6edf3;">세 가지 배포 방식</strong> — 라이브러리로 직접 통합, 프록시로 투명하게, 또는 MCP 서버로 등록. 프로젝트 구조를 바꾸지 않고 도입 가능합니다.</div>
         <div style="margin-top:8px; font-size:11px; color:#484f58;">🔗 <a href="https://github.com/headroomlabs-ai/headroom" style="color:#484f58;">github.com/headroomlabs-ai/headroom</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Headroom 동작 원리 ══ -->
+  <div class="slide">
+    <div class="slide-num">-</div>
+    <div class="badge badge-blue">커뮤니티 도구</div>
+    <h2>Headroom 동작 원리 — 콘텐츠 타입별로 다른 압축기를 자동 선택</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:8px;">파이프라인 흐름</h3>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:14px; margin-bottom:10px;">
+          <div style="font-size:12px; color:#8b949e; line-height:2.1;">
+            Input 수신<br>
+            → <strong style="color:#e6edf3;">ContentRouter</strong>가 콘텐츠 타입 감지<br>
+            → 타입별 압축기 적용<br>
+            → <strong style="color:#e6edf3;">CCR</strong>이 원본을 로컬 캐시에 보관<br>
+            → 압축본만 LLM에 전송
+          </div>
+        </div>
+
+        <ul class="tight">
+          <li><strong style="color:#58a6ff;">JSON</strong> → SmartCrusher — 배열의 반복 구조 추상화, 중첩 객체 공통 키 병합, 불필요 필드 제거</li>
+          <li><strong style="color:#bc8cff;">코드</strong> → CodeCompressor — AST(추상 구문 트리) 파싱 후 문법 구조를 유지하며 공백·주석 제거. Python·JS/TS·Go·Rust·Java·C/C++ 지원</li>
+          <li><strong style="color:#3fb950;">일반 텍스트</strong> → Kompress-v2-base — 에이전트 실행 로그로 학습된 전용 압축 모델(HuggingFace 공개), 의미 손실을 최소화하며 축약</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">CCR — 압축해도 원본을 잃지 않는 이유</h3>
+        <p style="font-size:13px; margin-bottom:10px;">일반 압축은 한 번 줄이면 원본을 되돌릴 수 없습니다. CCR(Content-aware Reversible Compression)은 <strong style="color:#e6edf3;">원본을 로컬에 캐시</strong>해두고, LLM에는 압축본만 보냅니다.</p>
+
+        <pre style="font-size:11px;"><span class="comment"># Claude가 압축된 요약만 받음</span>
+"...5,118 tokens (compressed)"
+
+<span class="comment"># 세부 정보가 필요하면 도구 호출로 원본 요청</span>
+headroom_retrieve(ref_id)
+→ 캐시에서 원본 그대로 복원</pre>
+
+        <div class="tip" style="margin-top:10px;">즉 <strong style="color:#e6edf3;">"필요할 때만 원본"</strong> 구조입니다. 대부분의 응답은 압축본으로 충분하고, Claude가 판단해서 필요한 경우에만 원본을 다시 요청합니다.</div>
+        <div class="warn" style="margin-top:8px;"><strong style="color:#e6edf3;">CacheAligner</strong>가 프롬프트 캐싱(KV 캐시) 히트율까지 함께 최적화 — 압축과 캐싱 절감 효과가 중첩됩니다.</div>
       </div>
     </div>
   </div>
