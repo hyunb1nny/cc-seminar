@@ -334,7 +334,7 @@
   <div class="slide slide-title active">
     <div class="slide-num">-</div>
     <div style="max-width: 780px;">
-      <div class="badge badge-blue">파트 내부 세미나</div>
+      <div class="badge badge-blue">세션 1</div>
       <h1>AI Agent &amp;<br><span>Claude Code</span></h1>
       <p class="subtitle">Agent · Tools · CLAUDE.md · Context Engineering<br>Skills · Memory · Harness Engineering</p>
       <div class="week-pills">
@@ -829,42 +829,42 @@ reports/    - 자동 생성 리포트
     <h2>왜 Markdown으로 쓰나?</h2>
     <div class="two-col">
       <div>
-        <p style="margin-bottom:18px; font-size:16px;">Claude는 인터넷의 방대한 Markdown 문서로 학습됐습니다. <strong style="color:#e6edf3;">Markdown 구조 자체가 Claude에게 의미 신호</strong>가 됩니다.</p>
+        <p style="margin-bottom:10px; font-size:15px;">Claude는 인터넷의 방대한 Markdown 문서로 학습됐습니다. <strong style="color:#e6edf3;">Markdown 구조 자체가 Claude에게 의미 신호</strong>가 됩니다.</p>
 
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:16px;">
-          <div style="background:#21262d; padding:8px 16px; font-size:12px; color:#8b949e;">Markdown 요소별 Claude의 해석</div>
-          <div style="padding:4px 0;">
-            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start; border-bottom:1px solid #21262d;">
-              <code style="font-size:13px; color:#3fb950; min-width:60px;">## 제목</code>
-              <span style="font-size:13px; color:#8b949e;">"이 섹션은 X에 관한 정보다" — 구조를 파악하고 관련 내용만 참조</span>
+        <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden; margin-bottom:10px;">
+          <div style="background:#21262d; padding:6px 14px; font-size:11px; color:#8b949e;">Markdown 요소별 Claude의 해석</div>
+          <div style="padding:2px 0;">
+            <div style="padding:7px 14px; display:flex; gap:12px; align-items:flex-start; border-bottom:1px solid #21262d;">
+              <code style="font-size:12px; color:#3fb950; min-width:58px;">## 제목</code>
+              <span style="font-size:12px; color:#8b949e;">"이 섹션은 X에 관한 정보다" — 구조를 파악하고 관련 내용만 참조</span>
             </div>
-            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start; border-bottom:1px solid #21262d;">
-              <code style="font-size:13px; color:#3fb950; min-width:60px;">- 항목</code>
-              <span style="font-size:13px; color:#8b949e;">나열된 규칙 · 옵션으로 인식 — 빠짐없이 따라야 할 목록</span>
+            <div style="padding:7px 14px; display:flex; gap:12px; align-items:flex-start; border-bottom:1px solid #21262d;">
+              <code style="font-size:12px; color:#3fb950; min-width:58px;">- 항목</code>
+              <span style="font-size:12px; color:#8b949e;">나열된 규칙 · 옵션으로 인식 — 빠짐없이 따라야 할 목록</span>
             </div>
-            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start; border-bottom:1px solid #21262d;">
-              <code style="font-size:13px; color:#3fb950; min-width:60px;">```code```</code>
-              <span style="font-size:13px; color:#8b949e;">실행 가능한 명령어 · 코드 — 그대로 쓰거나 실행할 것</span>
+            <div style="padding:7px 14px; display:flex; gap:12px; align-items:flex-start; border-bottom:1px solid #21262d;">
+              <code style="font-size:12px; color:#3fb950; min-width:58px;">```code```</code>
+              <span style="font-size:12px; color:#8b949e;">실행 가능한 명령어 · 코드 — 그대로 쓰거나 실행할 것</span>
             </div>
-            <div style="padding:10px 16px; display:flex; gap:14px; align-items:flex-start;">
-              <code style="font-size:13px; color:#3fb950; min-width:60px;">**굵게**</code>
-              <span style="font-size:13px; color:#8b949e;">중요 키워드 · 강조 — 높은 가중치로 처리</span>
+            <div style="padding:7px 14px; display:flex; gap:12px; align-items:flex-start;">
+              <code style="font-size:12px; color:#3fb950; min-width:58px;">**굵게**</code>
+              <span style="font-size:12px; color:#8b949e;">중요 키워드 · 강조 — 높은 가중치로 처리</span>
             </div>
           </div>
         </div>
 
-        <div class="tip">일반 텍스트도 동작하지만, Markdown을 쓰면 Claude가 <strong style="color:#e6edf3;">파싱 오류 없이 구조를 즉시 인식</strong>합니다.</div>
+        <div class="tip" style="margin-bottom:0;">일반 텍스트도 동작하지만, Markdown을 쓰면 Claude가 <strong style="color:#e6edf3;">파싱 오류 없이 구조를 즉시 인식</strong>합니다.</div>
       </div>
       <div>
-        <h3>같은 내용, 다른 결과</h3>
-        <div style="margin-bottom:14px;">
-          <div style="font-size:12px; color:#f85149; margin-bottom:6px;">✗ 일반 텍스트 (구조 없음)</div>
-          <pre style="font-size:12px; border-color:#f85149;">프로젝트 개요: 웹 서비스 모니터링 도구임. 폴더 구조는 tests가 테스트 scripts가 분석 reports가 리포트임. 빌드는 python run_tests.py로 함. main 브랜치에만 머지할 것.</pre>
+        <h3 style="margin-bottom:8px;">같은 내용, 다른 결과</h3>
+        <div style="margin-bottom:10px;">
+          <div style="font-size:11px; color:#f85149; margin-bottom:4px;">✗ 일반 텍스트 (구조 없음)</div>
+          <pre style="font-size:11px; border-color:#f85149; padding:8px 12px; line-height:1.5;">프로젝트 개요: 웹 서비스 모니터링 도구임. 폴더 구조는 tests가 테스트 scripts가 분석 reports가 리포트임. 빌드는 python run_tests.py로 함. main 브랜치에만 머지할 것.</pre>
         </div>
 
-        <div style="margin-bottom:14px;">
-          <div style="font-size:12px; color:#3fb950; margin-bottom:6px;">✓ Markdown (구조 명확)</div>
-          <pre style="font-size:12px; border-color:#3fb950;"><span class="key">## 프로젝트 개요</span>
+        <div style="margin-bottom:10px;">
+          <div style="font-size:11px; color:#3fb950; margin-bottom:4px;">✓ Markdown (구조 명확)</div>
+          <pre style="font-size:11px; border-color:#3fb950; padding:8px 12px; line-height:1.5;"><span class="key">## 프로젝트 개요</span>
 웹 서비스 모니터링 도구.
 
 <span class="key">## 폴더 구조</span>
@@ -879,7 +879,7 @@ reports/    - 자동 생성 리포트
 - <span class="val">main 브랜치에만 머지</span></pre>
         </div>
 
-        <div class="highlight" style="font-size:14px;">Claude도 읽고, 팀원도 읽는 파일.<br>Markdown은 두 독자 모두를 위한 선택입니다.</div>
+        <div class="highlight" style="font-size:13px; padding:10px 14px;">Claude도 읽고, 팀원도 읽는 파일.<br>Markdown은 두 독자 모두를 위한 선택입니다.</div>
       </div>
     </div>
   </div>
@@ -1268,7 +1268,7 @@ reports/    - 자동 생성 리포트
         <h3>적용 범위 (Scope)</h3>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
           <div class="card" style="padding:12px; border-color:rgba(88,166,255,0.4);">
-            <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:6px;">🙋 Personal</div>
+            <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:6px;">🌐 Global</div>
             <div style="font-size:12px; color:#8b949e; margin-bottom:6px;"><code>~/.claude/skills/</code></div>
             <div style="font-size:12px; color:#c9d1d9;">내 모든 프로젝트에서 사용. 개인 공통 명령어.</div>
           </div>
@@ -1323,11 +1323,11 @@ description: 테스트 결과 JSON을 받아
   <div class="slide">
     <div class="slide-num">-</div>
     <div class="badge badge-pink">추천 Skills</div>
-    <h2>바로 쓸 수 있는 오픈소스 Skills 컬렉션</h2>
-    <p style="margin-bottom:20px; font-size:15px; color:#8b949e;">직접 만들지 않아도 됩니다. 커뮤니티가 만든 검증된 Skills를 설치해서 바로 사용하세요.</p>
+    <h2>추천하는 오픈소스 Skills 컬렉션</h2>
+    <p style="margin-bottom:20px; font-size:15px; color:#8b949e;">커뮤니티가 만든 검증된 Skills를 설치해서 바로 사용하세요.</p>
     <div class="three-col">
       <div class="card" style="border-color:rgba(88,166,255,0.35);">
-        <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:4px; font-family:monospace;">mattpocock/skills</div>
+        <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:4px; font-family:monospace;">mattpocock/skills &nbsp;<a href="https://github.com/mattpocock/skills" style="font-size:10px; color:#484f58; font-weight:400;">github.com/mattpocock/skills</a></div>
         <h3 style="color:#58a6ff; font-size:16px; margin-bottom:10px;">개발 워크플로우 Skills</h3>
         <ul class="tight" style="margin-bottom:12px;">
           <li><code style="color:#ff79c6;">/grill-me</code> — 계획을 실행 전 집중 검증. 모든 가정을 질문으로 뒤집어봄</li>
@@ -1345,7 +1345,7 @@ cp skills/*.md ~/.claude/skills/</pre>
       </div>
 
       <div class="card" style="border-color:rgba(248,81,73,0.35);">
-        <div style="font-size:12px; font-weight:700; color:#f85149; margin-bottom:4px; font-family:monospace;">JuliusBrussee/caveman</div>
+        <div style="font-size:12px; font-weight:700; color:#f85149; margin-bottom:4px; font-family:monospace;">JuliusBrussee/caveman &nbsp;<a href="https://github.com/juliusbrussee/caveman" style="font-size:10px; color:#484f58; font-weight:400;">github.com/juliusbrussee/caveman</a></div>
         <h3 style="color:#f85149; font-size:16px; margin-bottom:10px;">출력 토큰 65~75% 절감</h3>
         <p style="font-size:14px; margin-bottom:12px; color:#c9d1d9;">Claude의 응답을 원시적으로 압축. 장황한 설명 없이 핵심만 전달합니다.</p>
         <ul class="tight" style="margin-bottom:12px;">
@@ -1362,7 +1362,7 @@ JuliusBrussee/caveman/main/install.sh | bash</pre>
       </div>
 
       <div class="card" style="border-color:rgba(63,185,80,0.35);">
-        <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:4px; font-family:monospace;">obra/superpowers</div>
+        <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:4px; font-family:monospace;">obra/superpowers &nbsp;<a href="https://github.com/obra/superpowers" style="font-size:10px; color:#484f58; font-weight:400;">github.com/obra/superpowers</a></div>
         <h3 style="color:#3fb950; font-size:16px; margin-bottom:10px;">개발 사이클 전체 지원</h3>
         <p style="font-size:14px; margin-bottom:12px; color:#c9d1d9;">설계 → 계획 → 구현 → 검토 → 완료의 전 단계를 Skills로 체계화.</p>
         <ul class="tight" style="margin-bottom:12px;">
@@ -1440,7 +1440,7 @@ cp superpowers/*.md .claude/skills/</pre>
           <li><strong style="color:#e6edf3;">프로젝트 전체</strong>에 대한 고정 정보</li>
           <li>git에 커밋 → 팀 전체 공유</li>
           <li>바뀌지 않는 것: 구조, 컨벤션, 실행 명령</li>
-          <li>Claude가 수정하지 않음</li>
+          <li>팀이 작성·관리</li>
         </ul>
         <div style="margin-top:14px; font-size:13px; color:#8b949e;">
           예: "이 프로젝트는 REST API 서비스이며, logs/ 폴더에 JSON으로 저장됩니다"
@@ -1577,7 +1577,7 @@ cp superpowers/*.md .claude/skills/</pre>
           <li><strong style="color:#bc8cff;">Bash / Read / Edit / Write / Grep</strong> — 명령 실행, 파일 조작, 패턴 검색</li>
           <li><strong style="color:#bc8cff;">WebFetch / WebSearch</strong> — API 문서 조회, 최신 정보 검색</li>
           <li><strong style="color:#bc8cff;">MCP</strong> — MongoDB·DB·사내 API 연결 (항상 컨텍스트 점유 주의)</li>
-          <li><strong style="color:#ffa64d;">Skills</strong> — 반복 패턴을 <code>/명령어</code>로, 2단계 스코프 (personal·project)</li>
+          <li><strong style="color:#ffa64d;">Skills</strong> — 반복 패턴을 <code>/명령어</code>로, 2단계 스코프 (global·project)</li>
           <li><strong style="color:#ffa64d;">Memory</strong> — user·project·feedback·reference 4종, 영속 저장</li>
           <li><strong style="color:#ff79c6;">Hooks</strong> — 이벤트 기반 자동화, Pre/PostToolUse 스크립트</li>
           <li><strong style="color:#ff79c6;">Subagents</strong> — 병렬 전문 에이전트, 독립 컨텍스트</li>
