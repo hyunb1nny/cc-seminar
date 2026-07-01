@@ -265,6 +265,16 @@
   }
   .cost-table tr:last-child td { border-bottom: none; }
   .cost-table .highlight-row td { color: #3fb950; font-weight: 600; }
+  .slide-title .week-pills { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+  .week-pill {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    color: #8b949e;
+  }
+  .week-pill span { color: #56d3d0; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -280,13 +290,13 @@
       <div class="badge badge-teal">세션 2</div>
       <h1>토큰 절약 &amp;<br><span>비용 최적화</span></h1>
       <p class="subtitle">Claude Code를 빠르고 저렴하게 쓰는 방법</p>
-      <div style="display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;">
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">1</span> 토큰이란 무엇인가</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#56d3d0; font-weight:600;">2</span> 컨텍스트가 비용에 미치는 영향</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#ffa64d; font-weight:600;">3</span> 모델 선택 &amp; 프롬프트 캐싱</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#3fb950; font-weight:600;">4</span> 절약 전략 — 기초</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#bc8cff; font-weight:600;">5</span> 절약 전략 — 심화</div>
-        <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:8px 16px; font-size:13px; color:#8b949e;"><span style="color:#58a6ff; font-weight:600;">6</span> 커뮤니티 플러그인 &amp; 도구</div>
+      <div class="week-pills">
+        <div class="week-pill"><span>Part 1</span> 토큰이란 무엇인가</div>
+        <div class="week-pill"><span>Part 2</span> 컨텍스트가 비용에 미치는 영향</div>
+        <div class="week-pill"><span>Part 3</span> 모델 선택 &amp; 프롬프트 캐싱</div>
+        <div class="week-pill"><span>Part 4</span> 절약 전략 — 기초</div>
+        <div class="week-pill"><span>Part 5</span> 절약 전략 — 심화</div>
+        <div class="week-pill"><span>Part 6</span> 커뮤니티 플러그인 &amp; 도구</div>
       </div>
     </div>
   </div>
