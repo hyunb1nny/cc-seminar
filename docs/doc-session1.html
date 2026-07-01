@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code 핵심 가이드 — 세션 1 문서</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.75;
+  }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* layout */
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: #0d1117;
+    border-right: 1px solid #21262d;
+    padding: 28px 16px;
+  }
+  .sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #484f58;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .toc-section { margin-bottom: 20px; }
+  .toc-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8b949e;
+    margin-bottom: 6px;
+  }
+  .toc a {
+    display: block;
+    font-size: 13px;
+    color: #8b949e;
+    padding: 3px 0 3px 8px;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .toc a:hover { color: #e6edf3; border-color: #30363d; }
+  .toc a.active { color: #58a6ff; border-color: #58a6ff; }
+
+  .content { flex: 1; max-width: 860px; padding: 48px 48px 120px; }
+
+  /* typography */
+  h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; line-height: 1.2; }
+  h1 span { color: #58a6ff; }
+  h2 { font-size: 26px; font-weight: 700; margin: 48px 0 16px; color: #e6edf3; }
+  h3 { font-size: 18px; font-weight: 600; margin: 28px 0 10px; color: #e6edf3; }
+  h4 { font-size: 15px; font-weight: 600; margin: 20px 0 8px; color: #c9d1d9; }
+  p { margin-bottom: 14px; color: #c9d1d9; font-size: 15px; }
+  ul, ol { margin: 8px 0 14px 20px; color: #c9d1d9; font-size: 15px; }
+  li { margin-bottom: 5px; }
+  strong { color: #e6edf3; }
+  code {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: #ff79c6;
+  }
+  pre {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 12px 0 18px;
+    color: #c9d1d9;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: inherit; color: inherit; }
+  .cm  { color: #8b949e; }
+  .ck  { color: #3fb950; }
+  .cs  { color: #ff79c6; }
+  .cv  { color: #ffa64d; }
+
+  /* section divider */
+  .part-divider {
+    background: linear-gradient(135deg, #161b22, #0d1117);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 52px 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .part-num { font-size: 48px; font-weight: 900; color: #21262d; line-height: 1; min-width: 60px; }
+  .part-info .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .badge-blue   { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  .badge-purple { background: rgba(188,140,255,0.15); color: #bc8cff; border: 1px solid rgba(188,140,255,0.3); }
+  .badge-green  { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
+  .badge-pink   { background: rgba(255,121,198,0.15); color: #ff79c6; border: 1px solid rgba(255,121,198,0.3); }
+  .part-info h2 { font-size: 22px; margin: 0; }
+  .part-info p { font-size: 14px; color: #8b949e; margin: 4px 0 0; }
+
+  /* callout boxes */
+  .tip {
+    background: rgba(63,185,80,0.08);
+    border-left: 3px solid #3fb950;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #c9d1d9;
+    margin: 12px 0;
+  }
+  .warn {
+    background: rgba(248,81,73,0.08);
+    border-left: 3px solid #f85149;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #c9d1d9;
+    margin: 12px 0;
+  }
+  .highlight {
+    background: rgba(88,166,255,0.08);
+    border: 1px solid rgba(88,166,255,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 15px;
+    color: #c9d1d9;
+    margin: 16px 0;
+  }
+  .info-box {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .info-box-title {
+    font-size: 12px;
+    color: #8b949e;
+    margin-bottom: 10px;
+  }
+
+  /* grid / compare */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 14px 0; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 14px 0; }
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .card h3 { margin-top: 0; font-size: 15px; }
+
+  /* compare */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+    margin: 14px 0;
+  }
+  .bad  { background: rgba(248,81,73,0.08);  border: 1px solid rgba(248,81,73,0.3);  border-radius: 8px; padding: 12px 14px; font-size: 13px; line-height: 1.7; }
+  .good { background: rgba(63,185,80,0.08); border: 1px solid rgba(63,185,80,0.3); border-radius: 8px; padding: 12px 14px; font-size: 13px; line-height: 1.7; }
+  .arrow-mid { font-size: 22px; color: #30363d; text-align: center; }
+
+  /* table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: 14px; }
+  th { background: #21262d; padding: 9px 14px; text-align: left; font-size: 12px; color: #8b949e; font-weight: 600; border-bottom: 1px solid #30363d; }
+  td { padding: 9px 14px; border-bottom: 1px solid #21262d; color: #c9d1d9; }
+  tr:last-child td { border-bottom: none; }
+
+  /* separator */
+  hr { border: none; border-top: 1px solid #21262d; margin: 36px 0; }
+
+  /* header */
+  .doc-header {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid #21262d;
+    margin-bottom: 8px;
+  }
+  .doc-meta { font-size: 13px; color: #484f58; margin-top: 10px; }
+
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .content { padding: 28px 24px 80px; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR TOC -->
+<nav class="sidebar">
+  <div class="sidebar-title">목차</div>
+  <div class="toc">
+    <div class="toc-section">
+      <div class="toc-section-label">도입</div>
+      <a href="#intro">AI 활용의 진화</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-label">Part 1 — Agent & Tools</div>
+      <a href="#agent">Claude Code가 Agent인 이유</a>
+      <a href="#tools-overview">도구 개요</a>
+      <a href="#file-tools">파일 도구</a>
+      <a href="#web-tools">웹 도구</a>
+      <a href="#bash-tool">Bash 도구</a>
+      <a href="#mcp">MCP</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-label">Part 2 — CLAUDE.md & Context</div>
+      <a href="#claudemd">CLAUDE.md란?</a>
+      <a href="#markdown">왜 Markdown으로 쓰나</a>
+      <a href="#claudemd-structure">잘 쓴 CLAUDE.md 구조</a>
+      <a href="#context">Context란?</a>
+      <a href="#context-window">컨텍스트 윈도우 해부</a>
+      <a href="#context-strategy">Context Engineering 전략</a>
+      <a href="#skills-intro">Skills의 등장 배경</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-label">Part 3 — Harness Engineering</div>
+      <a href="#harness">Harness Engineering이란?</a>
+      <a href="#skills">Skills</a>
+      <a href="#skills-collection">오픈소스 Skills 컬렉션</a>
+      <a href="#memory">Memory</a>
+      <a href="#claudemd-vs-memory">CLAUDE.md vs Memory</a>
+      <a href="#hooks">Hooks</a>
+      <a href="#subagents">Subagents & Planning</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-label">정리</div>
+      <a href="#summary">핵심 정리</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="badge badge-blue" style="margin-bottom:12px;">세션 1</div>
+    <h1>AI Agent &amp; <span>Claude Code</span></h1>
+    <p style="font-size:18px; color:#8b949e; margin:0;">Agent · Tools · CLAUDE.md · Context Engineering · Skills · Memory · Harness Engineering</p>
+    <div class="doc-meta">Hyunbeen Kim &nbsp;·&nbsp; Claude Code Seminar</div>
+  </div>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <h2>AI 활용의 진화</h2>
+    <p>Claude를 잘 쓴다는 것의 의미가 바뀌고 있습니다. 단순히 좋은 프롬프트를 쓰는 것을 넘어, <strong>도구를 활용하고, 컨텍스트를 설계하고, 환경을 자동화하는 단계</strong>로 진화하고 있습니다.</p>
+
+    <div class="three-col">
+      <div class="card">
+        <div style="font-size:11px; color:#8b949e; margin-bottom:8px; letter-spacing:1px;">PHASE 1</div>
+        <h3 style="color:#58a6ff;">Prompt Engineering</h3>
+        <p style="font-size:14px;">좋은 프롬프트를 작성하면 좋은 답이 나온다. One-shot 질문, 역할 지정, few-shot 예시 등으로 응답 품질을 높이는 단계.</p>
+        <p style="font-size:13px; color:#484f58;">한계: 매번 처음부터. 프로젝트 맥락 없음.</p>
+      </div>
+      <div class="card" style="border-color: rgba(63,185,80,0.4);">
+        <div style="font-size:11px; color:#3fb950; margin-bottom:8px; letter-spacing:1px;">PHASE 2</div>
+        <h3 style="color:#3fb950;">Context Engineering</h3>
+        <p style="font-size:14px;">프롬프트 하나가 아니라, <strong>컨텍스트 윈도우 전체</strong>를 설계한다. 무엇을 넣을지, 언제 초기화할지, 어떤 도구 결과를 포함할지를 의도적으로 관리한다.</p>
+        <p style="font-size:13px; color:#3fb950;">이 세미나의 핵심 — Part 2에서 다룸.</p>
+      </div>
+      <div class="card" style="border-color: rgba(255,121,198,0.4);">
+        <div style="font-size:11px; color:#ff79c6; margin-bottom:8px; letter-spacing:1px;">PHASE 3</div>
+        <h3 style="color:#ff79c6;">Harness Engineering</h3>
+        <p style="font-size:14px;">Claude가 작동하는 <strong>환경 전체</strong>를 시스템으로 구성한다. Hooks, Skills, Memory, Settings를 묶어 팀 전체가 동일한 환경을 공유하게 만든다.</p>
+        <p style="font-size:13px; color:#ff79c6;">Part 3에서 다룸 — 모든 것의 통합.</p>
+      </div>
+    </div>
+
+    <div class="highlight">
+      오늘 세미나는 이 흐름을 따릅니다: <strong>도구를 알고(Part 1) → 컨텍스트를 설계하고(Part 2) → 시스템으로 자동화한다(Part 3).</strong>
+    </div>
+  </section>
+
+  <!-- PART 1 -->
+  <div class="part-divider" id="part1">
+    <div class="part-num">01</div>
+    <div class="part-info">
+      <div class="badge badge-purple">Part 1</div>
+      <h2>Agent &amp; Tools</h2>
+      <p>Claude Code는 왜 "Agent"인가 · 손을 쓰는 도구들</p>
+    </div>
+  </div>
+
+  <section id="agent">
+    <h2>Claude Code는 왜 "Agent"인가?</h2>
+    <p>일반 LLM은 <strong style="color:#8b949e;">텍스트를 받아 텍스트를 돌려줍니다.</strong> Agent는 <strong>목표를 받아 스스로 계획하고, 도구를 선택해 실행하고, 결과를 보고 다시 판단합니다.</strong></p>
+
+    <div class="two-col">
+      <div class="info-box">
+        <div class="info-box-title">💬 일반 LLM (ChatGPT 등)</div>
+        <ul style="font-size:14px; margin-left:16px;">
+          <li>질문 → 텍스트 답변</li>
+          <li>파일을 직접 읽지 못함</li>
+          <li>명령을 직접 실행하지 못함</li>
+          <li>한 번의 응답으로 끝</li>
+        </ul>
+      </div>
+      <div class="info-box" style="border-color: rgba(188,140,255,0.4);">
+        <div class="info-box-title" style="color:#bc8cff;">🤖 Agent (Claude Code)</div>
+        <ul style="font-size:14px; margin-left:16px;">
+          <li>목표 → 계획 → 도구 실행</li>
+          <li>파일을 읽고 수정</li>
+          <li>명령어를 직접 실행</li>
+          <li>결과를 보고 다음 행동 결정</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <strong>"로그에서 에러 패턴 분석해줘"</strong><br>
+      <span style="font-size:14px; color:#8b949e;">→ Glob으로 파일 탐색 → Read로 로그 읽기 → Bash로 grep 실행 → 결과 분석 → 리포트 Write<br>
+      이 모든 과정을 Claude가 스스로 판단하며 진행합니다. 사용자는 목표만 제시하면 됩니다.</span>
+    </div>
+
+    <h3>Agent를 가능하게 하는 것: Tools</h3>
+    <p>도구(Tool)는 Claude가 세상과 상호작용하는 손입니다. 도구 없이는 LLM, 도구와 함께하면 Agent입니다. Claude Code는 8가지 내장 도구를 제공하며, MCP를 통해 무한히 확장됩니다.</p>
+
+    <div class="tip">각 도구 실행 전 <strong>승인 요청</strong>이 뜨는 것이 기본값입니다. 허락 없이 자동 실행되지 않습니다. 자주 쓰는 명령은 <code>settings.json</code>에 등록해 자동 승인할 수 있습니다.</div>
+  </section>
+
+  <section id="tools-overview">
+    <h2>Claude Code의 도구들</h2>
+    <div style="display:grid; grid-template-columns: repeat(2,1fr); gap:14px; margin:14px 0;">
+      <div class="card">
+        <h3 style="color:#bc8cff;">⚡ Bash</h3>
+        <p style="font-size:14px;">쉘 명령을 직접 실행합니다. 테스트 스크립트 실행, Python 분석, 시스템 명령, 파이프 조합 등 터미널에서 하는 모든 것을 Claude가 대신할 수 있습니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">📖 Read</h3>
+        <p style="font-size:14px;">파일 내용을 읽습니다. 텍스트 파일은 줄 기반 <code>offset/limit</code>으로 범위 지정이 가능합니다. PDF는 <code>pages</code> 파라미터로 페이지 범위를 지정합니다(최대 20페이지/요청).</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">✏️ Edit</h3>
+        <p style="font-size:14px;">파일의 특정 부분만 수정합니다. 파일 전체를 덮어쓰지 않고 지정한 문자열을 찾아 교체하는 diff 방식으로 동작합니다. 실수 가능성이 낮고 효율적입니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">📝 Write</h3>
+        <p style="font-size:14px;">새 파일을 생성하거나 기존 파일을 전체 덮어씁니다. 리포트, 스크립트, 설정 파일 등을 자동으로 생성할 때 사용합니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">🔍 Grep</h3>
+        <p style="font-size:14px;">파일 내 텍스트를 검색합니다. 정규식을 지원하며 라인 번호를 반환합니다. 로그에서 ERROR 패턴 추출, 코드에서 함수 정의 찾기 등에 활용합니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">📂 Glob / LS</h3>
+        <p style="font-size:14px;">패턴으로 파일을 찾거나 디렉토리 목록을 조회합니다. Claude가 작업 전에 프로젝트 구조를 파악할 때 가장 먼저 사용하는 도구입니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">🌐 WebFetch / WebSearch</h3>
+        <p style="font-size:14px;">WebFetch는 특정 URL의 내용을 가져옵니다. WebSearch는 실시간 웹 검색으로 학습 데이터에 없는 최신 정보를 조회합니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#bc8cff;">🔌 MCP</h3>
+        <p style="font-size:14px;">Model Context Protocol로 외부 시스템을 연결합니다. DB, 사내 API, Jira/Confluence, 장비 제어 등 거의 모든 시스템을 도구로 만들 수 있습니다.</p>
+      </div>
+    </div>
+
+    <p>Claude는 이 도구들을 <strong>스스로 조합</strong>합니다. "로그 분석해줘" 한 마디에 Glob → Read → Bash(python) 순서로 자동으로 실행합니다. 사용자가 순서를 지정할 필요가 없습니다.</p>
+  </section>
+
+  <section id="file-tools">
+    <h2>파일 도구 — Read · Edit · Write · Grep · Glob</h2>
+
+    <h3>Read — 범위 지정 읽기</h3>
+    <p>파일 전체를 읽으면 불필요한 토큰 소비가 발생합니다. 필요한 범위만 지정해서 읽는 것이 효율적입니다.</p>
+<pre><span class="cm"># 텍스트 파일 전체 읽기 (토큰 낭비)</span>
+Read(<span class="cs">"logs/app.log"</span>)
+
+<span class="cm"># 줄 단위 범위 지정 (절약)</span>
+Read(<span class="cs">"logs/app.log"</span>, offset=<span class="cv">500</span>, limit=<span class="cv">50</span>)
+
+<span class="cm"># PDF는 pages 파라미터 (최대 20페이지/요청)</span>
+Read(<span class="cs">"spec.pdf"</span>, pages=<span class="cs">"1-5"</span>)</pre>
+
+    <h3>Edit — 정밀 수정</h3>
+    <p>파일 전체를 덮어쓰지 않고 특정 문자열을 찾아 교체합니다. 큰 파일에서 작은 변경만 할 때 효율적입니다.</p>
+<pre><span class="cm"># 해당 부분만 찾아 교체</span>
+Edit(<span class="cs">"scripts/parse.py"</span>,
+  old=<span class="cs">"response_ms / 1000"</span>,
+  new=<span class="cs">"response_ms / 1000.0"</span>)</pre>
+    <div class="tip">Claude는 Edit 전에 반드시 Read로 파일을 먼저 읽습니다. 파일을 읽지 않은 상태에서 Edit을 시도하면 오류가 납니다.</div>
+
+    <h3>Grep — 코드/로그 검색</h3>
+    <p>파일 전체를 읽지 않고 필요한 줄만 추출합니다. 정규식으로 복잡한 패턴도 검색할 수 있습니다.</p>
+<pre><span class="cm"># 로그에서 패턴 검색</span>
+Grep(<span class="cs">"ERROR\|WARN"</span>, path=<span class="cs">"logs/"</span>, output=<span class="cs">"context"</span>)
+
+<span class="cm"># 코드에서 함수 찾기</span>
+Grep(<span class="cs">"def parse_response"</span>, path=<span class="cs">"scripts/"</span>)</pre>
+
+    <h3>일반적인 도구 사용 순서</h3>
+    <div class="highlight">
+      Claude는 보통 <strong>Glob → Read → Edit/Write</strong> 순서로 작업합니다.<br>
+      ① Glob으로 관련 파일 탐색 → ② Read로 내용 확인 → ③ Edit/Write로 수정/생성<br>
+      이 순서가 자동으로 이뤄집니다. 사용자는 "parse.py에서 이 함수 고쳐줘"만 말하면 됩니다.
+    </div>
+  </section>
+
+  <section id="web-tools">
+    <h2>웹 도구 — WebFetch · WebSearch</h2>
+
+    <h3>WebFetch — URL 직접 읽기</h3>
+    <p>특정 URL의 내용을 가져와서 Claude가 직접 분석합니다. 라이브러리 공식 문서, 사내 위키, GitHub 이슈 등을 URL로 전달하면 Claude가 읽고 분석합니다.</p>
+<pre><span class="cm"># 라이브러리 공식 문서 읽기</span>
+WebFetch(<span class="cs">"https://docs.example.com/api/..."</span>)
+
+<span class="cm"># 사내 위키 페이지 읽기</span>
+WebFetch(<span class="cs">"https://wiki.internal/api-spec"</span>)
+
+<span class="cm"># GitHub 이슈 내용 가져오기</span>
+WebFetch(<span class="cs">"https://github.com/.../issues/42"</span>)</pre>
+
+    <h3>WebSearch — 실시간 검색</h3>
+    <p>Claude의 학습 데이터에 없는 최신 정보를 실시간으로 검색합니다. 라이브러리 최신 버전, 프레임워크 버그, 표준 문서 등에 활용합니다.</p>
+<pre><span class="cm"># 최신 라이브러리 변경사항 검색</span>
+WebSearch(<span class="cs">"React 19 breaking changes migration"</span>)
+
+<span class="cm"># 프레임워크 버그 검색</span>
+WebSearch(<span class="cs">"Next.js 15 server action error handling"</span>)</pre>
+    <div class="warn">사내 기밀 정보를 WebSearch 쿼리에 포함하지 마세요. 쿼리는 외부 검색엔진으로 전송됩니다.</div>
+  </section>
+
+  <section id="bash-tool">
+    <h2>Bash — 개발 실전 패턴</h2>
+    <p>Bash 도구는 Claude가 쉘 명령을 직접 실행할 수 있게 합니다. 테스트 실행, 로그 분석, 빌드, 배포 스크립트 등 터미널 작업 전부를 자동화할 수 있습니다.</p>
+
+    <h3>패턴 1: 테스트 실행 후 즉시 분석</h3>
+<pre><span class="cm"># Claude에게 이렇게 요청</span>
+<span class="cs">"python run_tests.py 실행하고 결과에서 실패한 테스트만 뽑아줘"</span>
+
+<span class="cm"># Claude가 내부적으로 실행하는 것</span>
+$ python run_tests.py --output-format=json
+$ python parse_logs.py result.json</pre>
+
+    <h3>패턴 2: 로그에서 오류 패턴 추출</h3>
+<pre><span class="cm"># Claude에게 이렇게 요청</span>
+<span class="cs">"이번 주 app.log에서 ERROR, WARN 발생 패턴 찾아줘"</span>
+
+<span class="cm"># Claude가 내부적으로 실행하는 것</span>
+$ grep -n "ERROR\|WARN" /var/log/app.log | tail -100</pre>
+
+    <h3>permission 설정</h3>
+    <p>Claude가 Bash 명령을 실행하려 할 때 기본적으로 허용 여부를 묻습니다. 자주 쓰는 명령은 <code>.claude/settings.json</code>에 등록해두면 매번 승인할 필요가 없습니다.</p>
+<pre><span class="cm">// .claude/settings.json</span>
+{
+  <span class="ck">"permissions"</span>: {
+    <span class="ck">"allow"</span>: [
+      <span class="cs">"Bash(python:*)"</span>,
+      <span class="cs">"Bash(npm:*)"</span>,
+      <span class="cs">"Bash(grep:*)"</span>
+    ]
+  }
+}</pre>
+    <div class="warn"><strong>주의:</strong> <code>rm -rf</code>, <code>curl --data</code>, 프로덕션 배포 명령은 절대 allow 목록에 넣지 마세요. 이런 명령은 매번 명시적 승인을 받는 것이 안전합니다.</div>
+  </section>
+
+  <section id="mcp">
+    <h2>MCP — 외부 시스템 연결</h2>
+    <p>MCP(Model Context Protocol)는 Claude가 <strong>외부 시스템을 도구로 쓸 수 있게</strong> 하는 표준 프로토콜입니다. Anthropic이 만든 개방형 표준으로, DB, API, SaaS 서비스 등 거의 모든 외부 시스템을 Claude의 도구로 등록할 수 있습니다.</p>
+
+    <h3>연결 가능한 시스템</h3>
+    <ul>
+      <li>MongoDB · PostgreSQL · MySQL 등 데이터베이스</li>
+      <li>사내 REST API 호출</li>
+      <li>Jira / Confluence 조회·생성</li>
+      <li>사내 서비스 제어 (커스텀 MCP 서버 개발)</li>
+      <li>Figma, Notion, Salesforce 등 MCP 지원 SaaS</li>
+    </ul>
+
+    <h3>등록 방법</h3>
+<pre><span class="cm">// ~/.claude.json — 글로벌 설정</span>
+{
+  <span class="ck">"mcpServers"</span>: {
+    <span class="ck">"mongo"</span>: {
+      <span class="ck">"command"</span>: <span class="cs">"npx"</span>,
+      <span class="ck">"args"</span>: [<span class="cs">"-y"</span>, <span class="cs">"@mcp/server-mongodb"</span>],
+      <span class="ck">"env"</span>: { <span class="ck">"MONGODB_URI"</span>: <span class="cs">"mongodb://..."</span> }
+    }
+  }
+}</pre>
+
+    <h3>실전 예시 — 자연어 → DB 쿼리</h3>
+    <p>자연어로 요청하면 Claude가 쿼리를 작성하고 실행합니다. 쿼리 문법을 몰라도 됩니다.</p>
+<pre><span class="cm"># 요청</span>
+<span class="cs">"지난달 응답시간 가장 높은 엔드포인트 TOP 3 알려줘"</span>
+
+<span class="cm"># Claude가 자동 생성·실행하는 MongoDB 쿼리</span>
+db.api_logs.aggregate([
+  { <span class="ck">$group</span>: { _id: <span class="cs">"$endpoint"</span>, avg_ms: { <span class="ck">$avg</span>: <span class="cs">"$response_ms"</span> } }},
+  { <span class="ck">$sort</span>: { avg_ms: <span class="cv">-1</span> }},
+  { <span class="ck">$limit</span>: <span class="cv">3</span> }
+])</pre>
+
+    <div class="warn"><strong>토큰 주의:</strong> MCP 기본값은 지연 로딩(deferred)으로 세션 시작 시 툴 이름(~120토큰)만 로딩하고 실제 스키마는 사용 시에만 로딩합니다. 그럼에도 안 쓰는 서버는 등록하지 않는 것이 좋습니다. 공식 서버 목록: <code>github.com/modelcontextprotocol/servers</code></div>
+  </section>
+
+  <!-- PART 2 -->
+  <div class="part-divider" id="part2">
+    <div class="part-num">02</div>
+    <div class="part-info">
+      <div class="badge badge-green">Part 2</div>
+      <h2>CLAUDE.md &amp; Context Engineering</h2>
+      <p>프로젝트를 Claude에게 한 번만 설명하기 · 컨텍스트 윈도우 설계</p>
+    </div>
+  </div>
+
+  <section id="claudemd">
+    <h2>CLAUDE.md란?</h2>
+    <p>Claude Code가 시작될 때 <strong>자동으로 읽는</strong> 프로젝트 설명 파일입니다. 프로젝트 루트에 두면 대화마다 자동으로 컨텍스트에 포함됩니다.</p>
+
+    <ul>
+      <li>매번 "우리 프로젝트는 이런 구조야..."를 반복하지 않아도 됩니다</li>
+      <li>팀원 모두가 동일한 컨텍스트로 Claude를 사용할 수 있습니다</li>
+      <li>코드베이스 + 도메인 지식을 한 곳에 집약합니다</li>
+      <li>하위 폴더에도 추가로 두면 해당 디렉토리 작업 시 자동 로드됩니다</li>
+    </ul>
+
+    <h3>누가 수정하나?</h3>
+    <div class="two-col">
+      <div class="info-box">
+        <div class="info-box-title" style="color:#58a6ff;">👤 사람이 직접 작성</div>
+        <p style="font-size:14px;">프로젝트 초기 설정, 컨벤션·규칙 정의, 도메인 지식 입력. 팀이 작성·관리합니다.</p>
+      </div>
+      <div class="info-box" style="border-color:rgba(63,185,80,0.4);">
+        <div class="info-box-title" style="color:#3fb950;">🤖 Claude가 직접 수정</div>
+        <p style="font-size:14px;">"CLAUDE.md에 이 컨벤션 추가해줘" 요청 시, 또는 작업 중 새로운 패턴을 발견하면 Claude가 스스로 Edit 도구로 업데이트할 수 있습니다.</p>
+      </div>
+    </div>
+
+    <h3>CLAUDE.md 예시</h3>
+<pre><span class="cm"># Service Monitor</span>
+
+<span class="ck">## 프로젝트 개요</span>
+웹 서비스 모니터링 자동화 도구.
+API 로그 수집 및 이상 감지 분석.
+
+<span class="ck">## 폴더 구조</span>
+tests/      - 테스트 스크립트
+logs/       - 수집된 로그 파일
+scripts/    - 분석 파이썬 스크립트
+reports/    - 자동 생성 리포트
+
+<span class="ck">## 주요 지표</span>
+- API 응답시간: ms 단위
+- RPS (Requests Per Second)
+- 에러율: 4xx / 5xx
+
+<span class="ck">## 빌드/실행</span>
+python run_tests.py --env staging
+
+<span class="ck">## 규칙</span>
+- main 브랜치에 직접 push 금지
+- 프로덕션 DB에 직접 쓰지 말 것</pre>
+  </section>
+
+  <section id="markdown">
+    <h2>왜 Markdown으로 쓰나?</h2>
+    <p>Claude는 인터넷의 방대한 Markdown 문서로 학습됐습니다. <strong>Markdown 구조 자체가 Claude에게 의미 신호</strong>가 됩니다. 일반 텍스트도 동작하지만, Markdown을 쓰면 Claude가 파싱 오류 없이 구조를 즉시 인식합니다.</p>
+
+    <table>
+      <thead><tr><th>Markdown 요소</th><th>Claude의 해석</th></tr></thead>
+      <tbody>
+        <tr><td><code>## 제목</code></td><td>"이 섹션은 X에 관한 정보다" — 구조를 파악하고 관련 내용만 참조</td></tr>
+        <tr><td><code>- 항목</code></td><td>나열된 규칙·옵션으로 인식 — 빠짐없이 따라야 할 목록</td></tr>
+        <tr><td><code>```code```</code></td><td>실행 가능한 명령어·코드 — 그대로 쓰거나 실행할 것</td></tr>
+        <tr><td><code>**굵게**</code></td><td>중요 키워드·강조 — 높은 가중치로 처리</td></tr>
+      </tbody>
+    </table>
+
+    <div class="compare">
+      <div class="bad">
+        <strong style="color:#f85149;">✗ 일반 텍스트 (구조 없음)</strong><br>
+        프로젝트 개요: 웹 서비스 모니터링 도구임. 폴더 구조는 tests가 테스트 scripts가 분석 reports가 리포트임. 빌드는 python run_tests.py로 함. main 브랜치에만 머지할 것.
+      </div>
+      <div class="arrow-mid">→</div>
+      <div class="good">
+        <strong style="color:#3fb950;">✓ Markdown (구조 명확)</strong><br>
+        <code>## 프로젝트 개요</code><br>
+        웹 서비스 모니터링 도구.<br><br>
+        <code>## 폴더 구조</code><br>
+        - tests/ → 테스트<br>
+        - scripts/ → 분석<br><br>
+        <code>## 빌드</code><br>
+        <code>python run_tests.py</code>
+      </div>
+    </div>
+
+    <div class="highlight">
+      Claude도 읽고, 팀원도 읽는 파일. Markdown은 두 독자 모두를 위한 선택입니다.
+    </div>
+  </section>
+
+  <section id="claudemd-structure">
+    <h2>잘 쓴 CLAUDE.md 구조</h2>
+    <div class="three-col">
+      <div class="card">
+        <h3>🗂 프로젝트 개요</h3>
+        <p style="font-size:14px;">무엇을 만드는 곳인지, 핵심 도메인 용어 정의. 팀 도메인 약어와 개념을 정의해두면 Claude가 즉시 이해합니다. SSD 파트라면 NVMe, IOPS, QD, CQ 같은 약어를 설명합니다.</p>
+      </div>
+      <div class="card">
+        <h3>📁 코드 구조</h3>
+        <p style="font-size:14px;">폴더별 역할 설명. Claude가 "어디를 건드려야 하는지" 탐색 없이 바로 알게 됩니다. 파일이 수십 개 있어도 폴더 구조만 알면 Claude가 올바른 곳을 찾아갑니다.</p>
+      </div>
+      <div class="card">
+        <h3>⚡ 빌드 &amp; 실행</h3>
+        <p style="font-size:14px;">자주 쓰는 명령어. Claude가 직접 실행해서 결과를 확인하는 데 씁니다. 빌드 명령, 테스트 실행, 환경 변수 등을 포함합니다.</p>
+      </div>
+      <div class="card">
+        <h3>📐 코딩 컨벤션</h3>
+        <p style="font-size:14px;">변수명 규칙, 단위 표기 방식, 코드 스타일 등. 여기에 정의해두면 Claude가 생성하는 코드가 팀 스타일을 자동으로 따릅니다. "응답시간은 ms로 표기" 같은 것.</p>
+      </div>
+      <div class="card">
+        <h3>🚫 하지 말아야 할 것</h3>
+        <p style="font-size:14px;">"프로덕션 DB에 직접 쓰지 말 것", "main에 직접 push 금지" 같은 안전 규칙. Claude가 실수로 위험한 명령을 내리지 않도록 명시적으로 방어합니다.</p>
+      </div>
+      <div class="card">
+        <h3>🔗 외부 참고</h3>
+        <p style="font-size:14px;">내부 위키, Jira 링크, 스펙 문서 경로. Claude가 모르면 어디서 찾아야 하는지 알게 됩니다. 파일 전체를 복붙하지 말고 경로만 명시하세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="context">
+    <h2>Context란 무엇인가?</h2>
+
+    <h3>Claude에게는 기억이 없습니다</h3>
+    <p>Claude는 <strong>무상태(stateless)</strong> 모델입니다. 대화가 끝나면 모든 것을 잊습니다. 어제 나눈 대화도, 방금 분석한 파일도 기억하지 않습니다. 새 대화를 시작하면 완전한 백지 상태입니다.</p>
+
+    <div class="tip">컴퓨터의 RAM과 같습니다. 전원을 끄면(=대화 종료) 사라지고, 켜는 동안(=한 대화 안에서)만 유지됩니다.</div>
+
+    <h3>Context = Claude의 작업 메모리</h3>
+    <p>Claude가 응답을 생성하기 직전, <strong>"지금 이 순간 알고 있는 모든 것"</strong>이 Context입니다. 대화창에 보이는 내용 + 시스템이 자동으로 넣어준 내용 전부입니다.</p>
+
+    <div class="two-col">
+      <div class="info-box" style="border-color:rgba(63,185,80,0.3);">
+        <div class="info-box-title" style="color:#3fb950;">✓ Context 안에 있으면</div>
+        <ul style="font-size:14px;">
+          <li>Claude가 알고 있음</li>
+          <li>답할 수 있음</li>
+          <li>실행에 반영됨</li>
+        </ul>
+      </div>
+      <div class="info-box" style="border-color:rgba(248,81,73,0.3);">
+        <div class="info-box-title" style="color:#f85149;">✗ Context 밖에 있으면</div>
+        <ul style="font-size:14px;">
+          <li>Claude가 모름</li>
+          <li>추측하거나 틀림</li>
+          <li>반영되지 않음</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-title">예시</div>
+      <p style="font-size:14px;"><span style="color:#f85149;">✗</span> <strong>"API 에러 왜 났어?"</strong><br>
+      <span style="color:#484f58;">→ 프로젝트 정보, 에러 내용이 Context에 없음. Claude는 추측만 함.</span></p>
+      <p style="font-size:14px; margin-bottom:0;"><span style="color:#3fb950;">✓</span> <strong>"API 에러 왜 났어?"</strong> (CLAUDE.md + logs/error.log가 Context에 있는 상태)<br>
+      <span style="color:#484f58;">→ Claude가 실제 로그를 보고 정확히 분석 가능.</span></p>
+    </div>
+
+    <div class="warn">Context Engineering = 무엇을 Context에 넣을지 <strong>의도적으로 설계</strong>하는 것. 좋은 Context가 좋은 응답을 만듭니다.</div>
+  </section>
+
+  <section id="context-window">
+    <h2>컨텍스트 윈도우 — 무엇이 들어있나?</h2>
+    <p>Claude는 응답을 생성할 때 컨텍스트 윈도우에 있는 <strong>모든 내용을 매번 처음부터 읽습니다.</strong> 컨텍스트가 클수록 응답이 느리고 비용이 증가합니다.</p>
+
+    <table>
+      <thead><tr><th>구성 요소</th><th>설명</th><th>특성</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#3fb950;">① CLAUDE.md</td><td>프로젝트 설명 파일</td><td>자동 로드 · 고정 · 캐시됨</td></tr>
+        <tr><td style="color:#e3b341;">② MCP 툴 이름 목록</td><td>등록된 MCP 서버의 도구 이름</td><td>지연 로딩 · 스키마는 사용 시만</td></tr>
+        <tr><td style="color:#e3b341;">③ 대화 히스토리</td><td>이전 대화 전체</td><td>누적 · 계속 증가</td></tr>
+        <tr><td style="color:#e3b341;">④ 도구 실행 결과</td><td>Bash 출력, 파일 읽기 결과</td><td>매번 새로 포함</td></tr>
+        <tr><td style="color:#58a6ff;">⑤ 현재 요청</td><td>지금 내가 입력한 메시지</td><td>매 응답마다 추가</td></tr>
+      </tbody>
+    </table>
+
+    <div class="warn">파일 전체를 읽거나 Bash 출력이 길면 ④가 급격히 팽창합니다. 10MB 로그 파일 한 개만 읽어도 수십만 토큰이 소진될 수 있습니다.</div>
+
+    <h3>컨텍스트 확인 및 관리</h3>
+    <ul>
+      <li><code>/usage</code> — 현재 대화에서 쓴 토큰·비용 확인</li>
+      <li><code>/context</code> — 카테고리별 컨텍스트 점유 현황 시각적 확인</li>
+      <li><code>/clear</code> — 히스토리 전체 초기화 (CLAUDE.md와 설정은 유지)</li>
+      <li><code>/compact</code> — 히스토리를 요약으로 압축 (맥락은 유지)</li>
+    </ul>
+
+    <p><strong>모델별 컨텍스트 한도:</strong> Haiku 4.5 <strong>200K</strong> / Sonnet 4.6 · Opus 4.8 <strong>1M 토큰</strong>. 큰 것 같지만 대용량 로그 몇 개면 금방 찹니다.</p>
+  </section>
+
+  <section id="context-strategy">
+    <h2>Context Engineering — 잘 쓰는 전략</h2>
+    <p>컨텍스트는 한정 자원입니다. <strong>무엇을 넣을지 의도적으로 설계</strong>하는 것이 Context Engineering입니다.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+      <div class="card" style="border-color:rgba(63,185,80,0.3);">
+        <h3 style="color:#3fb950;">① 안정적 컨텍스트 분리</h3>
+        <p style="font-size:14px;">자주 바뀌지 않는 정보는 CLAUDE.md에 고정합니다. 대화 히스토리에 반복해서 쓰지 않습니다.</p>
+        <div style="font-size:13px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          ✗ 매번: "우리 프로젝트는 이런 구조이고…"<br>
+          ✓ CLAUDE.md에 한 번 → 자동 로드
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(63,185,80,0.3);">
+        <h3 style="color:#3fb950;">② 필요한 것만 읽기</h3>
+        <p style="font-size:14px;">파일 전체 대신 필요한 범위만 Read합니다. Grep으로 관련 라인만 추출합니다.</p>
+        <div style="font-size:13px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          ✗ Read("app.log")<br>
+          ✓ Read("app.log", offset=0, limit=100)<br>
+          ✓ Grep("ERROR", "logs/")
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(63,185,80,0.3);">
+        <h3 style="color:#3fb950;">③ 작업 단위로 초기화</h3>
+        <p style="font-size:14px;">무관한 작업 전환 시 <code>/clear</code>, 긴 작업 중간엔 <code>/compact</code>.</p>
+        <div style="font-size:13px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          로그 분석 끝 → /clear<br>
+          → 코드 작업 새로 시작<br>
+          (이전 작업 결과가 컨텍스트 낭비)
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(227,179,65,0.3);">
+        <h3 style="color:#e3b341;">④ 구체적인 요청</h3>
+        <p style="font-size:14px;">모호한 요청은 Claude가 길게 추측하며 응답합니다. 응답이 길면 히스토리가 팽창합니다.</p>
+        <div style="font-size:13px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          ✗ "이 로그 분석해줘"<br>
+          ✓ "API 응답시간만 전주 대비<br>&nbsp;&nbsp;&nbsp;% 변화로 한 줄 요약"
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(227,179,65,0.3);">
+        <h3 style="color:#e3b341;">⑤ 프롬프트 캐싱 활용</h3>
+        <p style="font-size:14px;">Claude는 반복적으로 등장하는 컨텍스트 앞부분을 캐싱합니다. CLAUDE.md처럼 고정된 내용은 두 번째 읽기부터 비용이 90% 줄어듭니다.</p>
+        <div style="font-size:13px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          CLAUDE.md → 캐시됨 (90% 절감)<br>
+          대화 히스토리 → 매번 새로 읽음
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(227,179,65,0.3);">
+        <h3 style="color:#e3b341;">⑥ MCP 서버 최소화</h3>
+        <p style="font-size:14px;">기본값인 지연 로딩(deferred)으로 스키마 오버헤드는 줄었지만, 안 쓰는 서버는 등록하지 않는 것이 유리합니다.</p>
+        <div style="font-size:13px; color:#8b949e; background:#0d1117; padding:8px 10px; border-radius:6px;">
+          MCP 서버 이름 목록 ≈ 120 토큰<br>
+          사용하지 않는 서버는 비활성화
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills-intro">
+    <h2>그래도 반복되는 것이 있다 — Skills의 등장</h2>
+    <p>CLAUDE.md로 프로젝트 지식은 해결됐습니다. 하지만 <strong>자주 반복하는 요청 패턴</strong>은 여전히 매번 타이핑해야 합니다.</p>
+
+    <div class="info-box">
+      <div class="info-box-title">매 스프린트마다 반복하는 요청 예시</div>
+      <p style="font-size:14px; color:#c9d1d9; font-style:italic;">
+        "지난주 API 에러 로그 분석해서 에러 유형별로 집계하고, 개선이 필요한 엔드포인트 TOP 3 뽑아줘. 결과는 마크다운 표로."
+      </p>
+    </div>
+
+    <ul>
+      <li>이걸 매번 타이핑해야 함</li>
+      <li>팀원마다 조금씩 다르게 요청해서 일관성도 없음</li>
+      <li>프롬프트가 길수록 실수·누락이 생김</li>
+      <li>노하우가 개인에게 묶임 (공유 불가)</li>
+    </ul>
+
+    <p>Skills는 이 반복 프롬프트를 <strong>/명령어 하나</strong>로 등록합니다. <code>/api-report</code> 하나로 위의 긴 요청을 대체하고, 팀 전체가 같은 방식으로 Claude를 씁니다.</p>
+
+    <div class="tip">Skills는 단순 단축키가 아닙니다. 긴 절차, 판단 기준, 출력 형식까지 담은 <strong>팀의 AI 사용 표준</strong>입니다.</div>
+  </section>
+
+  <!-- PART 3 -->
+  <div class="part-divider" id="part3">
+    <div class="part-num">03</div>
+    <div class="part-info">
+      <div class="badge badge-pink">Part 3</div>
+      <h2>Harness Engineering</h2>
+      <p>Claude Code 전체를 하나의 시스템으로 설계하기</p>
+    </div>
+  </div>
+
+  <section id="harness">
+    <h2>Harness Engineering이란?</h2>
+    <div class="two-col">
+      <div class="info-box">
+        <div class="info-box-title">핵심 관점</div>
+        <p style="font-size:15px;"><strong>Claude Code 자체가 이미 잘 구성된 harness입니다.</strong></p>
+        <p style="font-size:14px;">Anthropic이 Claude LLM 위에 도구(Tools), 승인 시스템, 파일 접근, MCP 연결을 얹어 만든 것이 Claude Code — 즉, harness의 첫 번째 레이어입니다.</p>
+      </div>
+      <div class="info-box" style="border-color:rgba(255,121,198,0.4);">
+        <div class="info-box-title" style="color:#ff79c6;">우리가 하는 것</div>
+        <p style="font-size:15px;"><strong>그 위에 팀만의 harness를 추가합니다.</strong></p>
+        <p style="font-size:14px;">CLAUDE.md · Settings · Skills · Memory · Hooks로 Claude Code를 우리 프로젝트에 맞게 커스터마이징하는 것이 Harness Engineering입니다.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:16px 0;">
+      <div class="card" style="border-color:rgba(63,185,80,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">📄</div>
+        <div style="font-size:14px; font-weight:700; color:#3fb950; margin-bottom:6px;">CLAUDE.md</div>
+        <div style="font-size:13px; color:#8b949e;">프로젝트 컨텍스트<br>팀 컨벤션 · 도메인 지식</div>
+      </div>
+      <div class="card" style="border-color:rgba(88,166,255,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚙️</div>
+        <div style="font-size:14px; font-weight:700; color:#58a6ff; margin-bottom:6px;">settings.json</div>
+        <div style="font-size:13px; color:#8b949e;">권한 설정 · 모델 선택<br>MCP 서버 등록</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,121,198,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🪝</div>
+        <div style="font-size:14px; font-weight:700; color:#ff79c6; margin-bottom:6px;">Hooks</div>
+        <div style="font-size:13px; color:#8b949e;">이벤트 기반 자동화<br>도구 실행 전후 스크립트</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,166,77,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">⚡</div>
+        <div style="font-size:14px; font-weight:700; color:#ffa64d; margin-bottom:6px;">Skills</div>
+        <div style="font-size:13px; color:#8b949e;">슬래시 명령어<br>팀 공유 워크플로우</div>
+      </div>
+      <div class="card" style="border-color:rgba(188,140,255,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🧠</div>
+        <div style="font-size:14px; font-weight:700; color:#bc8cff; margin-bottom:6px;">Memory</div>
+        <div style="font-size:13px; color:#8b949e;">영속적 사용자 컨텍스트<br>선호 · 피드백 · 현재 작업</div>
+      </div>
+      <div class="card" style="border-color:rgba(86,211,208,0.4); text-align:center; padding:18px;">
+        <div style="font-size:28px; margin-bottom:8px;">🤖</div>
+        <div style="font-size:14px; font-weight:700; color:#56d3d0; margin-bottom:6px;">Subagents</div>
+        <div style="font-size:13px; color:#8b949e;">병렬 전문화 에이전트<br>복잡한 작업 위임</div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      이 6가지를 함께 설계하면 Claude는 단순한 채팅 상대가 아니라 <strong>팀의 자동화된 파트너</strong>가 됩니다. 각각을 개별로 아는 것과, <em>시스템으로 묶어 설계하는 것</em>이 Harness Engineering의 핵심입니다.
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills — 슬래시 명령어 · 자동 호출</h2>
+    <p>자주 쓰는 프롬프트 패턴을 <code>.md</code> 파일로 등록해두는 기능입니다. 호출 방식이 두 가지입니다.</p>
+
+    <div class="two-col">
+      <div class="info-box">
+        <div class="info-box-title" style="color:#58a6ff;">👤 User-invoked</div>
+        <p style="font-size:14px;">사용자가 직접 슬래시 명령어로 호출합니다. 명시적·의도적. 언제 실행되는지 사용자가 제어합니다.</p>
+        <code style="font-size:15px; color:#3fb950;">/api-report logs/jan.json</code>
+      </div>
+      <div class="info-box" style="border-color:rgba(255,121,198,0.3);">
+        <div class="info-box-title" style="color:#ff79c6;">🤖 Model-invoked</div>
+        <p style="font-size:14px;">Claude가 대화 맥락을 보고 자동으로 실행합니다. "PR 리뷰해줘" 입력 시 Claude가 <code>/code-review</code> skill을 자동 선택합니다.</p>
+        <p style="font-size:13px; color:#8b949e;">동작하려면 Skill의 <code>description</code> frontmatter를 잘 써야 합니다. Claude는 이 설명을 보고 "지금 이 Skill을 써야겠다"고 판단합니다.</p>
+      </div>
+    </div>
+
+    <h3>적용 범위 (Scope)</h3>
+    <div class="two-col">
+      <div class="info-box" style="border-color:rgba(88,166,255,0.4);">
+        <div class="info-box-title" style="color:#58a6ff;">🌐 Global</div>
+        <p style="font-size:14px;"><code>~/.claude/skills/</code></p>
+        <p style="font-size:14px;">내 모든 프로젝트에서 사용. 개인 공통 명령어. 다른 프로젝트에서도 동일한 명령어를 씁니다.</p>
+      </div>
+      <div class="info-box" style="border-color:rgba(63,185,80,0.4);">
+        <div class="info-box-title" style="color:#3fb950;">📁 Project</div>
+        <p style="font-size:14px;"><code>.claude/skills/</code></p>
+        <p style="font-size:14px;">팀 공유. git에 커밋하면 팀원 모두가 동일한 명령어를 사용합니다. 프로젝트별 특화 워크플로우에 사용합니다.</p>
+      </div>
+    </div>
+
+    <h3>Skill 파일 예시</h3>
+<pre><span class="cm"># .claude/skills/api-report.md
+# → Project 스코프: 팀 전체 공유</span>
+
+<span class="ck">---
+description: 테스트 결과 JSON을 받아 표준 API 리포트 생성
+---</span>
+
+인자로 받은 테스트 결과 JSON 파일을 읽고
+아래 형식의 리포트를 작성하세요.
+
+<span class="cs">## API 상태 요약
+| 엔드포인트 | 응답시간 | 목표치 | 판정 |
+|------------|----------|--------|------|
+| GET /users | ms       | 200ms  | ✓/✗  |
+| POST /data | ms       | 500ms  | ✓/✗  |</span>
+
+규칙:
+- 응답시간 단위는 ms
+- 에러율은 % 로 표시
+- 응답시간이 5% 이상 증가한 항목은 ⚠️ 경고 추가
+- 목표치 미달 항목은 원인 추정 작성</pre>
+
+    <div class="tip">Skills는 CLAUDE.md와 달리 <em>능동적으로 호출</em>하는 것입니다. "이 작업을 자주 한다" 싶으면 Skill로 만들어두세요. 처음엔 간단하게 만들고, 쓰면서 개선하는 것이 좋습니다.</div>
+  </section>
+
+  <section id="skills-collection">
+    <h2>추천하는 오픈소스 Skills 컬렉션</h2>
+    <p>커뮤니티가 만든 검증된 Skills를 설치해서 바로 사용할 수 있습니다. 세 가지 대표적인 컬렉션을 소개합니다.</p>
+
+    <div style="margin-bottom:20px;">
+      <div class="card" style="border-color:rgba(88,166,255,0.35); margin-bottom:14px;">
+        <div style="font-size:12px; font-weight:700; color:#58a6ff; margin-bottom:4px; font-family:monospace;">mattpocock/skills &nbsp;<a href="https://github.com/mattpocock/skills" style="font-size:11px; color:#8b949e; font-weight:400;">github.com/mattpocock/skills</a></div>
+        <h3 style="color:#58a6ff; margin-top:6px;">개발 워크플로우 Skills</h3>
+        <ul>
+          <li><code>/grill-me</code> — 계획을 실행 전 집중 검증. 모든 가정을 질문으로 뒤집어봄</li>
+          <li><code>/tdd</code> — 테스트 주도 개발 루프</li>
+          <li><code>/to-prd</code> — 대화를 PRD 문서로 변환</li>
+          <li><code>/handoff</code> — 작업 인수인계 문서 자동 생성</li>
+          <li><code>/diagnosing-bugs</code> — 버그 체계적 진단</li>
+        </ul>
+<pre><span class="cm"># 프로젝트 설치</span>
+git clone https://github.com/mattpocock/skills
+cp skills/*.md .claude/skills/
+
+<span class="cm"># 글로벌 설치</span>
+cp skills/*.md ~/.claude/skills/</pre>
+      </div>
+
+      <div class="card" style="border-color:rgba(248,81,73,0.35); margin-bottom:14px;">
+        <div style="font-size:12px; font-weight:700; color:#f85149; margin-bottom:4px; font-family:monospace;">JuliusBrussee/caveman &nbsp;<a href="https://github.com/juliusbrussee/caveman" style="font-size:11px; color:#8b949e; font-weight:400;">github.com/juliusbrussee/caveman</a></div>
+        <h3 style="color:#f85149; margin-top:6px;">출력 토큰 65~75% 절감</h3>
+        <p>Claude의 응답을 원시적으로 압축합니다. 장황한 설명 없이 핵심만 전달하며, 코드·명령어 정확성은 유지하고 설명만 압축합니다. 응답 속도도 약 3배 빨라집니다.</p>
+        <ul>
+          <li><code>/caveman</code> — 기본 압축 모드</li>
+          <li><code>/caveman lite|full|ultra</code> — 압축 강도 조절</li>
+          <li><code>/caveman-commit</code> — 50자 이내 커밋 메시지</li>
+          <li><code>/caveman-stats</code> — 절감된 토큰·비용 확인</li>
+        </ul>
+<pre><span class="cm"># 설치</span>
+curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.sh | bash</pre>
+      </div>
+
+      <div class="card" style="border-color:rgba(63,185,80,0.35);">
+        <div style="font-size:12px; font-weight:700; color:#3fb950; margin-bottom:4px; font-family:monospace;">obra/superpowers &nbsp;<a href="https://github.com/obra/superpowers" style="font-size:11px; color:#8b949e; font-weight:400;">github.com/obra/superpowers</a></div>
+        <h3 style="color:#3fb950; margin-top:6px;">개발 사이클 전체 지원</h3>
+        <p>설계 → 계획 → 구현 → 검토 → 완료의 전 단계를 Skills로 체계화합니다.</p>
+        <ul>
+          <li><code>/test-driven-development</code> — RED-GREEN-REFACTOR</li>
+          <li><code>/systematic-debugging</code> — 4단계 근본 원인 분석</li>
+          <li><code>/brainstorming</code> — 소크라테스식 설계 개선</li>
+          <li><code>/writing-plans</code> — 상세 구현 계획 작성</li>
+          <li><code>/subagent-driven-development</code> — 2단계 코드 리뷰</li>
+        </ul>
+<pre><span class="cm"># 설치</span>
+git clone https://github.com/obra/superpowers
+cp superpowers/*.md .claude/skills/</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="memory">
+    <h2>Memory — 대화를 넘어서 기억하기</h2>
+    <p>Claude는 기본적으로 <strong>대화가 끝나면 모든 것을 잊습니다.</strong> Memory 시스템은 중요한 사실을 파일로 영구 저장해서, 다음 대화 시작 때 자동으로 불러옵니다.</p>
+
+    <h3>자동 메모리 (Auto)</h3>
+    <p>Claude가 대화 중 중요하다고 판단한 내용을 <code>.claude/memory/</code>에 마크다운 파일로 직접 저장합니다. 사용자가 아무것도 안 해도 됩니다. 다음 대화 시작 시 이 파일들이 자동으로 컨텍스트에 포함됩니다.</p>
+
+    <h3>수동 메모리 (Manual)</h3>
+    <p>"이거 기억해줘"라고 말하거나 <code>/remember</code> 명령어를 사용합니다.</p>
+<pre><span class="cs">"우리 팀은 API 응답시간 기준이 200ms야, 기억해줘"</span>
+
+<span class="cm">→ Claude가 .claude/memory/ 에 파일로 저장
+→ 다음 대화에서 자동으로 적용
+→ "응답시간 괜찮아?" 물으면 200ms 기준으로 판단</span></pre>
+
+    <div class="tip">팀 공유: <code>.claude/memory/</code>를 git에 커밋하면 팀원 전체가 같은 컨텍스트를 공유할 수 있습니다.</div>
+
+    <h3>메모리 종류 4가지</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;">
+      <div class="card">
+        <h3 style="color:#ffa64d; font-size:15px;">user — 나에 대한 정보</h3>
+        <p style="font-size:14px;">"백엔드 개발자, Python/TypeScript 사용, 리포트는 한국어로"<br>→ 매번 소개 없이 바로 맞춤 응답</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#ffa64d; font-size:15px;">project — 현재 작업 상태</h3>
+        <p style="font-size:14px;">"REST API 리팩토링 중, 목표 RPS 10K, 마감 7/31"<br>→ "지금 뭐 하고 있는지" 다시 설명 불필요</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#ffa64d; font-size:15px;">feedback — 선호/비선호 방식</h3>
+        <p style="font-size:14px;">"타입 반드시 명시 (ms not 숫자만), 코드는 항상 타입 힌트 포함"<br>→ 같은 피드백을 반복할 필요 없음</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#ffa64d; font-size:15px;">reference — 외부 참조</h3>
+        <p style="font-size:14px;">"버그는 Jira DEV 프로젝트에, 스펙은 내부 위키 참고"<br>→ 어디서 찾아야 하는지 알게 됨</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="claudemd-vs-memory">
+    <h2>CLAUDE.md와 Memory, 무엇이 다른가?</h2>
+    <div class="two-col">
+      <div class="card" style="border-color:rgba(63,185,80,0.4);">
+        <h3 style="color:#3fb950; font-size:18px;">📄 CLAUDE.md</h3>
+        <ul>
+          <li>사람이 <strong>직접 작성</strong>하는 파일</li>
+          <li><strong>프로젝트 전체</strong>에 대한 고정 정보</li>
+          <li>git에 커밋 → 팀 전체 공유</li>
+          <li>바뀌지 않는 것: 구조, 컨벤션, 실행 명령</li>
+          <li>팀이 작성·관리</li>
+        </ul>
+        <p style="font-size:13px; color:#8b949e; margin-top:12px;">예: "이 프로젝트는 REST API 서비스이며, logs/ 폴더에 JSON으로 저장됩니다"</p>
+      </div>
+      <div class="card" style="border-color:rgba(255,166,77,0.4);">
+        <h3 style="color:#ffa64d; font-size:18px;">🧠 Memory</h3>
+        <ul>
+          <li><strong>Claude가 자동으로</strong> 저장하는 파일</li>
+          <li><strong>나(사용자)에 대한</strong> 가변적 정보</li>
+          <li>대화마다 업데이트됨</li>
+          <li>바뀌는 것: 현재 작업, 선호 방식, 피드백</li>
+          <li>Claude가 직접 쓰고 수정</li>
+        </ul>
+        <p style="font-size:13px; color:#8b949e; margin-top:12px;">예: "이 사용자는 API 응답시간 기준 200ms를 목표로 하며, 타입을 반드시 명시하길 원함"</p>
+      </div>
+    </div>
+    <div class="highlight">
+      <strong>한 줄 요약:</strong><br>
+      CLAUDE.md = <em>"우리 프로젝트는 이런 곳이야"</em> (팀이 Claude에게)<br>
+      Memory = <em>"너(Claude)가 나에 대해 배운 것"</em> (Claude가 스스로 기록)
+    </div>
+  </section>
+
+  <section id="hooks">
+    <h2>Hooks — 이벤트 기반 자동화</h2>
+    <p>Claude가 특정 행동을 할 때 <strong>자동으로 실행되는 쉘 스크립트</strong>입니다. "Claude가 파일을 수정하면 자동으로 린터 실행", "Bash 명령 실행 전에 위험 명령 차단" 같은 자동화가 가능합니다.</p>
+
+    <h3>주요 Hook 이벤트</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;">
+      <div class="card">
+        <h3 style="color:#ff79c6; font-size:14px;">PreToolUse</h3>
+        <p style="font-size:14px;">도구 실행 직전에 발동. 스크립트가 exit 1을 반환하면 도구 실행을 차단할 수 있습니다. 위험 명령 사전 차단에 사용합니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#ff79c6; font-size:14px;">PostToolUse</h3>
+        <p style="font-size:14px;">도구 실행 직후에 발동. 파일 수정 후 자동 테스트 실행, 린트 체크 등에 사용합니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#ff79c6; font-size:14px;">Stop</h3>
+        <p style="font-size:14px;">Claude가 응답을 완료했을 때 발동. 작업 완료 알림, 로그 저장 등에 활용합니다.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#ff79c6; font-size:14px;">Notification</h3>
+        <p style="font-size:14px;">특정 알림이 발생했을 때 발동. 사용자에게 슬랙 메시지 전송 등에 사용합니다.</p>
+      </div>
+    </div>
+
+    <h3>활용 예시</h3>
+<pre><span class="cm">// .claude/settings.json</span>
+{
+  <span class="ck">"hooks"</span>: {
+    <span class="ck">"PostToolUse"</span>: [{
+      <span class="ck">"matcher"</span>: <span class="cs">"Write|Edit"</span>,
+      <span class="ck">"hooks"</span>: [{
+        <span class="ck">"type"</span>: <span class="cs">"command"</span>,
+        <span class="ck">"command"</span>: <span class="cs">"python -m pytest scripts/ -q"</span>
+      }]
+    }],
+    <span class="ck">"PreToolUse"</span>: [{
+      <span class="ck">"matcher"</span>: <span class="cs">"Bash"</span>,
+      <span class="ck">"hooks"</span>: [{
+        <span class="ck">"type"</span>: <span class="cs">"command"</span>,
+        <span class="ck">"command"</span>: <span class="cs">"scripts/check_dangerous_cmd.sh"</span>
+      }]
+    }]
+  }
+}</pre>
+    <p style="color:#8b949e;">→ 스크립트 수정 시 자동 테스트 실행<br>→ 위험 명령(dd, fdisk) 사전 차단</p>
+    <div class="warn">Hooks는 Claude의 승인 없이 자동으로 동작합니다. 신중하게 작성하고, 스크립트에 오류가 있으면 Claude의 모든 작업이 차단될 수 있습니다.</div>
+  </section>
+
+  <section id="subagents">
+    <h2>Subagents · Planning Mode</h2>
+
+    <h3>Subagents — 전문화된 병렬 에이전트</h3>
+    <p>복잡한 작업을 여러 전문 에이전트에 <strong>병렬로 위임</strong>합니다. 각 에이전트는 독립된 컨텍스트를 가져 서로 간섭하지 않습니다. 메인 세션의 컨텍스트가 오염되지 않으므로 대용량 분석에 적합합니다.</p>
+<pre><span class="cm"># 예: 서비스 다중 분석</span>
+<span class="cs">"3개 마이크로서비스의 로그를 동시에 각각 분석하고 비교 리포트 만들어줘"</span>
+
+<span class="cm">→ Claude가 3개 Subagent 생성
+→ 각자 독립적으로 분석 (메인 세션 컨텍스트와 무관)
+→ 결과를 모아 최종 비교 리포트 생성</span></pre>
+
+    <h3>Planning Mode — 실행 전 계획 수립</h3>
+    <p>복잡한 작업 전에 Claude가 <strong>먼저 계획을 세우고 승인을 받은 뒤</strong> 실행합니다. 대규모 리팩토링, 여러 파일 수정 전 검토에 유용합니다.</p>
+<pre><span class="cm"># Shift+Tab으로 Planning Mode 토글</span>
+<span class="cs">Shift + Tab</span>  <span class="cm">← 슬래시 명령어가 아닌 키보드 단축키</span>
+
+<span class="cm"># 또는 요청에 포함</span>
+<span class="cs">"실행 전에 먼저 계획을 보여줘, 확인 후 진행할게"</span></pre>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary">
+    <h2>핵심 정리</h2>
+    <div class="two-col">
+      <div>
+        <h3>오늘 다룬 것</h3>
+        <ul>
+          <li><strong style="color:#3fb950;">CLAUDE.md</strong> — 프로젝트 구조·컨벤션 한 번 정의, 매 대화 자동 로드</li>
+          <li><strong style="color:#3fb950;">Context Engineering</strong> — 컨텍스트 구성 의도적 설계 · /clear · /compact · 캐싱</li>
+          <li><strong style="color:#bc8cff;">Bash / Read / Edit / Write / Grep</strong> — 명령 실행, 파일 조작, 패턴 검색</li>
+          <li><strong style="color:#bc8cff;">WebFetch / WebSearch</strong> — API 문서 조회, 최신 정보 검색</li>
+          <li><strong style="color:#bc8cff;">MCP</strong> — MongoDB·DB·사내 API 연결 (지연 로딩 · 미사용 서버 주의)</li>
+          <li><strong style="color:#ffa64d;">Skills</strong> — 반복 패턴을 /명령어로, 2단계 스코프 (global·project)</li>
+          <li><strong style="color:#ffa64d;">Memory</strong> — user·project·feedback·reference 4종, 영속 저장</li>
+          <li><strong style="color:#ff79c6;">Hooks</strong> — 이벤트 기반 자동화, Pre/PostToolUse 스크립트</li>
+          <li><strong style="color:#ff79c6;">Subagents</strong> — 병렬 전문 에이전트, 독립 컨텍스트</li>
+          <li><strong style="color:#ff79c6;">Harness Engineering</strong> — 위 모든 것을 시스템으로 묶기</li>
+        </ul>
+      </div>
+      <div>
+        <h3>오늘부터 할 수 있는 것</h3>
+        <div class="card" style="margin-bottom:12px;">
+          <p style="font-size:15px;">1️⃣ 프로젝트 루트에 <strong>CLAUDE.md</strong> 만들기<br><span style="color:#8b949e; font-size:14px;">팀 구조 + 주요 명령어 + 코딩 컨벤션 기준</span></p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <p style="font-size:15px;">2️⃣ <strong>/api-report</strong> Skill 하나 만들어보기<br><span style="color:#8b949e; font-size:14px;">가장 자주 쓰는 리포트 포맷을 텍스트로 정의</span></p>
+        </div>
+        <div class="card">
+          <p style="font-size:15px;">3️⃣ 다음 분석 작업에서 <strong>Claude를 파트너로</strong> 써보기<br><span style="color:#8b949e; font-size:14px;">결과 해석, 코드 작성, 리포트 초안 중 하나라도</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+  // Active TOC highlight on scroll
+  const sections = document.querySelectorAll('section[id], div[id^="part"]');
+  const tocLinks = document.querySelectorAll('.toc a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
